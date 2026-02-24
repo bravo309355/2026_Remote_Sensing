@@ -1,0 +1,2917 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_854daec0d71c936cddab0c88f4c37d75 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+        <div style="position: fixed; 
+                    top: 10px; right: 10px; width: 150px; height: 120px; 
+                    background-color: white; border:2px solid grey; z-index:9999; 
+                    font-size:14px; padding: 10px">
+        <h4>AQI 圖例</h4>
+        <p><i class="fa fa-circle" style="color:green"></i> 0-50 良好</p>
+        <p><i class="fa fa-circle" style="color:yellow"></i> 51-100 普通</p>
+        <p><i class="fa fa-circle" style="color:red"></i> 101+ 不健康</p>
+        </div>
+        
+    
+            <div class="folium-map" id="map_854daec0d71c936cddab0c88f4c37d75" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_854daec0d71c936cddab0c88f4c37d75 = L.map(
+                "map_854daec0d71c936cddab0c88f4c37d75",
+                {
+                    center: [23.8, 121.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_87a794fbc3c6912403e1c5fa3c9f6578 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_87a794fbc3c6912403e1c5fa3c9f6578.addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+            var circle_marker_6fe6e74483614f6be220b9afa535a22d = L.circleMarker(
+                [25.129167, 121.760056],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_4bd50a39b6fbfe3aa6f65c751d8e07ae = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_eaa2b30fc39737fc454038d1a0355791 = $(`<div id="html_eaa2b30fc39737fc454038d1a0355791" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">基隆</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 基隆市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">86</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_4bd50a39b6fbfe3aa6f65c751d8e07ae.setContent(html_eaa2b30fc39737fc454038d1a0355791);
+            
+        
+
+        circle_marker_6fe6e74483614f6be220b9afa535a22d.bindPopup(popup_4bd50a39b6fbfe3aa6f65c751d8e07ae)
+        ;
+
+        
+    
+    
+            circle_marker_6fe6e74483614f6be220b9afa535a22d.bindTooltip(
+                `<div>
+                     基隆 - AQI: 86
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0dc4d29882073ef4c65707c1639d1ade = L.circleMarker(
+                [25.06624, 121.64081],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_9fc4cd46524e645375cc816b5847e41c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c1fdcd14f07f9bf95991927cc9fc1fb8 = $(`<div id="html_c1fdcd14f07f9bf95991927cc9fc1fb8" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">汐止</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">77</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_9fc4cd46524e645375cc816b5847e41c.setContent(html_c1fdcd14f07f9bf95991927cc9fc1fb8);
+            
+        
+
+        circle_marker_0dc4d29882073ef4c65707c1639d1ade.bindPopup(popup_9fc4cd46524e645375cc816b5847e41c)
+        ;
+
+        
+    
+    
+            circle_marker_0dc4d29882073ef4c65707c1639d1ade.bindTooltip(
+                `<div>
+                     汐止 - AQI: 77
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a59402ee178a44f344fdb5a352a3e50d = L.circleMarker(
+                [24.977222, 121.537778],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_8eb1897767b61488182858d60480007a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f878657d081719ce9dfe8dd767641f0e = $(`<div id="html_f878657d081719ce9dfe8dd767641f0e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">新店</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">73</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_8eb1897767b61488182858d60480007a.setContent(html_f878657d081719ce9dfe8dd767641f0e);
+            
+        
+
+        circle_marker_a59402ee178a44f344fdb5a352a3e50d.bindPopup(popup_8eb1897767b61488182858d60480007a)
+        ;
+
+        
+    
+    
+            circle_marker_a59402ee178a44f344fdb5a352a3e50d.bindTooltip(
+                `<div>
+                     新店 - AQI: 73
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_320bdfdbcce8b922f67ec457ab5620f6 = L.circleMarker(
+                [24.982528, 121.451861],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_452359c0135dcb8e0de581cf0dba5400 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9f573c6f5d97b452385d1587fc64cbce = $(`<div id="html_9f573c6f5d97b452385d1587fc64cbce" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">土城</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">75</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_452359c0135dcb8e0de581cf0dba5400.setContent(html_9f573c6f5d97b452385d1587fc64cbce);
+            
+        
+
+        circle_marker_320bdfdbcce8b922f67ec457ab5620f6.bindPopup(popup_452359c0135dcb8e0de581cf0dba5400)
+        ;
+
+        
+    
+    
+            circle_marker_320bdfdbcce8b922f67ec457ab5620f6.bindTooltip(
+                `<div>
+                     土城 - AQI: 75
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_acd2b7caefe91c33f6e15252b0c97877 = L.circleMarker(
+                [25.012972, 121.458667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_12ad97461fe8759541e52d1e01b9af89 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a1384b6868f5e6e1590323ceb1129588 = $(`<div id="html_a1384b6868f5e6e1590323ceb1129588" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">板橋</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">87</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_12ad97461fe8759541e52d1e01b9af89.setContent(html_a1384b6868f5e6e1590323ceb1129588);
+            
+        
+
+        circle_marker_acd2b7caefe91c33f6e15252b0c97877.bindPopup(popup_12ad97461fe8759541e52d1e01b9af89)
+        ;
+
+        
+    
+    
+            circle_marker_acd2b7caefe91c33f6e15252b0c97877.bindTooltip(
+                `<div>
+                     板橋 - AQI: 87
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f35654537ae9aa306064ae16d424141e = L.circleMarker(
+                [25.037972, 121.4325],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_33c9fc612d82331340fe1b22c1074f95 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8fd610b9d7ea100ea2782ef13422f691 = $(`<div id="html_8fd610b9d7ea100ea2782ef13422f691" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">新莊</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">87</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_33c9fc612d82331340fe1b22c1074f95.setContent(html_8fd610b9d7ea100ea2782ef13422f691);
+            
+        
+
+        circle_marker_f35654537ae9aa306064ae16d424141e.bindPopup(popup_33c9fc612d82331340fe1b22c1074f95)
+        ;
+
+        
+    
+    
+            circle_marker_f35654537ae9aa306064ae16d424141e.bindTooltip(
+                `<div>
+                     新莊 - AQI: 87
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fdc272d0aab260d5d43610e3b5dbae73 = L.circleMarker(
+                [25.06895, 121.481028],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_9bbf1e234200ee6b2471e98642605534 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_02d79190c49bdc30f6c76560be42809b = $(`<div id="html_02d79190c49bdc30f6c76560be42809b" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">菜寮</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">83</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_9bbf1e234200ee6b2471e98642605534.setContent(html_02d79190c49bdc30f6c76560be42809b);
+            
+        
+
+        circle_marker_fdc272d0aab260d5d43610e3b5dbae73.bindPopup(popup_9bbf1e234200ee6b2471e98642605534)
+        ;
+
+        
+    
+    
+            circle_marker_fdc272d0aab260d5d43610e3b5dbae73.bindTooltip(
+                `<div>
+                     菜寮 - AQI: 83
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6480387516d3e0490c787c9d6a3b6f7e = L.circleMarker(
+                [25.07798949, 121.36548982],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_a9f3679bc09789d2402376f2f2c6aba4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d636d26fb7e02cdcc606b27620cfc65f = $(`<div id="html_d636d26fb7e02cdcc606b27620cfc65f" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">林口</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">71</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_a9f3679bc09789d2402376f2f2c6aba4.setContent(html_d636d26fb7e02cdcc606b27620cfc65f);
+            
+        
+
+        circle_marker_6480387516d3e0490c787c9d6a3b6f7e.bindPopup(popup_a9f3679bc09789d2402376f2f2c6aba4)
+        ;
+
+        
+    
+    
+            circle_marker_6480387516d3e0490c787c9d6a3b6f7e.bindTooltip(
+                `<div>
+                     林口 - AQI: 71
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_08536bed4d7ad253f8bc45c5574905d1 = L.circleMarker(
+                [25.1645, 121.449239],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_e5533dd21c1bc2e67be4f6de21f75e12 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_27bbe5cffc174b0d36596c6a62605468 = $(`<div id="html_27bbe5cffc174b0d36596c6a62605468" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">淡水</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">92</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_e5533dd21c1bc2e67be4f6de21f75e12.setContent(html_27bbe5cffc174b0d36596c6a62605468);
+            
+        
+
+        circle_marker_08536bed4d7ad253f8bc45c5574905d1.bindPopup(popup_e5533dd21c1bc2e67be4f6de21f75e12)
+        ;
+
+        
+    
+    
+            circle_marker_08536bed4d7ad253f8bc45c5574905d1.bindTooltip(
+                `<div>
+                     淡水 - AQI: 92
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_04042d047ae901a5c24c5d4af3ac97c5 = L.circleMarker(
+                [25.10334003, 121.51666356],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_8c67eb10e900ecec83a5a186fd0c5aeb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_03f164a45b941fcc723a9ae4b9c89e9c = $(`<div id="html_03f164a45b941fcc723a9ae4b9c89e9c" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">士林</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">78</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_8c67eb10e900ecec83a5a186fd0c5aeb.setContent(html_03f164a45b941fcc723a9ae4b9c89e9c);
+            
+        
+
+        circle_marker_04042d047ae901a5c24c5d4af3ac97c5.bindPopup(popup_8c67eb10e900ecec83a5a186fd0c5aeb)
+        ;
+
+        
+    
+    
+            circle_marker_04042d047ae901a5c24c5d4af3ac97c5.bindTooltip(
+                `<div>
+                     士林 - AQI: 78
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b60868598f3cbdb096fb83cca26020e5 = L.circleMarker(
+                [25.062361, 121.526528],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_bea2d7b2d1b8bd26a20546cd14a4ca7a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_80a578d9b33db05d5430645eb9b831d3 = $(`<div id="html_80a578d9b33db05d5430645eb9b831d3" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">中山</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">78</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_bea2d7b2d1b8bd26a20546cd14a4ca7a.setContent(html_80a578d9b33db05d5430645eb9b831d3);
+            
+        
+
+        circle_marker_b60868598f3cbdb096fb83cca26020e5.bindPopup(popup_bea2d7b2d1b8bd26a20546cd14a4ca7a)
+        ;
+
+        
+    
+    
+            circle_marker_b60868598f3cbdb096fb83cca26020e5.bindTooltip(
+                `<div>
+                     中山 - AQI: 78
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_10244160cec8d31203e61baf29a5b345 = L.circleMarker(
+                [25.046503, 121.507972],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_6b6c35c031baa7e083111431f541214b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e9b9bf00912fce32c46ae54a0cebd0f7 = $(`<div id="html_e9b9bf00912fce32c46ae54a0cebd0f7" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">萬華</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">73</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_6b6c35c031baa7e083111431f541214b.setContent(html_e9b9bf00912fce32c46ae54a0cebd0f7);
+            
+        
+
+        circle_marker_10244160cec8d31203e61baf29a5b345.bindPopup(popup_6b6c35c031baa7e083111431f541214b)
+        ;
+
+        
+    
+    
+            circle_marker_10244160cec8d31203e61baf29a5b345.bindTooltip(
+                `<div>
+                     萬華 - AQI: 73
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_65ff73ca5a7c33d371622c241eb318f2 = L.circleMarker(
+                [25.020608, 121.529556],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_da68cf0f33baa0906835ec766392c5e6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_42c295cf4cf6da60b8d560535b0a23bf = $(`<div id="html_42c295cf4cf6da60b8d560535b0a23bf" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">古亭</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">73</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_da68cf0f33baa0906835ec766392c5e6.setContent(html_42c295cf4cf6da60b8d560535b0a23bf);
+            
+        
+
+        circle_marker_65ff73ca5a7c33d371622c241eb318f2.bindPopup(popup_da68cf0f33baa0906835ec766392c5e6)
+        ;
+
+        
+    
+    
+            circle_marker_65ff73ca5a7c33d371622c241eb318f2.bindTooltip(
+                `<div>
+                     古亭 - AQI: 73
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a2e0c2604c59a576c43f216671ff2e0e = L.circleMarker(
+                [25.05, 121.578611],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_58aca1415a540a63c3bf92e1810d2afc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6bce3840db17e8ff0351ac60e5cb8d47 = $(`<div id="html_6bce3840db17e8ff0351ac60e5cb8d47" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">松山</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">81</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_58aca1415a540a63c3bf92e1810d2afc.setContent(html_6bce3840db17e8ff0351ac60e5cb8d47);
+            
+        
+
+        circle_marker_a2e0c2604c59a576c43f216671ff2e0e.bindPopup(popup_58aca1415a540a63c3bf92e1810d2afc)
+        ;
+
+        
+    
+    
+            circle_marker_a2e0c2604c59a576c43f216671ff2e0e.bindTooltip(
+                `<div>
+                     松山 - AQI: 81
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_34a53fd33838f4e988bc5b42f9e5b3d8 = L.circleMarker(
+                [25.06331455, 121.51342074],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_0b66f839a95f47a3c7903dcdd7bf53b2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c847adbc50ba389facb84bf474e1f6d7 = $(`<div id="html_c847adbc50ba389facb84bf474e1f6d7" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">大同</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">82</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_0b66f839a95f47a3c7903dcdd7bf53b2.setContent(html_c847adbc50ba389facb84bf474e1f6d7);
+            
+        
+
+        circle_marker_34a53fd33838f4e988bc5b42f9e5b3d8.bindPopup(popup_0b66f839a95f47a3c7903dcdd7bf53b2)
+        ;
+
+        
+    
+    
+            circle_marker_34a53fd33838f4e988bc5b42f9e5b3d8.bindTooltip(
+                `<div>
+                     大同 - AQI: 82
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b82e18dfabe1396c221100a809ca51cb = L.circleMarker(
+                [24.9947107, 121.30500531],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_bd23c9876cde39558de69d036fc018af = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_208fd14aeadfc54d2147b8baca5e628d = $(`<div id="html_208fd14aeadfc54d2147b8baca5e628d" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">桃園</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 桃園市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">91</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_bd23c9876cde39558de69d036fc018af.setContent(html_208fd14aeadfc54d2147b8baca5e628d);
+            
+        
+
+        circle_marker_b82e18dfabe1396c221100a809ca51cb.bindPopup(popup_bd23c9876cde39558de69d036fc018af)
+        ;
+
+        
+    
+    
+            circle_marker_b82e18dfabe1396c221100a809ca51cb.bindTooltip(
+                `<div>
+                     桃園 - AQI: 91
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8478d27d7f368f32fa88d305319688f0 = L.circleMarker(
+                [25.06100357, 121.20251473],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_3fd5099126a12fe1292f11b3536f25e0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5b2fcac09332e2d65ff5bb30bdb9b07e = $(`<div id="html_5b2fcac09332e2d65ff5bb30bdb9b07e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">大園</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 桃園市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">89</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_3fd5099126a12fe1292f11b3536f25e0.setContent(html_5b2fcac09332e2d65ff5bb30bdb9b07e);
+            
+        
+
+        circle_marker_8478d27d7f368f32fa88d305319688f0.bindPopup(popup_3fd5099126a12fe1292f11b3536f25e0)
+        ;
+
+        
+    
+    
+            circle_marker_8478d27d7f368f32fa88d305319688f0.bindTooltip(
+                `<div>
+                     大園 - AQI: 89
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a4ce37327e29d38a28ce7e53141da6fe = L.circleMarker(
+                [25.03556747, 121.08283092],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_846270f4bcd2e8d6d31ebdfb6e16244c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9dda1f2d5d252754cb727fef325c744c = $(`<div id="html_9dda1f2d5d252754cb727fef325c744c" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">觀音</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 桃園市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">78</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_846270f4bcd2e8d6d31ebdfb6e16244c.setContent(html_9dda1f2d5d252754cb727fef325c744c);
+            
+        
+
+        circle_marker_a4ce37327e29d38a28ce7e53141da6fe.bindPopup(popup_846270f4bcd2e8d6d31ebdfb6e16244c)
+        ;
+
+        
+    
+    
+            circle_marker_a4ce37327e29d38a28ce7e53141da6fe.bindTooltip(
+                `<div>
+                     觀音 - AQI: 78
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_42cfe01e0e5a769d4fd6a33bcf0f6272 = L.circleMarker(
+                [24.952786, 121.203986],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_31cb4d3c0521006d831e3e73df511b33 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_12a4e7a6445454f043affd5c61cdf59e = $(`<div id="html_12a4e7a6445454f043affd5c61cdf59e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">平鎮</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 桃園市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">96</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_31cb4d3c0521006d831e3e73df511b33.setContent(html_12a4e7a6445454f043affd5c61cdf59e);
+            
+        
+
+        circle_marker_42cfe01e0e5a769d4fd6a33bcf0f6272.bindPopup(popup_31cb4d3c0521006d831e3e73df511b33)
+        ;
+
+        
+    
+    
+            circle_marker_42cfe01e0e5a769d4fd6a33bcf0f6272.bindTooltip(
+                `<div>
+                     平鎮 - AQI: 96
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e7a24915bdfe44e252c4d13e23f8154c = L.circleMarker(
+                [24.86400048, 121.21645772],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_d034d7be49604fef178d79bbcbdad268 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9926826a44c6754dbd3417e6666c337d = $(`<div id="html_9926826a44c6754dbd3417e6666c337d" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">龍潭</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 桃園市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">94</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_d034d7be49604fef178d79bbcbdad268.setContent(html_9926826a44c6754dbd3417e6666c337d);
+            
+        
+
+        circle_marker_e7a24915bdfe44e252c4d13e23f8154c.bindPopup(popup_d034d7be49604fef178d79bbcbdad268)
+        ;
+
+        
+    
+    
+            circle_marker_e7a24915bdfe44e252c4d13e23f8154c.bindTooltip(
+                `<div>
+                     龍潭 - AQI: 94
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a2986609bc9d6a282596761bc0608ad4 = L.circleMarker(
+                [24.90009696, 121.03886894],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_cdee9b2dec92e9406e4b44a4ef3b387e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_31dbb28af994fe88319993da8d8cc0fd = $(`<div id="html_31dbb28af994fe88319993da8d8cc0fd" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">湖口</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新竹縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">80</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_cdee9b2dec92e9406e4b44a4ef3b387e.setContent(html_31dbb28af994fe88319993da8d8cc0fd);
+            
+        
+
+        circle_marker_a2986609bc9d6a282596761bc0608ad4.bindPopup(popup_cdee9b2dec92e9406e4b44a4ef3b387e)
+        ;
+
+        
+    
+    
+            circle_marker_a2986609bc9d6a282596761bc0608ad4.bindTooltip(
+                `<div>
+                     湖口 - AQI: 80
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_560001a9695739c743ea8c9c304ee8bd = L.circleMarker(
+                [24.74091408, 121.08895493],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_91b2129d0646d325738295e8b20277de = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_61e92a574eff6d5d08b210b12e082f90 = $(`<div id="html_61e92a574eff6d5d08b210b12e082f90" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">竹東</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新竹縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">76</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_91b2129d0646d325738295e8b20277de.setContent(html_61e92a574eff6d5d08b210b12e082f90);
+            
+        
+
+        circle_marker_560001a9695739c743ea8c9c304ee8bd.bindPopup(popup_91b2129d0646d325738295e8b20277de)
+        ;
+
+        
+    
+    
+            circle_marker_560001a9695739c743ea8c9c304ee8bd.bindTooltip(
+                `<div>
+                     竹東 - AQI: 76
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_911be5f2565ff1c9594102023a9ac435 = L.circleMarker(
+                [24.8056356, 120.97236752],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_8e6c14e6cb988fe880dae5696473ee43 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_57391c09904e1349a8e3a782de73f67c = $(`<div id="html_57391c09904e1349a8e3a782de73f67c" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">新竹</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新竹市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">77</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_8e6c14e6cb988fe880dae5696473ee43.setContent(html_57391c09904e1349a8e3a782de73f67c);
+            
+        
+
+        circle_marker_911be5f2565ff1c9594102023a9ac435.bindPopup(popup_8e6c14e6cb988fe880dae5696473ee43)
+        ;
+
+        
+    
+    
+            circle_marker_911be5f2565ff1c9594102023a9ac435.bindTooltip(
+                `<div>
+                     新竹 - AQI: 77
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_861dad7e983bf475c2de6a2626e645f5 = L.circleMarker(
+                [24.69690679, 120.89869286],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_44983fe265972cdf47078e985f07cf5d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0b1d4291579de0944de228b43a1632b3 = $(`<div id="html_0b1d4291579de0944de228b43a1632b3" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">頭份</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 苗栗縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">89</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_44983fe265972cdf47078e985f07cf5d.setContent(html_0b1d4291579de0944de228b43a1632b3);
+            
+        
+
+        circle_marker_861dad7e983bf475c2de6a2626e645f5.bindPopup(popup_44983fe265972cdf47078e985f07cf5d)
+        ;
+
+        
+    
+    
+            circle_marker_861dad7e983bf475c2de6a2626e645f5.bindTooltip(
+                `<div>
+                     頭份 - AQI: 89
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6325dbda32763b29d877b5dc9c53bb13 = L.circleMarker(
+                [24.56499183, 120.82011468],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_a3ab8e69787fa69701b81feab578282f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1ddde20cb9a4a49363685a833213ebbb = $(`<div id="html_1ddde20cb9a4a49363685a833213ebbb" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">苗栗</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 苗栗縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">78</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_a3ab8e69787fa69701b81feab578282f.setContent(html_1ddde20cb9a4a49363685a833213ebbb);
+            
+        
+
+        circle_marker_6325dbda32763b29d877b5dc9c53bb13.bindPopup(popup_a3ab8e69787fa69701b81feab578282f)
+        ;
+
+        
+    
+    
+            circle_marker_6325dbda32763b29d877b5dc9c53bb13.bindTooltip(
+                `<div>
+                     苗栗 - AQI: 78
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f972c2708d94fa725dabefc898a8f947 = L.circleMarker(
+                [24.38248443, 120.75956754],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_8322f2882a3f5fa33cfd2afd4fa7b189 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e84420007a3427106b029177f0f22f97 = $(`<div id="html_e84420007a3427106b029177f0f22f97" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">三義</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 苗栗縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">62</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_8322f2882a3f5fa33cfd2afd4fa7b189.setContent(html_e84420007a3427106b029177f0f22f97);
+            
+        
+
+        circle_marker_f972c2708d94fa725dabefc898a8f947.bindPopup(popup_8322f2882a3f5fa33cfd2afd4fa7b189)
+        ;
+
+        
+    
+    
+            circle_marker_f972c2708d94fa725dabefc898a8f947.bindTooltip(
+                `<div>
+                     三義 - AQI: 62
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0314f48c96f80f69115f9ec072e46786 = L.circleMarker(
+                [24.25699731, 120.74252414],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_a8fb5b3f0562027d1620882d831d1d7a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1f0c267a7dcd8fb0a13b24fe6edc3938 = $(`<div id="html_1f0c267a7dcd8fb0a13b24fe6edc3938" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">豐原</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺中市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">71</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_a8fb5b3f0562027d1620882d831d1d7a.setContent(html_1f0c267a7dcd8fb0a13b24fe6edc3938);
+            
+        
+
+        circle_marker_0314f48c96f80f69115f9ec072e46786.bindPopup(popup_a8fb5b3f0562027d1620882d831d1d7a)
+        ;
+
+        
+    
+    
+            circle_marker_0314f48c96f80f69115f9ec072e46786.bindTooltip(
+                `<div>
+                     豐原 - AQI: 71
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_df1350c04f4a2bbcb63f86c819d7920f = L.circleMarker(
+                [24.225628, 120.568794],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_1204ea7761cc92fc3867d85642b54c9e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_250d6d6b66dc86c1ffd90a77c685fde3 = $(`<div id="html_250d6d6b66dc86c1ffd90a77c685fde3" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">沙鹿</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺中市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">74</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_1204ea7761cc92fc3867d85642b54c9e.setContent(html_250d6d6b66dc86c1ffd90a77c685fde3);
+            
+        
+
+        circle_marker_df1350c04f4a2bbcb63f86c819d7920f.bindPopup(popup_1204ea7761cc92fc3867d85642b54c9e)
+        ;
+
+        
+    
+    
+            circle_marker_df1350c04f4a2bbcb63f86c819d7920f.bindTooltip(
+                `<div>
+                     沙鹿 - AQI: 74
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f8fbded4dcd09c860bd349934927c9b7 = L.circleMarker(
+                [24.09961111, 120.67844444],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_1a34f2a94865c3e3fa2fb603afebb7ad = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cbbbdecfda6f2f14950fde1ff3f25612 = $(`<div id="html_cbbbdecfda6f2f14950fde1ff3f25612" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">大里</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺中市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">78</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_1a34f2a94865c3e3fa2fb603afebb7ad.setContent(html_cbbbdecfda6f2f14950fde1ff3f25612);
+            
+        
+
+        circle_marker_f8fbded4dcd09c860bd349934927c9b7.bindPopup(popup_1a34f2a94865c3e3fa2fb603afebb7ad)
+        ;
+
+        
+    
+    
+            circle_marker_f8fbded4dcd09c860bd349934927c9b7.bindTooltip(
+                `<div>
+                     大里 - AQI: 78
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bf1966f5d7be7b2ff9cf1ff44da08839 = L.circleMarker(
+                [24.151958, 120.641092],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_8ca28dc30520e6687110fafc42ee4a9b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6fa7a05a58c27fac7dc21d9d0189832e = $(`<div id="html_6fa7a05a58c27fac7dc21d9d0189832e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">忠明</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺中市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">67</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_8ca28dc30520e6687110fafc42ee4a9b.setContent(html_6fa7a05a58c27fac7dc21d9d0189832e);
+            
+        
+
+        circle_marker_bf1966f5d7be7b2ff9cf1ff44da08839.bindPopup(popup_8ca28dc30520e6687110fafc42ee4a9b)
+        ;
+
+        
+    
+    
+            circle_marker_bf1966f5d7be7b2ff9cf1ff44da08839.bindTooltip(
+                `<div>
+                     忠明 - AQI: 67
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_964dec3107cadc1c61af308656afda4a = L.circleMarker(
+                [24.162197, 120.616917],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_6f8a089eafe10502b4369d15499ca02c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_796f506513fffc31c4ddf9ccb76653bd = $(`<div id="html_796f506513fffc31c4ddf9ccb76653bd" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">西屯</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺中市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">68</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_6f8a089eafe10502b4369d15499ca02c.setContent(html_796f506513fffc31c4ddf9ccb76653bd);
+            
+        
+
+        circle_marker_964dec3107cadc1c61af308656afda4a.bindPopup(popup_6f8a089eafe10502b4369d15499ca02c)
+        ;
+
+        
+    
+    
+            circle_marker_964dec3107cadc1c61af308656afda4a.bindTooltip(
+                `<div>
+                     西屯 - AQI: 68
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_670f5432a9bf4328b846b9a7cd8a391e = L.circleMarker(
+                [24.066, 120.541519],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_94aed21a28bca8810c9b70db483712f7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_21127c2513549ce80c96b6f81a6ab4e9 = $(`<div id="html_21127c2513549ce80c96b6f81a6ab4e9" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">彰化</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 彰化縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">78</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_94aed21a28bca8810c9b70db483712f7.setContent(html_21127c2513549ce80c96b6f81a6ab4e9);
+            
+        
+
+        circle_marker_670f5432a9bf4328b846b9a7cd8a391e.bindPopup(popup_94aed21a28bca8810c9b70db483712f7)
+        ;
+
+        
+    
+    
+            circle_marker_670f5432a9bf4328b846b9a7cd8a391e.bindTooltip(
+                `<div>
+                     彰化 - AQI: 78
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4b98124f12f73114a82d03ac3a92f704 = L.circleMarker(
+                [24.131672, 120.469061],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_8651480e3fb90b4d458dfd1b557d675c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d04015393b2f6475ac05df975c6958ff = $(`<div id="html_d04015393b2f6475ac05df975c6958ff" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">線西</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 彰化縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">89</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_8651480e3fb90b4d458dfd1b557d675c.setContent(html_d04015393b2f6475ac05df975c6958ff);
+            
+        
+
+        circle_marker_4b98124f12f73114a82d03ac3a92f704.bindPopup(popup_8651480e3fb90b4d458dfd1b557d675c)
+        ;
+
+        
+    
+    
+            circle_marker_4b98124f12f73114a82d03ac3a92f704.bindTooltip(
+                `<div>
+                     線西 - AQI: 89
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_60658f26e23a335e3bb6616ef6a7dc26 = L.circleMarker(
+                [23.925175, 120.409653],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_3d6bddd48983d95244ff6f844e5deea5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c4d983b022e71cbded4f4c7c783c38ab = $(`<div id="html_c4d983b022e71cbded4f4c7c783c38ab" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">二林</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 彰化縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">99</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_3d6bddd48983d95244ff6f844e5deea5.setContent(html_c4d983b022e71cbded4f4c7c783c38ab);
+            
+        
+
+        circle_marker_60658f26e23a335e3bb6616ef6a7dc26.bindPopup(popup_3d6bddd48983d95244ff6f844e5deea5)
+        ;
+
+        
+    
+    
+            circle_marker_60658f26e23a335e3bb6616ef6a7dc26.bindTooltip(
+                `<div>
+                     二林 - AQI: 99
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_74b88a9bf75dae765a36de89fa002475 = L.circleMarker(
+                [23.913, 120.685306],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_fe036c495019409b2b30ff55f2dc42e0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_184d22054825c354c0e87d3c5d8bb587 = $(`<div id="html_184d22054825c354c0e87d3c5d8bb587" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">南投</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 南投縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">77</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_fe036c495019409b2b30ff55f2dc42e0.setContent(html_184d22054825c354c0e87d3c5d8bb587);
+            
+        
+
+        circle_marker_74b88a9bf75dae765a36de89fa002475.bindPopup(popup_fe036c495019409b2b30ff55f2dc42e0)
+        ;
+
+        
+    
+    
+            circle_marker_74b88a9bf75dae765a36de89fa002475.bindTooltip(
+                `<div>
+                     南投 - AQI: 77
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b27db9f1fe26d0670835666c235ae785 = L.circleMarker(
+                [23.711853, 120.544994],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_f80fbc630937dbc7a91308a7cb24cb19 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_892858ab38e3d66cfabfe9233596423f = $(`<div id="html_892858ab38e3d66cfabfe9233596423f" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">斗六</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 雲林縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">92</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_f80fbc630937dbc7a91308a7cb24cb19.setContent(html_892858ab38e3d66cfabfe9233596423f);
+            
+        
+
+        circle_marker_b27db9f1fe26d0670835666c235ae785.bindPopup(popup_f80fbc630937dbc7a91308a7cb24cb19)
+        ;
+
+        
+    
+    
+            circle_marker_b27db9f1fe26d0670835666c235ae785.bindTooltip(
+                `<div>
+                     斗六 - AQI: 92
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a953ebad2f992cd80a6b5bda992b56e3 = L.circleMarker(
+                [23.757547, 120.348742],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_00a2ac822cf193215bb85eb9f7125acd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_88ef5a6fa9bccbb5c21200ace2670896 = $(`<div id="html_88ef5a6fa9bccbb5c21200ace2670896" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">崙背</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 雲林縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">97</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_00a2ac822cf193215bb85eb9f7125acd.setContent(html_88ef5a6fa9bccbb5c21200ace2670896);
+            
+        
+
+        circle_marker_a953ebad2f992cd80a6b5bda992b56e3.bindPopup(popup_00a2ac822cf193215bb85eb9f7125acd)
+        ;
+
+        
+    
+    
+            circle_marker_a953ebad2f992cd80a6b5bda992b56e3.bindTooltip(
+                `<div>
+                     崙背 - AQI: 97
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f0d24016b5973c1f860f216c2f31719e = L.circleMarker(
+                [23.554839, 120.345531],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_dea118e8c55af2a362725f5b468f0fac = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7dcec2ed7fb20bee3e0f7bfce608a6ed = $(`<div id="html_7dcec2ed7fb20bee3e0f7bfce608a6ed" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">新港</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 嘉義縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">102</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_dea118e8c55af2a362725f5b468f0fac.setContent(html_7dcec2ed7fb20bee3e0f7bfce608a6ed);
+            
+        
+
+        circle_marker_f0d24016b5973c1f860f216c2f31719e.bindPopup(popup_dea118e8c55af2a362725f5b468f0fac)
+        ;
+
+        
+    
+    
+            circle_marker_f0d24016b5973c1f860f216c2f31719e.bindTooltip(
+                `<div>
+                     新港 - AQI: 102
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cab5708bc8a7a23a65f5b18d92a0e285 = L.circleMarker(
+                [23.46538, 120.2478],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_3436686414140de81f9bee4c7d3d10e4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_23f15212edad1c66a7cab37c5fbec20d = $(`<div id="html_23f15212edad1c66a7cab37c5fbec20d" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">朴子</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 嘉義縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">98</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_3436686414140de81f9bee4c7d3d10e4.setContent(html_23f15212edad1c66a7cab37c5fbec20d);
+            
+        
+
+        circle_marker_cab5708bc8a7a23a65f5b18d92a0e285.bindPopup(popup_3436686414140de81f9bee4c7d3d10e4)
+        ;
+
+        
+    
+    
+            circle_marker_cab5708bc8a7a23a65f5b18d92a0e285.bindTooltip(
+                `<div>
+                     朴子 - AQI: 98
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2c792170d94782771afea85816cbfd7d = L.circleMarker(
+                [23.702175, 120.19933333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_6b539cd09de65ccb58f6c986eb4e1bb1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3658bdf34ef173cd376672cba7da071a = $(`<div id="html_3658bdf34ef173cd376672cba7da071a" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">臺西</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 雲林縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">78</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_6b539cd09de65ccb58f6c986eb4e1bb1.setContent(html_3658bdf34ef173cd376672cba7da071a);
+            
+        
+
+        circle_marker_2c792170d94782771afea85816cbfd7d.bindPopup(popup_6b539cd09de65ccb58f6c986eb4e1bb1)
+        ;
+
+        
+    
+    
+            circle_marker_2c792170d94782771afea85816cbfd7d.bindTooltip(
+                `<div>
+                     臺西 - AQI: 78
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a146d24ff81c8e1765e6110720550451 = L.circleMarker(
+                [23.46477865, 120.44125148],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_6472551b54e3ab1659aac1dc5c7a8da1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c0fcac711b23ffd8162f9b9f34f1c7b1 = $(`<div id="html_c0fcac711b23ffd8162f9b9f34f1c7b1" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">嘉義</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 嘉義市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">99</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_6472551b54e3ab1659aac1dc5c7a8da1.setContent(html_c0fcac711b23ffd8162f9b9f34f1c7b1);
+            
+        
+
+        circle_marker_a146d24ff81c8e1765e6110720550451.bindPopup(popup_6472551b54e3ab1659aac1dc5c7a8da1)
+        ;
+
+        
+    
+    
+            circle_marker_a146d24ff81c8e1765e6110720550451.bindTooltip(
+                `<div>
+                     嘉義 - AQI: 99
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9ffe73e885017853ac40d874e35b460c = L.circleMarker(
+                [23.305633, 120.31725],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_407bcdec56f4805744f368f2ad15d41e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_74dee07fa0adc357a70462f4b32c3635 = $(`<div id="html_74dee07fa0adc357a70462f4b32c3635" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">新營</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺南市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">100</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_407bcdec56f4805744f368f2ad15d41e.setContent(html_74dee07fa0adc357a70462f4b32c3635);
+            
+        
+
+        circle_marker_9ffe73e885017853ac40d874e35b460c.bindPopup(popup_407bcdec56f4805744f368f2ad15d41e)
+        ;
+
+        
+    
+    
+            circle_marker_9ffe73e885017853ac40d874e35b460c.bindTooltip(
+                `<div>
+                     新營 - AQI: 100
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6d829d98d632be221710124697483d30 = L.circleMarker(
+                [23.11337642, 120.29740529],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_fee442c349d483db883619b43be0563e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2f88d12cf6eee571f54547f28c84f04b = $(`<div id="html_2f88d12cf6eee571f54547f28c84f04b" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">善化</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺南市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">101</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_fee442c349d483db883619b43be0563e.setContent(html_2f88d12cf6eee571f54547f28c84f04b);
+            
+        
+
+        circle_marker_6d829d98d632be221710124697483d30.bindPopup(popup_fee442c349d483db883619b43be0563e)
+        ;
+
+        
+    
+    
+            circle_marker_6d829d98d632be221710124697483d30.bindTooltip(
+                `<div>
+                     善化 - AQI: 101
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c33cb0a0c1bf6f37d6ffd3e024e4085d = L.circleMarker(
+                [23.048197, 120.2175],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_7bd1383d95dea2dbf056c4493b01fcdc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3e55ba3d39e67b72c432a5c5fe80810e = $(`<div id="html_3e55ba3d39e67b72c432a5c5fe80810e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">安南</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺南市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">106</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_7bd1383d95dea2dbf056c4493b01fcdc.setContent(html_3e55ba3d39e67b72c432a5c5fe80810e);
+            
+        
+
+        circle_marker_c33cb0a0c1bf6f37d6ffd3e024e4085d.bindPopup(popup_7bd1383d95dea2dbf056c4493b01fcdc)
+        ;
+
+        
+    
+    
+            circle_marker_c33cb0a0c1bf6f37d6ffd3e024e4085d.bindTooltip(
+                `<div>
+                     安南 - AQI: 106
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1dc75707be27742eb0c00d4103bf33ce = L.circleMarker(
+                [22.98928311, 120.21947897],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_627fb4cdf8fe3d1ed727caefcbbc7c35 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3902e76e1b0b8307b6fc6fd09fc7c3dc = $(`<div id="html_3902e76e1b0b8307b6fc6fd09fc7c3dc" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">臺南</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺南市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">101</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_627fb4cdf8fe3d1ed727caefcbbc7c35.setContent(html_3902e76e1b0b8307b6fc6fd09fc7c3dc);
+            
+        
+
+        circle_marker_1dc75707be27742eb0c00d4103bf33ce.bindPopup(popup_627fb4cdf8fe3d1ed727caefcbbc7c35)
+        ;
+
+        
+    
+    
+            circle_marker_1dc75707be27742eb0c00d4103bf33ce.bindTooltip(
+                `<div>
+                     臺南 - AQI: 101
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_94472708924f560cc40267b893ed5a25 = L.circleMarker(
+                [22.883583, 120.530542],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_86fc8e919457410d497f7c9633f522a0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_35d61b00ae038781ec426a4b0f7ce0e0 = $(`<div id="html_35d61b00ae038781ec426a4b0f7ce0e0" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">美濃</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">86</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_86fc8e919457410d497f7c9633f522a0.setContent(html_35d61b00ae038781ec426a4b0f7ce0e0);
+            
+        
+
+        circle_marker_94472708924f560cc40267b893ed5a25.bindPopup(popup_86fc8e919457410d497f7c9633f522a0)
+        ;
+
+        
+    
+    
+            circle_marker_94472708924f560cc40267b893ed5a25.bindTooltip(
+                `<div>
+                     美濃 - AQI: 86
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6e0b87758c368935760c999e4861eb42 = L.circleMarker(
+                [22.757506, 120.305689],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_2a44a6283882e7e15d77d8fd453afb62 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2f8dc03c7cb636b92ac0608ebcfba24b = $(`<div id="html_2f8dc03c7cb636b92ac0608ebcfba24b" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">橋頭</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">91</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_2a44a6283882e7e15d77d8fd453afb62.setContent(html_2f8dc03c7cb636b92ac0608ebcfba24b);
+            
+        
+
+        circle_marker_6e0b87758c368935760c999e4861eb42.bindPopup(popup_2a44a6283882e7e15d77d8fd453afb62)
+        ;
+
+        
+    
+    
+            circle_marker_6e0b87758c368935760c999e4861eb42.bindTooltip(
+                `<div>
+                     橋頭 - AQI: 91
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5dc13522c95ec02985a6a872294303d9 = L.circleMarker(
+                [22.689056, 120.332631],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_4f7463a047e65f3be80ea2472a88b5a7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d448981d506dac641562306696ec059d = $(`<div id="html_d448981d506dac641562306696ec059d" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">仁武</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">94</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_4f7463a047e65f3be80ea2472a88b5a7.setContent(html_d448981d506dac641562306696ec059d);
+            
+        
+
+        circle_marker_5dc13522c95ec02985a6a872294303d9.bindPopup(popup_4f7463a047e65f3be80ea2472a88b5a7)
+        ;
+
+        
+    
+    
+            circle_marker_5dc13522c95ec02985a6a872294303d9.bindTooltip(
+                `<div>
+                     仁武 - AQI: 94
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b3175f960599b865ada0ec4a14ac2e29 = L.circleMarker(
+                [22.628126, 120.357422],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_139a9d29514e4ace9b7669681a670092 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_55d578af6a2e06782c657f7788ca7ff5 = $(`<div id="html_55d578af6a2e06782c657f7788ca7ff5" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">鳳山</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">84</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_139a9d29514e4ace9b7669681a670092.setContent(html_55d578af6a2e06782c657f7788ca7ff5);
+            
+        
+
+        circle_marker_b3175f960599b865ada0ec4a14ac2e29.bindPopup(popup_139a9d29514e4ace9b7669681a670092)
+        ;
+
+        
+    
+    
+            circle_marker_b3175f960599b865ada0ec4a14ac2e29.bindTooltip(
+                `<div>
+                     鳳山 - AQI: 84
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4f3d3ab929423233c3b85066fda1f194 = L.circleMarker(
+                [22.56413611, 120.425311],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_d5823f0725a841ae3ac5e57b1fe013cb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_64705a98472ed72e92ae40f363356f3b = $(`<div id="html_64705a98472ed72e92ae40f363356f3b" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">大寮</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">84</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_d5823f0725a841ae3ac5e57b1fe013cb.setContent(html_64705a98472ed72e92ae40f363356f3b);
+            
+        
+
+        circle_marker_4f3d3ab929423233c3b85066fda1f194.bindPopup(popup_d5823f0725a841ae3ac5e57b1fe013cb)
+        ;
+
+        
+    
+    
+            circle_marker_4f3d3ab929423233c3b85066fda1f194.bindTooltip(
+                `<div>
+                     大寮 - AQI: 84
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_acfd8ff76b045991eac4d6cb1bbafb2b = L.circleMarker(
+                [22.4795, 120.41175],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_2c9d09ac1595e39649bb8609d916ee68 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4a69141aab72129953925f471d67d55f = $(`<div id="html_4a69141aab72129953925f471d67d55f" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">林園</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">72</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_2c9d09ac1595e39649bb8609d916ee68.setContent(html_4a69141aab72129953925f471d67d55f);
+            
+        
+
+        circle_marker_acfd8ff76b045991eac4d6cb1bbafb2b.bindPopup(popup_2c9d09ac1595e39649bb8609d916ee68)
+        ;
+
+        
+    
+    
+            circle_marker_acfd8ff76b045991eac4d6cb1bbafb2b.bindTooltip(
+                `<div>
+                     林園 - AQI: 72
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c9fe5cb37de8f89027cbab190ec2c4d2 = L.circleMarker(
+                [22.733667, 120.328289],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_82d7d6ecc2c65b7a88b63f11050812d9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e612cdd1557f95801bd3909cea118222 = $(`<div id="html_e612cdd1557f95801bd3909cea118222" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">楠梓</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">91</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_82d7d6ecc2c65b7a88b63f11050812d9.setContent(html_e612cdd1557f95801bd3909cea118222);
+            
+        
+
+        circle_marker_c9fe5cb37de8f89027cbab190ec2c4d2.bindPopup(popup_82d7d6ecc2c65b7a88b63f11050812d9)
+        ;
+
+        
+    
+    
+            circle_marker_c9fe5cb37de8f89027cbab190ec2c4d2.bindTooltip(
+                `<div>
+                     楠梓 - AQI: 91
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0298dc6e110bfe0d478566bafa0ae955 = L.circleMarker(
+                [22.674861, 120.292917],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_3c150b492c49257ff847572811cabf4f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c2b2f09e176da1835c911a60aab90570 = $(`<div id="html_c2b2f09e176da1835c911a60aab90570" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">左營</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">87</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_3c150b492c49257ff847572811cabf4f.setContent(html_c2b2f09e176da1835c911a60aab90570);
+            
+        
+
+        circle_marker_0298dc6e110bfe0d478566bafa0ae955.bindPopup(popup_3c150b492c49257ff847572811cabf4f)
+        ;
+
+        
+    
+    
+            circle_marker_0298dc6e110bfe0d478566bafa0ae955.bindTooltip(
+                `<div>
+                     左營 - AQI: 87
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d416422bc8eec7558859a9172bd422a5 = L.circleMarker(
+                [22.63390278, 120.28676111],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_690125eb7bb74954d6995ea664d1f41e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_30f2cb235f02ac8a1257a6f68ef79438 = $(`<div id="html_30f2cb235f02ac8a1257a6f68ef79438" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">前金</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">89</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_690125eb7bb74954d6995ea664d1f41e.setContent(html_30f2cb235f02ac8a1257a6f68ef79438);
+            
+        
+
+        circle_marker_d416422bc8eec7558859a9172bd422a5.bindPopup(popup_690125eb7bb74954d6995ea664d1f41e)
+        ;
+
+        
+    
+    
+            circle_marker_d416422bc8eec7558859a9172bd422a5.bindTooltip(
+                `<div>
+                     前金 - AQI: 89
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_169d486eb088a92dc0e3933796bf3ee6 = L.circleMarker(
+                [22.6044507, 120.30833356],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_b4ddf39a189bde6d38d336879c6909ce = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8f1a8c637b62bc579a605a8065d8cf04 = $(`<div id="html_8f1a8c637b62bc579a605a8065d8cf04" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">前鎮</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">80</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_b4ddf39a189bde6d38d336879c6909ce.setContent(html_8f1a8c637b62bc579a605a8065d8cf04);
+            
+        
+
+        circle_marker_169d486eb088a92dc0e3933796bf3ee6.bindPopup(popup_b4ddf39a189bde6d38d336879c6909ce)
+        ;
+
+        
+    
+    
+            circle_marker_169d486eb088a92dc0e3933796bf3ee6.bindTooltip(
+                `<div>
+                     前鎮 - AQI: 80
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4cd3f55c5cf7b672eccb2e54cf40d3cd = L.circleMarker(
+                [22.565833, 120.337736],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_45fbe873966f081615a1c6b0590a4b55 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_702bde37c6a8ee4657e581b9571cd942 = $(`<div id="html_702bde37c6a8ee4657e581b9571cd942" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">小港</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">80</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_45fbe873966f081615a1c6b0590a4b55.setContent(html_702bde37c6a8ee4657e581b9571cd942);
+            
+        
+
+        circle_marker_4cd3f55c5cf7b672eccb2e54cf40d3cd.bindPopup(popup_45fbe873966f081615a1c6b0590a4b55)
+        ;
+
+        
+    
+    
+            circle_marker_4cd3f55c5cf7b672eccb2e54cf40d3cd.bindTooltip(
+                `<div>
+                     小港 - AQI: 80
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f6daebb2a4d872eac0aa28517f29cd30 = L.circleMarker(
+                [22.673081, 120.488033],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_4ecaa38e8c2dcd17dc8be25cce155e26 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_753ad7124fc52ef058f844685b6fd908 = $(`<div id="html_753ad7124fc52ef058f844685b6fd908" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">屏東</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 屏東縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">83</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_4ecaa38e8c2dcd17dc8be25cce155e26.setContent(html_753ad7124fc52ef058f844685b6fd908);
+            
+        
+
+        circle_marker_f6daebb2a4d872eac0aa28517f29cd30.bindPopup(popup_4ecaa38e8c2dcd17dc8be25cce155e26)
+        ;
+
+        
+    
+    
+            circle_marker_f6daebb2a4d872eac0aa28517f29cd30.bindTooltip(
+                `<div>
+                     屏東 - AQI: 83
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_abff5b9bbb4578b15c562244f6f256d3 = L.circleMarker(
+                [22.523108, 120.561175],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_1fdbf12e5822719a89339ee0f62822fd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5068d4c2c0ca15dedf3e81b803b0523e = $(`<div id="html_5068d4c2c0ca15dedf3e81b803b0523e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">潮州</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 屏東縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">72</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_1fdbf12e5822719a89339ee0f62822fd.setContent(html_5068d4c2c0ca15dedf3e81b803b0523e);
+            
+        
+
+        circle_marker_abff5b9bbb4578b15c562244f6f256d3.bindPopup(popup_1fdbf12e5822719a89339ee0f62822fd)
+        ;
+
+        
+    
+    
+            circle_marker_abff5b9bbb4578b15c562244f6f256d3.bindTooltip(
+                `<div>
+                     潮州 - AQI: 72
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24c9b2b6faf35c4a70946b4c01c97631 = L.circleMarker(
+                [21.958069, 120.788928],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_b6dddff470a958ece49ff246a334f44f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8f11cc5fea9dcec8c81e2ffe4c80c9d5 = $(`<div id="html_8f11cc5fea9dcec8c81e2ffe4c80c9d5" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">恆春</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 屏東縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">30</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_b6dddff470a958ece49ff246a334f44f.setContent(html_8f11cc5fea9dcec8c81e2ffe4c80c9d5);
+            
+        
+
+        circle_marker_24c9b2b6faf35c4a70946b4c01c97631.bindPopup(popup_b6dddff470a958ece49ff246a334f44f)
+        ;
+
+        
+    
+    
+            circle_marker_24c9b2b6faf35c4a70946b4c01c97631.bindTooltip(
+                `<div>
+                     恆春 - AQI: 30
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_44973c4b9663f365940b13c982519fe2 = L.circleMarker(
+                [22.755358, 121.15045],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_894410d8b0175ce5d1f1eb3d696245ca = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b89b4ed70364b30d76da0644fabfd92a = $(`<div id="html_b89b4ed70364b30d76da0644fabfd92a" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">臺東</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺東縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">37</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_894410d8b0175ce5d1f1eb3d696245ca.setContent(html_b89b4ed70364b30d76da0644fabfd92a);
+            
+        
+
+        circle_marker_44973c4b9663f365940b13c982519fe2.bindPopup(popup_894410d8b0175ce5d1f1eb3d696245ca)
+        ;
+
+        
+    
+    
+            circle_marker_44973c4b9663f365940b13c982519fe2.bindTooltip(
+                `<div>
+                     臺東 - AQI: 37
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d1630b3d15ff8549bf58ec24c4b979e6 = L.circleMarker(
+                [23.971306, 121.599769],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_d8bd279f00373b668580f8b87cd040ff = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_241bc83be0dfbcdd56eb62fdb6d74b02 = $(`<div id="html_241bc83be0dfbcdd56eb62fdb6d74b02" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">花蓮</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 花蓮縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">38</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_d8bd279f00373b668580f8b87cd040ff.setContent(html_241bc83be0dfbcdd56eb62fdb6d74b02);
+            
+        
+
+        circle_marker_d1630b3d15ff8549bf58ec24c4b979e6.bindPopup(popup_d8bd279f00373b668580f8b87cd040ff)
+        ;
+
+        
+    
+    
+            circle_marker_d1630b3d15ff8549bf58ec24c4b979e6.bindTooltip(
+                `<div>
+                     花蓮 - AQI: 38
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4d403fd1afa52cde5f35c14377f27a04 = L.circleMarker(
+                [25.182722, 121.529583],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_0ef112e71dc7fd99ec2f9730efca1e7f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a4819ac676b1c26159903569f13a444c = $(`<div id="html_a4819ac676b1c26159903569f13a444c" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">陽明</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">41</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_0ef112e71dc7fd99ec2f9730efca1e7f.setContent(html_a4819ac676b1c26159903569f13a444c);
+            
+        
+
+        circle_marker_4d403fd1afa52cde5f35c14377f27a04.bindPopup(popup_0ef112e71dc7fd99ec2f9730efca1e7f)
+        ;
+
+        
+    
+    
+            circle_marker_4d403fd1afa52cde5f35c14377f27a04.bindTooltip(
+                `<div>
+                     陽明 - AQI: 41
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5510ede175cb4d6f30e8fac2450b3578 = L.circleMarker(
+                [24.747917, 121.746394],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_24d4824b47ae076376e9067c97154dd5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_88e7245b2c8128f26ba84abd63443fd6 = $(`<div id="html_88e7245b2c8128f26ba84abd63443fd6" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">宜蘭</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 宜蘭縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">49</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_24d4824b47ae076376e9067c97154dd5.setContent(html_88e7245b2c8128f26ba84abd63443fd6);
+            
+        
+
+        circle_marker_5510ede175cb4d6f30e8fac2450b3578.bindPopup(popup_24d4824b47ae076376e9067c97154dd5)
+        ;
+
+        
+    
+    
+            circle_marker_5510ede175cb4d6f30e8fac2450b3578.bindTooltip(
+                `<div>
+                     宜蘭 - AQI: 49
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b7f850f8b92d94f4352aeae797c9f0a2 = L.circleMarker(
+                [24.632203, 121.792928],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_bb5800039dabff57c11f890dfb30df3f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dd866d9841b9a6708ef1e69a92378a61 = $(`<div id="html_dd866d9841b9a6708ef1e69a92378a61" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">冬山</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 宜蘭縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">54</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_bb5800039dabff57c11f890dfb30df3f.setContent(html_dd866d9841b9a6708ef1e69a92378a61);
+            
+        
+
+        circle_marker_b7f850f8b92d94f4352aeae797c9f0a2.bindPopup(popup_bb5800039dabff57c11f890dfb30df3f)
+        ;
+
+        
+    
+    
+            circle_marker_b7f850f8b92d94f4352aeae797c9f0a2.bindTooltip(
+                `<div>
+                     冬山 - AQI: 54
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_04f3ad785a9bd00e12b2922ed00edc6d = L.circleMarker(
+                [25.072611, 121.493806],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_f8c81dce9934c7e268c8a3d4761230fe = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b9722082005c1e3e9332ef81c9dfcdf0 = $(`<div id="html_b9722082005c1e3e9332ef81c9dfcdf0" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">三重</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">84</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_f8c81dce9934c7e268c8a3d4761230fe.setContent(html_b9722082005c1e3e9332ef81c9dfcdf0);
+            
+        
+
+        circle_marker_04f3ad785a9bd00e12b2922ed00edc6d.bindPopup(popup_f8c81dce9934c7e268c8a3d4761230fe)
+        ;
+
+        
+    
+    
+            circle_marker_04f3ad785a9bd00e12b2922ed00edc6d.bindTooltip(
+                `<div>
+                     三重 - AQI: 84
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_30f86aadf799331f524cec6814b0db4d = L.circleMarker(
+                [24.953278, 121.221667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_4f7f52bac00f0ca5e41247f3488b3069 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_658bd8ddc099924197be94e4185e338a = $(`<div id="html_658bd8ddc099924197be94e4185e338a" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">中壢</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 桃園市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">93</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_4f7f52bac00f0ca5e41247f3488b3069.setContent(html_658bd8ddc099924197be94e4185e338a);
+            
+        
+
+        circle_marker_30f86aadf799331f524cec6814b0db4d.bindPopup(popup_4f7f52bac00f0ca5e41247f3488b3069)
+        ;
+
+        
+    
+    
+            circle_marker_30f86aadf799331f524cec6814b0db4d.bindTooltip(
+                `<div>
+                     中壢 - AQI: 93
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4536aa31ba5174a479ffdb07e7ef16ca = L.circleMarker(
+                [23.756389, 120.677306],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_06381373eef216bd83469764abf17046 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ada15fb6c0ac7bcd6a1ead2aed7c5a2e = $(`<div id="html_ada15fb6c0ac7bcd6a1ead2aed7c5a2e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">竹山</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 南投縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">81</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_06381373eef216bd83469764abf17046.setContent(html_ada15fb6c0ac7bcd6a1ead2aed7c5a2e);
+            
+        
+
+        circle_marker_4536aa31ba5174a479ffdb07e7ef16ca.bindPopup(popup_06381373eef216bd83469764abf17046)
+        ;
+
+        
+    
+    
+            circle_marker_4536aa31ba5174a479ffdb07e7ef16ca.bindTooltip(
+                `<div>
+                     竹山 - AQI: 81
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2c3baa7ee818e24b3c50ed012d08f90 = L.circleMarker(
+                [25.017, 121.516306],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_39b314e0b55d640ca3968b07ba7425c5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6c779ed0fef2bd9e1012cbdddaff07cb = $(`<div id="html_6c779ed0fef2bd9e1012cbdddaff07cb" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">永和</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">83</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_39b314e0b55d640ca3968b07ba7425c5.setContent(html_6c779ed0fef2bd9e1012cbdddaff07cb);
+            
+        
+
+        circle_marker_e2c3baa7ee818e24b3c50ed012d08f90.bindPopup(popup_39b314e0b55d640ca3968b07ba7425c5)
+        ;
+
+        
+    
+    
+            circle_marker_e2c3baa7ee818e24b3c50ed012d08f90.bindTooltip(
+                `<div>
+                     永和 - AQI: 83
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_76c8f7c8ae9d0179a1aa422d599c9070 = L.circleMarker(
+                [22.608711, 120.312017],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_c464fcefdb6f3a64194ab7b1b3e0bda8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_273ca8cf388ede9b9d800a6a542bf89f = $(`<div id="html_273ca8cf388ede9b9d800a6a542bf89f" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">復興</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 高雄市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">80</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_c464fcefdb6f3a64194ab7b1b3e0bda8.setContent(html_273ca8cf388ede9b9d800a6a542bf89f);
+            
+        
+
+        circle_marker_76c8f7c8ae9d0179a1aa422d599c9070.bindPopup(popup_c464fcefdb6f3a64194ab7b1b3e0bda8)
+        ;
+
+        
+    
+    
+            circle_marker_76c8f7c8ae9d0179a1aa422d599c9070.bindTooltip(
+                `<div>
+                     復興 - AQI: 80
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b4b27c84c3f36ea2f480a832137e5235 = L.circleMarker(
+                [23.968842, 120.967903],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_bb1242d35a8724eefb2aa541e88acd9c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_54d9838741652214e13a21cfbbc351e3 = $(`<div id="html_54d9838741652214e13a21cfbbc351e3" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">埔里</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 南投縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">70</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_bb1242d35a8724eefb2aa541e88acd9c.setContent(html_54d9838741652214e13a21cfbbc351e3);
+            
+        
+
+        circle_marker_b4b27c84c3f36ea2f480a832137e5235.bindPopup(popup_bb1242d35a8724eefb2aa541e88acd9c)
+        ;
+
+        
+    
+    
+            circle_marker_b4b27c84c3f36ea2f480a832137e5235.bindTooltip(
+                `<div>
+                     埔里 - AQI: 70
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7c2d9b1a801f4f217c9300d3683361c2 = L.circleMarker(
+                [26.153736, 119.952724],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_8f2498a72e7cc6428ac7b253b9a58d2b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a3cca9253eb7f4cd7a4d58e6e126357e = $(`<div id="html_a3cca9253eb7f4cd7a4d58e6e126357e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">馬祖</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 連江縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">108</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_8f2498a72e7cc6428ac7b253b9a58d2b.setContent(html_a3cca9253eb7f4cd7a4d58e6e126357e);
+            
+        
+
+        circle_marker_7c2d9b1a801f4f217c9300d3683361c2.bindPopup(popup_8f2498a72e7cc6428ac7b253b9a58d2b)
+        ;
+
+        
+    
+    
+            circle_marker_7c2d9b1a801f4f217c9300d3683361c2.bindTooltip(
+                `<div>
+                     馬祖 - AQI: 108
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3af9e22cf0baf56cc75c16ba9a6c9022 = L.circleMarker(
+                [24.432133, 118.312256],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_97e9b88ede8f0943b21bfce475362191 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2d197c835fe426829154d66f3a435caa = $(`<div id="html_2d197c835fe426829154d66f3a435caa" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">金門</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 金門縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">95</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_97e9b88ede8f0943b21bfce475362191.setContent(html_2d197c835fe426829154d66f3a435caa);
+            
+        
+
+        circle_marker_3af9e22cf0baf56cc75c16ba9a6c9022.bindPopup(popup_97e9b88ede8f0943b21bfce475362191)
+        ;
+
+        
+    
+    
+            circle_marker_3af9e22cf0baf56cc75c16ba9a6c9022.bindTooltip(
+                `<div>
+                     金門 - AQI: 95
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c7378e1b05e3544c20ca40ee6fbf2e5 = L.circleMarker(
+                [23.569031, 119.566158],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_2d2fe2708ded2a92727ebdc9023e4c36 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_491444d74e4f77df043ab9012db361fd = $(`<div id="html_491444d74e4f77df043ab9012db361fd" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">馬公</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 澎湖縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">72</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_2d2fe2708ded2a92727ebdc9023e4c36.setContent(html_491444d74e4f77df043ab9012db361fd);
+            
+        
+
+        circle_marker_5c7378e1b05e3544c20ca40ee6fbf2e5.bindPopup(popup_2d2fe2708ded2a92727ebdc9023e4c36)
+        ;
+
+        
+    
+    
+            circle_marker_5c7378e1b05e3544c20ca40ee6fbf2e5.bindTooltip(
+                `<div>
+                     馬公 - AQI: 72
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_73ed3613e25975e20190c2cd50f2947b = L.circleMarker(
+                [23.045083, 121.161933],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_3180a893834ea77f227b4069d9c5ba5d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0d4f87eff1d8d9d0d8bb90f419e6d77c = $(`<div id="html_0d4f87eff1d8d9d0d8bb90f419e6d77c" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">關山</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺東縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">28</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_3180a893834ea77f227b4069d9c5ba5d.setContent(html_0d4f87eff1d8d9d0d8bb90f419e6d77c);
+            
+        
+
+        circle_marker_73ed3613e25975e20190c2cd50f2947b.bindPopup(popup_3180a893834ea77f227b4069d9c5ba5d)
+        ;
+
+        
+    
+    
+            circle_marker_73ed3613e25975e20190c2cd50f2947b.bindTooltip(
+                `<div>
+                     關山 - AQI: 28
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_acb883653b60ff0c54d3a8c85cf50e6a = L.circleMarker(
+                [23.753506, 120.251825],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_6989c1d157a879c6ca41500101d9808d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4f9e71bd600e230a9a30151d8e2487b9 = $(`<div id="html_4f9e71bd600e230a9a30151d8e2487b9" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">麥寮</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 雲林縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">89</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_6989c1d157a879c6ca41500101d9808d.setContent(html_4f9e71bd600e230a9a30151d8e2487b9);
+            
+        
+
+        circle_marker_acb883653b60ff0c54d3a8c85cf50e6a.bindPopup(popup_6989c1d157a879c6ca41500101d9808d)
+        ;
+
+        
+    
+    
+            circle_marker_acb883653b60ff0c54d3a8c85cf50e6a.bindTooltip(
+                `<div>
+                     麥寮 - AQI: 89
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3e28bc58154d872297978f5a1738e917 = L.circleMarker(
+                [25.29681695, 121.53656894],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_368c7c49310b3f4274a64bf604724314 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ee2425e2c564a98b070a2c416e172403 = $(`<div id="html_ee2425e2c564a98b070a2c416e172403" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">富貴角</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">103</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_368c7c49310b3f4274a64bf604724314.setContent(html_ee2425e2c564a98b070a2c416e172403);
+            
+        
+
+        circle_marker_3e28bc58154d872297978f5a1738e917.bindPopup(popup_368c7c49310b3f4274a64bf604724314)
+        ;
+
+        
+    
+    
+            circle_marker_3e28bc58154d872297978f5a1738e917.bindTooltip(
+                `<div>
+                     富貴角 - AQI: 103
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e20194ec4ccfc8391633872db562b26 = L.circleMarker(
+                [23.85493056, 120.26964167],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_b1a580a6a4a6c4e8a948f7f002a2ab3c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9b948b8b229c2bfe9c4d3a5e21592ed4 = $(`<div id="html_9b948b8b229c2bfe9c4d3a5e21592ed4" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">大城</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 彰化縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">75</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_b1a580a6a4a6c4e8a948f7f002a2ab3c.setContent(html_9b948b8b229c2bfe9c4d3a5e21592ed4);
+            
+        
+
+        circle_marker_0e20194ec4ccfc8391633872db562b26.bindPopup(popup_b1a580a6a4a6c4e8a948f7f002a2ab3c)
+        ;
+
+        
+    
+    
+            circle_marker_0e20194ec4ccfc8391633872db562b26.bindTooltip(
+                `<div>
+                     大城 - AQI: 75
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b8ab4812930f36e56a9c7f2742d6ccd = L.circleMarker(
+                [24.1589, 120.6567111],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_5f0e2d58c7504c526a09ffc227ef330e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f8229d96d7654ea57d6400fb6cffd754 = $(`<div id="html_f8229d96d7654ea57d6400fb6cffd754" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">臺灣大道</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺中市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">75</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_5f0e2d58c7504c526a09ffc227ef330e.setContent(html_f8229d96d7654ea57d6400fb6cffd754);
+            
+        
+
+        circle_marker_3b8ab4812930f36e56a9c7f2742d6ccd.bindPopup(popup_5f0e2d58c7504c526a09ffc227ef330e)
+        ;
+
+        
+    
+    
+            circle_marker_3b8ab4812930f36e56a9c7f2742d6ccd.bindTooltip(
+                `<div>
+                     臺灣大道 - AQI: 75
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_29ddf49c12a54d71076bf9606edf277c = L.circleMarker(
+                [23.9615945, 120.5631893],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_ec66397a8ce7751763df1f3ae789f789 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_135bd84d81671a7a042f385c9e57f8a7 = $(`<div id="html_135bd84d81671a7a042f385c9e57f8a7" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">員林</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 彰化縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">82</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_ec66397a8ce7751763df1f3ae789f789.setContent(html_135bd84d81671a7a042f385c9e57f8a7);
+            
+        
+
+        circle_marker_29ddf49c12a54d71076bf9606edf277c.bindPopup(popup_ec66397a8ce7751763df1f3ae789f789)
+        ;
+
+        
+    
+    
+            circle_marker_29ddf49c12a54d71076bf9606edf277c.bindTooltip(
+                `<div>
+                     員林 - AQI: 82
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cfdb74addbf7940458a9ee75a640990b = L.circleMarker(
+                [22.98522502, 120.22216042],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_983cc1177a90decc750918488c8cdea4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8ed055f0465def592ccbc35644444799 = $(`<div id="html_8ed055f0465def592ccbc35644444799" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">林森</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 臺南市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">103</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_983cc1177a90decc750918488c8cdea4.setContent(html_8ed055f0465def592ccbc35644444799);
+            
+        
+
+        circle_marker_cfdb74addbf7940458a9ee75a640990b.bindPopup(popup_983cc1177a90decc750918488c8cdea4)
+        ;
+
+        
+    
+    
+            circle_marker_cfdb74addbf7940458a9ee75a640990b.bindTooltip(
+                `<div>
+                     林森 - AQI: 103
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4c85e2421bcf75b1ba0c9a392fd67360 = L.circleMarker(
+                [23.71867609, 120.7944772],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_fc5eee3d30a035cdf4699ae3aebf60a1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0edff575ee24e9572ac1093a29ca719a = $(`<div id="html_0edff575ee24e9572ac1093a29ca719a" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">南投（鹿谷）</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 南投縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">70</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_fc5eee3d30a035cdf4699ae3aebf60a1.setContent(html_0edff575ee24e9572ac1093a29ca719a);
+            
+        
+
+        circle_marker_4c85e2421bcf75b1ba0c9a392fd67360.bindPopup(popup_fc5eee3d30a035cdf4699ae3aebf60a1)
+        ;
+
+        
+    
+    
+            circle_marker_4c85e2421bcf75b1ba0c9a392fd67360.bindTooltip(
+                `<div>
+                     南投（鹿谷） - AQI: 70
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a13478f2b4a95b4ab6c340775d01dd69 = L.circleMarker(
+                [22.35222, 120.37722],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_665eae40b9bb8fc7f35b800cadffb861 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5c251497628c4d030a43f4ae1197b9b3 = $(`<div id="html_5c251497628c4d030a43f4ae1197b9b3" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">屏東（琉球）</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 屏東縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">47</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_665eae40b9bb8fc7f35b800cadffb861.setContent(html_5c251497628c4d030a43f4ae1197b9b3);
+            
+        
+
+        circle_marker_a13478f2b4a95b4ab6c340775d01dd69.bindPopup(popup_665eae40b9bb8fc7f35b800cadffb861)
+        ;
+
+        
+    
+    
+            circle_marker_a13478f2b4a95b4ab6c340775d01dd69.bindTooltip(
+                `<div>
+                     屏東（琉球） - AQI: 47
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2a31fc0db3a34d6d59ecfa4eadd6c6fc = L.circleMarker(
+                [24.94902778, 121.38352778],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_06967811fb3bfd640d8f7b8b7c827b69 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3b2068d565dcafc0628f0ddfb1f89195 = $(`<div id="html_3b2068d565dcafc0628f0ddfb1f89195" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">新北（樹林）</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 新北市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">85</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_06967811fb3bfd640d8f7b8b7c827b69.setContent(html_3b2068d565dcafc0628f0ddfb1f89195);
+            
+        
+
+        circle_marker_2a31fc0db3a34d6d59ecfa4eadd6c6fc.bindPopup(popup_06967811fb3bfd640d8f7b8b7c827b69)
+        ;
+
+        
+    
+    
+            circle_marker_2a31fc0db3a34d6d59ecfa4eadd6c6fc.bindTooltip(
+                `<div>
+                     新北（樹林） - AQI: 85
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_294868ebdc95923e3636201c17f20893 = L.circleMarker(
+                [22.260899, 120.651472],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_9f48aaedbdfd2599abf0da7f1f7bb855 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3396115fd3d8ce5724f0dc6bea890751 = $(`<div id="html_3396115fd3d8ce5724f0dc6bea890751" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">屏東（枋山）</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 屏東縣</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">48</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_9f48aaedbdfd2599abf0da7f1f7bb855.setContent(html_3396115fd3d8ce5724f0dc6bea890751);
+            
+        
+
+        circle_marker_294868ebdc95923e3636201c17f20893.bindPopup(popup_9f48aaedbdfd2599abf0da7f1f7bb855)
+        ;
+
+        
+    
+    
+            circle_marker_294868ebdc95923e3636201c17f20893.bindTooltip(
+                `<div>
+                     屏東（枋山） - AQI: 48
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c8c50fea9062ed575593dac51bc01aec = L.circleMarker(
+                [23.51301, 120.44452],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 2}
+            ).addTo(map_854daec0d71c936cddab0c88f4c37d75);
+        
+    
+        var popup_5b3d3edb765c956c7db9eb17202adfbb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9dd5c3a6de62eb65a03a023f209ad977 = $(`<div id="html_9dd5c3a6de62eb65a03a023f209ad977" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial, sans-serif; width: 200px;">                 <h4 style="margin: 0 0 10px 0; color: #333;">嘉義（東區）</h4>                 <p style="margin: 5px 0;"><strong>所在地:</strong> 嘉義市</p>                 <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">96</span></p>                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: 2026-02-24 22:05</p>                 </div>                 </div>`)[0];
+                popup_5b3d3edb765c956c7db9eb17202adfbb.setContent(html_9dd5c3a6de62eb65a03a023f209ad977);
+            
+        
+
+        circle_marker_c8c50fea9062ed575593dac51bc01aec.bindPopup(popup_5b3d3edb765c956c7db9eb17202adfbb)
+        ;
+
+        
+    
+    
+            circle_marker_c8c50fea9062ed575593dac51bc01aec.bindTooltip(
+                `<div>
+                     嘉義（東區） - AQI: 96
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

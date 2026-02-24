@@ -129,7 +129,7 @@ class AQIMonitor:
                 <div style="font-family: Arial, sans-serif; width: 200px;">
                 <h4 style="margin: 0 0 10px 0; color: #333;">{site_name}</h4>
                 <p style="margin: 5px 0;"><strong>所在地:</strong> {county}</p>
-                <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: black;">{aqi}</span></p>
+                <p style="margin: 5px 0;"><strong>即時 AQI:</strong> <span style="font-size: 18px; font-weight: bold; color: {color};">{aqi}</span></p>
                 <p style="margin: 5px 0; font-size: 12px; color: #666;">更新時間: {datetime.now().strftime('%Y-%m-%d %H:%M')}</p>
                 </div>
                 '''
