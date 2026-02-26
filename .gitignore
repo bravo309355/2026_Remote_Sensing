@@ -46,6 +46,10 @@ Thumbs.db
 # Data files (optional - uncomment if you want to exclude data)
 # data/
 # outputs/
+outputs/_validation/
+
+# Local editor history (may contain sensitive snapshots)
+.history/
 
 # Logs
 *.log
