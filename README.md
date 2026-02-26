@@ -24,7 +24,7 @@ This project fetches Taiwan AQI data from the MOENV open data API, then:
 
 ## Requirements
 
-- Python 3.7+ (tested locally with Python 3.11.x)
+- Python 3.7+ (validated with Windows Python 3.10; syntax-checked with MSYS Python 3.11)
 
 ## Quick Start
 
