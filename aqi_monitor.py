@@ -400,8 +400,6 @@ class AQIMonitor:
         for bucket in AQI_BUCKET_ORDER:
             layer_groups[bucket].add_to(aqi_map)
 
-        folium.LayerControl(collapsed=False).add_to(aqi_map)
-
         ensure_parent_dir(save_path)
         aqi_map.save(save_path)
         self.last_map_stats = {
