@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "run_started_at": "2026-03-02T15:13:59",
+  "run_finished_at": "2026-03-02T15:14:01",
+  "duration_seconds": 1.867,
+  "options": {
+    "output_dir": "outputs",
+    "csv_only": false,
+    "map_only": false,
+    "timestamped_output": false,
+    "save_history": false,
+    "history_path": "data/aqi_history.csv",
+    "center_lat": null,
+    "center_lon": null,
+    "map_zoom": 7,
+    "run_id": "20260302_151359_cc5e0243"
+  },
+  "api": {
+    "base_url": "https://data.moenv.gov.tw/api/v2/aqx_p_432",
+    "response_format": "list",
+    "records_count": 84,
+    "fetch_success": true
+  },
+  "outputs": {
+    "csv": {
+      "path": "outputs\\aqi_analysis.csv",
+      "exists": true,
+      "size_bytes": 11594
+    },
+    "map": {
+      "path": "outputs\\aqi_map.html",
+      "exists": true,
+      "size_bytes": 183145
+    },
+    "summary": {
+      "path": "outputs\\run_summary.json",
+      "exists": true,
+      "size_bytes": 1594
+    }
+  },
+  "quality": {
+    "records_fetched_total": 84,
+    "records_processed_for_csv": 84,
+    "records_with_valid_coordinates": 84,
+    "records_missing_or_invalid_coordinates": 0,
+    "records_with_non_numeric_aqi": 0,
+    "map_markers_added": 84,
+    "map_markers_skipped": 0,
+    "aqi_bucket_counts": {
+      "good": 54,
+      "moderate": 30,
+      "unhealthy": 0,
+      "unknown": 0
+    },
+    "missing_key_fields_counts": {
+      "sitename": 0,
+      "county": 0,
+      "aqi": 0,
+      "latitude": 0,
+      "longitude": 0,
+      "publishtime": 0
+    }
+  },
+  "errors": []
+}
