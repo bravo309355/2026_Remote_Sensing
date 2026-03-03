@@ -7,9 +7,9 @@
   - Parsed each station's `GeoInfo.Coordinates` for `TWD67` and `WGS84`.
   - Treated both coordinate pairs as WGS84 and computed per-station offset distance.
   - Generated outputs:
-    - `output/exercise3/cwa_station_crs_diff.csv`
-    - `output/exercise3/cwa_station_crs_stats.json`
-    - `output/exercise3/cwa_station_crs_map.html`
+    - `output/exercise2/cwa_station_crs_diff.csv`
+    - `output/exercise2/cwa_station_crs_stats.json`
+    - `output/exercise2/cwa_station_crs_map.html`
   - Key result:
     - Mean offset: `855.042 m`
     - Median offset: `850.764 m`

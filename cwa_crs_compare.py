@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DEFAULT_DATASET_ID = "O-A0001-001"
-DEFAULT_OUTPUT_DIR = os.path.join("output", "exercise3")
+DEFAULT_OUTPUT_DIR = os.path.join("output", "exercise2")
 API_BASE_URL = "https://opendata.cwa.gov.tw/api/v1/rest/datastore"
 
 
@@ -192,9 +192,9 @@ def create_comparison_map(df, save_path):
 
         folium.PolyLine(
             locations=[twd67_point, wgs84_point],
-            color="#F9AB00",
-            weight=1,
-            opacity=0.25,
+            color="#00BFFF",
+            weight=2,
+            opacity=0.75,
             tooltip=tooltip,
         ).add_to(line_layer)
 
@@ -218,7 +218,7 @@ def create_comparison_map(df, save_path):
       <b>CWA CRS Compare</b><br>
       <span style="color:#0B57D0;">&#9679;</span> TWD67 interpreted as WGS84<br>
       <span style="color:#D93025;">&#9679;</span> WGS84<br>
-      <span style="color:#F9AB00;">&#9472;</span> Station offset
+      <span style="color:#00BFFF;">&#9472;</span> Station offset
     </div>
     """
     output_map.get_root().html.add_child(folium.Element(legend_html))
@@ -229,7 +229,7 @@ def create_comparison_map(df, save_path):
 
 def write_summary_md(stats, save_path):
     lines = [
-        "# Exercise 3 - CWA CRS Compare",
+        "# Exercise 2 - CWA CRS Compare",
         "",
         "Prompt:",
         "- \u6c23\u8c61\u7ad9 API \u6bcf\u500b\u6e2c\u7ad9\u6709\u5169\u7d44\u5ea7\u6a19\uff0c\u8acb\u90fd\u7576\u6210 WGS84 \u756b\u5728\u540c\u4e00\u5f35\u5716\uff0c\u4e26\u7d71\u8a08\u5dee\u8ddd",
@@ -247,9 +247,9 @@ def write_summary_md(stats, save_path):
         "- TWD67 vs WGS84 station coordinates are approximately 850 meters apart on average.",
         "",
         "Generated files:",
-        "- `output/exercise3/cwa_station_crs_diff.csv`",
-        "- `output/exercise3/cwa_station_crs_stats.json`",
-        "- `output/exercise3/cwa_station_crs_map.html`",
+        "- `output/exercise2/cwa_station_crs_diff.csv`",
+        "- `output/exercise2/cwa_station_crs_stats.json`",
+        "- `output/exercise2/cwa_station_crs_map.html`",
     ]
 
     ensure_parent_dir(save_path)

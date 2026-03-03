@@ -1,4 +1,4 @@
-# Exercise 3 - CWA CRS Compare
+# Exercise 2 - CWA CRS Compare
 
 Prompt:
 - 氣象站 API 每個測站有兩組座標，請都當成 WGS84 畫在同一張圖，並統計差距
@@ -16,6 +16,6 @@ Conclusion:
 - TWD67 vs WGS84 station coordinates are approximately 850 meters apart on average.
 
 Generated files:
-- `output/exercise3/cwa_station_crs_diff.csv`
-- `output/exercise3/cwa_station_crs_stats.json`
-- `output/exercise3/cwa_station_crs_map.html`
+- `output/exercise2/cwa_station_crs_diff.csv`
+- `output/exercise2/cwa_station_crs_stats.json`
+- `output/exercise2/cwa_station_crs_map.html`

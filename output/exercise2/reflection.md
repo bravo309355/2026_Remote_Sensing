@@ -1,4 +1,4 @@
-# Exercise 3 Reflection
+# Exercise 2 Reflection
 
 ## What was validated
 - The CWA station API provides two coordinate systems per station (`TWD67` and `WGS84`) in the same payload.
