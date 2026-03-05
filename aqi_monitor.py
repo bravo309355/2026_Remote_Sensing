@@ -334,7 +334,7 @@ class AQIMonitor:
         df=None,
         map_center=None,
         zoom_start=DEFAULT_MAP_ZOOM,
-        shelter_file=r"D:\YongZhi\2026_RS\data\避難收容處所點位檔案v9.csv",
+        shelter_file=r"D:\YongZhi\2026_RS\data\shelters_cleaned.csv",
         shelter_analysis_path=None,
     ):
         """Create Folium map with AQI markers, clustering, and layer control."""
