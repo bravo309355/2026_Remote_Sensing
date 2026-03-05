@@ -1,3 +1,4 @@
+import csv
 import json
 import math
 import os
@@ -113,7 +114,8 @@ class AQIMonitor:
     ):
         self.api_key = api_key or os.getenv("API_KEY_MOENV")
         if not self.api_key:
-            raise ValueError("API_KEY_MOENV not found in environment variables")
+            raise ValueError(
+                "API_KEY_MOENV not found in environment variables")
 
         self.base_url = base_url
         self.aqi_data = None
@@ -126,7 +128,8 @@ class AQIMonitor:
             "records_count": 0,
             "fetch_success": False,
         }
-        self.last_map_stats = {"map_markers_added": 0, "map_markers_skipped": 0}
+        self.last_map_stats = {
+            "map_markers_added": 0, "map_markers_skipped": 0}
         self.last_quality_stats = {}
         self.last_run_summary = None
 
@@ -134,7 +137,8 @@ class AQIMonitor:
         """Fetch real-time AQI data from MOENV API."""
         try:
             params = {"api_key": self.api_key, "format": "json"}
-            response = requests.get(self.base_url, params=params, timeout=10)
+            response = requests.get(
+                self.base_url, params=params, timeout=30, verify=False)
             response.raise_for_status()
             payload = response.json()
             records, response_format = normalize_api_records(payload)
@@ -149,7 +153,8 @@ class AQIMonitor:
                 "http_status": response.status_code,
                 "fetched_at": datetime.now().isoformat(timespec="seconds"),
             }
-            print(f"Successfully fetched {len(records)} monitoring stations data")
+            print(
+                f"Successfully fetched {len(records)} monitoring stations data")
             return True
         except requests.exceptions.RequestException as exc:
             self.last_fetch_metadata = {
@@ -191,7 +196,8 @@ class AQIMonitor:
         delta_lon = math.radians(lon2 - lon1)
         a = (
             math.sin(delta_lat / 2) ** 2
-            + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(delta_lon / 2) ** 2
+            + math.cos(lat1_rad) * math.cos(lat2_rad) *
+            math.sin(delta_lon / 2) ** 2
         )
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
         return radius_km * c
@@ -243,8 +249,10 @@ class AQIMonitor:
                 "latitude",
                 "longitude",
             ]
-            existing_important = [col for col in important_cols if col in df.columns]
-            other_cols = [col for col in df.columns if col not in existing_important]
+            existing_important = [
+                col for col in important_cols if col in df.columns]
+            other_cols = [
+                col for col in df.columns if col not in existing_important]
             df = df[existing_important + other_cols]
 
         self.processed_df = df.copy()
@@ -326,6 +334,8 @@ class AQIMonitor:
         df=None,
         map_center=None,
         zoom_start=DEFAULT_MAP_ZOOM,
+        shelter_file=r"D:\YongZhi\2026_RS\data\避難收容處所點位檔案v9.csv",
+        shelter_analysis_path=None,
     ):
         """Create Folium map with AQI markers, clustering, and layer control."""
         if not self.aqi_data:
@@ -338,31 +348,74 @@ class AQIMonitor:
             print("No valid AQI data rows available for map generation.")
             return None
 
+        def shelter_key(name, lon, lat):
+            return (str(name or "").strip(), round(float(lon), 6), round(float(lat), 6))
+
+        risk_lookup = {}
+        if shelter_analysis_path and os.path.exists(shelter_analysis_path):
+            try:
+                with open(shelter_analysis_path, "r", encoding="utf-8-sig") as rf:
+                    risk_reader = csv.DictReader(rf)
+                    for risk_row in risk_reader:
+                        try:
+                            key = shelter_key(
+                                risk_row.get("避難收容處所名稱", ""),
+                                risk_row.get("經度", 0),
+                                risk_row.get("緯度", 0),
+                            )
+                        except (TypeError, ValueError):
+                            continue
+                        risk_lookup[key] = {
+                            "risk_label": risk_row.get("risk_label", "Normal"),
+                            "nearest_station": risk_row.get("nearest_station", ""),
+                            "nearest_aqi": risk_row.get("nearest_aqi", ""),
+                            "distance_km": risk_row.get("distance_km", ""),
+                        }
+            except Exception as exc:
+                print(f"Failed to load shelter risk analysis CSV: {exc}")
+
         center = list(map_center or self.default_map_center)
         aqi_map = folium.Map(location=center, zoom_start=zoom_start)
 
-        legend_html = """
-        <div style="
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 180px;
-            background: white;
-            border: 2px solid #666;
-            z-index: 9999;
-            font-size: 12px;
-            padding: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        ">
-          <b>AQI Legend</b><br>
-          <span style="color:green">&#9679;</span> 0-50 (Good)<br>
-          <span style="color:#c9a000">&#9679;</span> 51-100 (Moderate)<br>
-          <span style="color:red">&#9679;</span> 101+ (Unhealthy)<br>
-          <span style="color:gray">&#9679;</span> Unknown
-        </div>
-        """
+        legend_html = '''
+    <div style="
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 260px;
+        background: white;
+        border: 2px solid #666;
+        z-index: 9999;
+        font-size: 13px;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        border-radius: 5px;
+    ">
+      <b>AQI Legend (測站狀態)</b><br>
+      <span style="color:green; font-size: 16px;">&#9679;</span> 0-50 (Good 良好)<br>
+      <span style="color:#c9a000; font-size: 16px;">&#9679;</span> 51-100 (Moderate 普通)<br>
+      <span style="color:red; font-size: 16px;">&#9679;</span> 101+ (Unhealthy 不良)<br>
+      <span style="color:gray; font-size: 16px;">&#9679;</span> Unknown (未知)<br>
+      <hr style="margin:6px 0; border: 0; border-top: 1px solid #ccc;">
+      <b>Shelters (避難收容處所)</b><br>
+      <div style="margin: 4px 0;">
+        <i class="fa fa-home" style="color: white; background-color: #38AADD; padding: 4px; border-radius: 50%; width: 22px; height: 22px; text-align: center; line-height: 14px; box-shadow: 0 0 2px rgba(0,0,0,0.5);"></i>
+        Indoor (室內)
+      </div>
+      <div style="margin: 4px 0;">
+        <i class="fa fa-tree" style="color: white; background-color: #F69730; padding: 4px; border-radius: 50%; width: 22px; height: 22px; text-align: center; line-height: 14px; box-shadow: 0 0 2px rgba(0,0,0,0.5);"></i>
+        Outdoor (室外)
+      </div>
+      <hr style="margin:6px 0; border: 0; border-top: 1px solid #ccc;">
+      <b>Shelter Risk Label</b><br>
+      <span style="color:#d73027; font-size: 16px;">&#9679;</span> High Risk<br>
+      <span style="color:#ff8c00; font-size: 16px;">&#9679;</span> Warning<br>
+      <span style="color:#2ca25f; font-size: 16px;">&#9679;</span> Normal<br>
+    </div>
+    '''
         aqi_map.get_root().html.add_child(folium.Element(legend_html))
 
+        # 1) AQI layer groups
         layer_groups = {}
         clusters = {}
         for bucket in AQI_BUCKET_ORDER:
@@ -397,8 +450,110 @@ class AQIMonitor:
             marker.add_to(clusters[bucket])
             markers_added += 1
 
+        # 2) Shelter groups by indoor/outdoor
+        shelter_group_indoor = folium.FeatureGroup(name="Shelters (Indoor)", show=True)
+        shelter_group_outdoor = folium.FeatureGroup(name="Shelters (Outdoor)", show=True)
+        cluster_indoor = MarkerCluster().add_to(shelter_group_indoor)
+        cluster_outdoor = MarkerCluster().add_to(shelter_group_outdoor)
+
+        # 3) Shelter groups by risk label
+        risk_order = ["High Risk", "Warning", "Normal"]
+        risk_marker_styles = {
+            "High Risk": {"color": "#d73027", "radius": 7},
+            "Warning": {"color": "#ff8c00", "radius": 6},
+            "Normal": {"color": "#2ca25f", "radius": 5},
+        }
+        shelter_risk_groups = {
+            label: folium.FeatureGroup(name=f"Shelter Risk: {label}", show=False)
+            for label in risk_order
+        }
+        risk_clusters = {
+            label: MarkerCluster().add_to(group)
+            for label, group in shelter_risk_groups.items()
+        }
+
+        shelters_added = 0
+        shelters_with_risk = 0
+        if os.path.exists(shelter_file):
+            with open(shelter_file, "r", encoding="utf-8-sig") as sf:
+                s_reader = csv.DictReader(sf)
+                for s_row in s_reader:
+                    try:
+                        s_lat = float(s_row.get("緯度", 0))
+                        s_lon = float(s_row.get("經度", 0))
+                    except ValueError:
+                        continue
+                    
+                    if s_lat == 0 or s_lon == 0:
+                        continue
+                        
+                    is_indoor = s_row.get("is_indoor", "") == "True"
+                    name = s_row.get("避難收容處所名稱", "Unknown")
+
+                    s_color = "cadetblue" if is_indoor else "orange"
+                    s_icon = "home" if is_indoor else "tree"
+                    target_cluster = cluster_indoor if is_indoor else cluster_outdoor
+                    key = shelter_key(name, s_lon, s_lat)
+                    risk_info = risk_lookup.get(key, {})
+                    risk_label = risk_info.get("risk_label")
+
+                    popup_lines = [
+                        f"<b>{escape(name)}</b>",
+                        "Indoor" if is_indoor else "Outdoor",
+                    ]
+                    if risk_label:
+                        popup_lines.append(f"Risk: {escape(str(risk_label))}")
+                        popup_lines.append(
+                            f"Nearest station: {escape(format_value(risk_info.get('nearest_station')))}"
+                        )
+                        popup_lines.append(
+                            f"Nearest AQI: {escape(format_value(risk_info.get('nearest_aqi')))}"
+                        )
+
+                    folium.Marker(
+                        location=[s_lat, s_lon],
+                        popup=folium.Popup("<br>".join(popup_lines), max_width=320),
+                        icon=folium.Icon(color=s_color, icon=s_icon, prefix="fa"),
+                        tooltip=name,
+                    ).add_to(target_cluster)
+                    shelters_added += 1
+
+                    if risk_label in risk_clusters:
+                        style = risk_marker_styles[risk_label]
+                        folium.CircleMarker(
+                            location=[s_lat, s_lon],
+                            radius=style["radius"],
+                            color=style["color"],
+                            weight=1.5,
+                            fill=True,
+                            fillColor=style["color"],
+                            fillOpacity=0.75,
+                            tooltip=f"{name} | {risk_label}",
+                        ).add_to(risk_clusters[risk_label])
+                        shelters_with_risk += 1
+        else:
+            print(f"Shelter file not found: {shelter_file}")
+
+        # 4) Add groups to map
+        shelter_group_indoor.add_to(aqi_map)
+        shelter_group_outdoor.add_to(aqi_map)
+        for label in risk_order:
+            shelter_risk_groups[label].add_to(aqi_map)
         for bucket in AQI_BUCKET_ORDER:
             layer_groups[bucket].add_to(aqi_map)
+
+        # 5) Grouped layer control
+        from folium.plugins import GroupedLayerControl
+        grouped_layers = {
+            "空氣品質觀測站 (AQI)": [layer_groups[b] for b in AQI_BUCKET_ORDER],
+            "避難收容處所 (Shelters)": [shelter_group_indoor, shelter_group_outdoor],
+            "避難所風險標籤 (Risk Label)": [shelter_risk_groups[label] for label in risk_order],
+        }
+        GroupedLayerControl(
+            groups=grouped_layers,
+            exclusive_groups=False,
+            collapsed=False,
+        ).add_to(aqi_map)
 
         ensure_parent_dir(save_path)
         aqi_map.save(save_path)
@@ -406,6 +561,7 @@ class AQIMonitor:
             "map_markers_added": markers_added,
             "map_markers_skipped": markers_skipped,
         }
+        print(f"Shelter markers added: {shelters_added} (risk-labeled: {shelters_with_risk})")
         print(f"AQI map saved to {save_path}")
         return save_path
 
@@ -430,8 +586,10 @@ class AQIMonitor:
                 if not valid_distances.empty:
                     print("Distance statistics:")
                     print(f"  Closest station: {valid_distances.min():.2f} km")
-                    print(f"  Farthest station: {valid_distances.max():.2f} km")
-                    print(f"  Average distance: {valid_distances.mean():.2f} km")
+                    print(
+                        f"  Farthest station: {valid_distances.max():.2f} km")
+                    print(
+                        f"  Average distance: {valid_distances.mean():.2f} km")
             return True
         except Exception as exc:
             print(f"Error saving CSV: {exc}")
@@ -449,7 +607,8 @@ class AQIMonitor:
         ensure_parent_dir(history_path)
         if os.path.exists(history_path):
             existing_df = pd.read_csv(history_path, encoding="utf-8-sig")
-            combined_df = pd.concat([existing_df, history_df], ignore_index=True, sort=False)
+            combined_df = pd.concat(
+                [existing_df, history_df], ignore_index=True, sort=False)
         else:
             combined_df = history_df
 
@@ -471,7 +630,8 @@ class AQIMonitor:
     ):
         """Build a run summary dict with output metadata and quality stats."""
         errors = list(errors or [])
-        duration_seconds = round((run_finished_at - run_started_at).total_seconds(), 3)
+        duration_seconds = round(
+            (run_finished_at - run_started_at).total_seconds(), 3)
 
         def output_meta(path):
             exists = os.path.exists(path)
@@ -522,8 +682,10 @@ class AQIMonitor:
     def print_quality_summary(self, quality_stats):
         print("Quality summary:")
         print(f"  Records fetched: {quality_stats['records_fetched_total']}")
-        print(f"  Records processed: {quality_stats['records_processed_for_csv']}")
-        print(f"  Valid coordinates: {quality_stats['records_with_valid_coordinates']}")
+        print(
+            f"  Records processed: {quality_stats['records_processed_for_csv']}")
+        print(
+            f"  Valid coordinates: {quality_stats['records_with_valid_coordinates']}")
         print(
             "  Invalid coordinates: "
             f"{quality_stats['records_missing_or_invalid_coordinates']}"
@@ -583,7 +745,8 @@ def run_pipeline(
     if timestamped_output:
         print(f"Timestamped outputs enabled ({timestamp_token})")
 
-    monitor = AQIMonitor(api_key=api_key, reference_coords=reference_coords, map_center=map_center)
+    monitor = AQIMonitor(
+        api_key=api_key, reference_coords=reference_coords, map_center=map_center)
 
     fetch_success = monitor.fetch_aqi_data()
     csv_success = False
