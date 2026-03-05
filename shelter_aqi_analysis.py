@@ -62,14 +62,14 @@ def load_shelters(path):
 
 
 def fetch_aqi_stations():
-    """Fetch AQI stations and return list of dicts: name/county/lon/lat/aqi."""
+    """Fetch AQI stations and return (monitor, stations)."""
     monitor = AQIMonitor()
     ok = monitor.fetch_aqi_data()
     if not ok:
         raise RuntimeError("Failed to fetch AQI data from MOENV API.")
 
     stations = []
-    for record in monitor.aqi_data:
+    for index, record in enumerate(monitor.aqi_data):
         try:
             lat = float(record.get("latitude", 0))
             lon = float(record.get("longitude", 0))
@@ -85,9 +85,10 @@ def fetch_aqi_stations():
                 "lon": lon,
                 "lat": lat,
                 "aqi": aqi,
+                "record_index": index,
             }
         )
-    return stations
+    return monitor, stations
 
 
 def should_inject_scenario(stations):
@@ -108,7 +109,7 @@ def should_inject_scenario(stations):
     return False, "Current AQI already includes >100 values."
 
 
-def apply_override(stations, station_name, aqi_value):
+def apply_override(stations, station_name, aqi_value, monitor=None):
     """Override a specific station's AQI (simulation)."""
     overridden = False
     for station in stations:
@@ -117,9 +118,17 @@ def apply_override(stations, station_name, aqi_value):
                 f"[OVERRIDE] {station['name']} AQI: {station['aqi']} -> {aqi_value} (SIMULATED)"
             )
             station["aqi"] = aqi_value
+            if monitor is not None:
+                try:
+                    record = monitor.aqi_data[station["record_index"]]
+                    record["aqi"] = str(aqi_value)
+                except Exception:
+                    pass
             overridden = True
     if not overridden:
         print(f"WARNING: Station '{station_name}' not found for override.")
+    if overridden and monitor is not None:
+        monitor.processed_df = None
     return overridden
 
 
@@ -147,29 +156,6 @@ def compute_risk_label(aqi_value, is_indoor):
     if aqi_value > 50 and not is_indoor:
         return "Warning"
     return "Normal"
-
-
-def build_monitor_from_stations(stations):
-    """Build AQIMonitor instance backed by in-memory station list."""
-    monitor = AQIMonitor(api_key="LOCAL_SIMULATION")
-    monitor.aqi_data = []
-    for station in stations:
-        monitor.aqi_data.append(
-            {
-                "sitename": station["name"],
-                "county": station.get("county", ""),
-                "aqi": station["aqi"],
-                "latitude": station["lat"],
-                "longitude": station["lon"],
-                "status": "",
-                "pollutant": "",
-                "pm2.5": "",
-                "pm10": "",
-                "publishtime": "",
-            }
-        )
-    monitor.processed_df = None
-    return monitor
 
 
 def inject_simulation_banner(map_path):
@@ -201,14 +187,16 @@ def main():
     shelters = load_shelters(SHELTER_FILE)
     print(f"Loaded {len(shelters)} shelters")
 
-    stations = fetch_aqi_stations()
+    monitor, stations = fetch_aqi_stations()
     print(f"Fetched {len(stations)} AQI stations")
 
     scenario_applied = False
     should_inject, scenario_reason = should_inject_scenario(stations)
     if should_inject:
         print(f"[INFO] Scenario injection enabled: {scenario_reason}")
-        scenario_applied = apply_override(stations, OVERRIDE_STATION, OVERRIDE_AQI)
+        scenario_applied = apply_override(
+            stations, OVERRIDE_STATION, OVERRIDE_AQI, monitor=monitor
+        )
     else:
         print(f"[INFO] Scenario injection skipped: {scenario_reason}")
 
@@ -258,7 +246,6 @@ def main():
     print(f"  Normal:    {normal}")
 
     print("\nGenerating map...")
-    monitor = build_monitor_from_stations(stations)
     df = monitor.build_processed_dataframe()
     map_path = monitor.create_aqi_map(
         save_path=OUTPUT_MAP,
