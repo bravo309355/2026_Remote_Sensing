@@ -12,10 +12,10 @@ import os
 
 from aqi_monitor import AQIMonitor
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SHELTER_FILE = os.path.join(BASE_DIR, "data", "避難收容處所點位檔案v9.csv")
-OUTPUT_CSV = os.path.join(BASE_DIR, "outputs", "shelter_aqi_analysis.csv")
-OUTPUT_MAP = os.path.join(BASE_DIR, "outputs", "aqi_map.html")
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SHELTER_FILE = os.path.join(PROJECT_ROOT, "data", "避難收容處所點位檔案v9.csv")
+OUTPUT_CSV = os.path.join(PROJECT_ROOT, "outputs", "shelter_aqi_analysis.csv")
+OUTPUT_MAP = os.path.join(PROJECT_ROOT, "outputs", "aqi_map.html")
 
 # Scenario injection config
 OVERRIDE_STATION = "林口"

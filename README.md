@@ -6,6 +6,7 @@ This project fetches Taiwan AQI data from the MOENV open data API, then:
 - creates an interactive AQI map (Folium)
 - calculates distance from Taipei Main Station to each monitoring site
 - writes a run summary JSON with output/quality metadata
+- links evacuation shelters to nearest AQI stations and labels shelter risk
 
 ## Project Structure
 
@@ -13,6 +14,8 @@ This project fetches Taiwan AQI data from the MOENV open data API, then:
 .
 |- aqi_monitor.py                # Core AQI logic (fetch/process/export/map/summary/history)
 |- main.py                       # CLI entrypoint (default behavior stays compatible)
+|- scripts/
+|  \- shelter_aqi_analysis.py    # Week 2 shelter-AQI nearest-station + risk-label workflow
 |- debug_api.py                  # API response debug script (safe URL masking)
 |- setup.py                      # Optional setup helper script
 |- requirements.txt              # Runtime dependencies (flexible versions)
@@ -22,10 +25,11 @@ This project fetches Taiwan AQI data from the MOENV open data API, then:
 |- data/
 |  \- aqi_history.csv            # Optional history output (created only with --save-history)
 |- outputs/
-|  |- aqi_analysis.csv           # Sample CSV output
-|  |- aqi_map.html               # Sample map output
-|  |- run_summary.json           # Sample run summary output
-|  \- _validation/               # Local validation outputs (git-ignored)
+|  |- aqi_map.html               # Shelter + AQI map (layer tree + risk layers)
+|  |- shelter_aqi_analysis.csv   # Shelter nearest-station and risk-label result
+|  |- reflection.md              # Reflection notes
+|  |- audit_report.md            # Cross-check report for dropped records
+|  \- _validation/               # Local validation outputs (git-ignored, optional)
 |- tests/                        # Unit tests (pytest)
 \- .github/workflows/ci.yml      # GitHub Actions CI (syntax + tests)
 ```
@@ -60,14 +64,25 @@ API_KEY_MOENV=your_moenv_api_key_here
 python main.py
 ```
 
+5. Run shelter risk analysis workflow (Week 2)
+
+```bash
+python scripts/shelter_aqi_analysis.py
+```
+
 ## Outputs
 
-- `outputs/aqi_analysis.csv`: AQI records with distance analysis
-- `outputs/aqi_map.html`: Interactive AQI map (cluster + AQI layers)
-- `outputs/run_summary.json`: Run metadata, output file metadata, and quality stats
+- `outputs/aqi_map.html`: Interactive map with AQI layers, shelter layers, risk layers, and left-side layer tree
+- `outputs/shelter_aqi_analysis.csv`: Shelter-level nearest AQI station and risk labels
+- `outputs/reflection.md`: Reflection notes in Markdown format
+- `outputs/audit_report.md`: Cross-check report for dropped outlier records
 - `data/aqi_history.csv`: Optional historical accumulation file (only when `--save-history`)
 
-The repository keeps sample outputs for review. You can regenerate them by running the project.
+You can regenerate `aqi_map.html` and `shelter_aqi_analysis.csv` by running:
+
+```bash
+python scripts/shelter_aqi_analysis.py
+```
 
 ## Run Summary (`run_summary.json`)
 
@@ -161,7 +176,7 @@ pip install -r requirements-dev.txt
 Run syntax check:
 
 ```bash
-python -m py_compile aqi_monitor.py debug_api.py main.py setup.py
+python -m py_compile aqi_monitor.py debug_api.py main.py setup.py scripts/shelter_aqi_analysis.py
 ```
 
 Run unit tests:
