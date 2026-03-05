@@ -521,25 +521,32 @@ class AQIMonitor:
                     target_cluster = cluster_indoor if is_indoor else cluster_outdoor
                     key = shelter_key(name, s_lon, s_lat)
                     risk_info = risk_lookup.get(key, {})
-                    risk_label = risk_info.get("risk_label", "Unknown")
-                    risk_badge = traffic_light_badge(risk_label)
+                    risk_label = risk_info.get("risk_label", "Unknown") if not is_indoor else None
 
-                    popup_lines = [
-                        f"<b>{escape(name)}</b>{risk_badge}",
-                        "Indoor" if is_indoor else "Outdoor",
-                    ]
-                    popup_lines.append(f"Risk: {escape(str(risk_label))}")
-                    if risk_label != "Unknown":
-                        popup_lines.append(
-                            f"Nearest station: {escape(format_value(risk_info.get('nearest_station')))}"
+                    if is_indoor:
+                        popup_lines = [
+                            f"<b>{escape(name)}</b>",
+                            "Indoor",
+                        ]
+                        tooltip_html = escape(name)
+                    else:
+                        risk_badge = traffic_light_badge(risk_label)
+                        popup_lines = [
+                            f"<b>{escape(name)}</b>{risk_badge}",
+                            "Outdoor",
+                            f"Risk: {escape(str(risk_label))}",
+                        ]
+                        if risk_label != "Unknown":
+                            popup_lines.append(
+                                f"Nearest station: {escape(format_value(risk_info.get('nearest_station')))}"
+                            )
+                            popup_lines.append(
+                                f"Nearest AQI: {escape(format_value(risk_info.get('nearest_aqi')))}"
+                            )
+                        tooltip_html = (
+                            f"<span>{traffic_light_badge(risk_label)}</span>"
+                            f"<span style='margin-left:4px'>{escape(name)}</span>"
                         )
-                        popup_lines.append(
-                            f"Nearest AQI: {escape(format_value(risk_info.get('nearest_aqi')))}"
-                        )
-                    tooltip_html = (
-                        f"<span>{traffic_light_badge(risk_label)}</span>"
-                        f"<span style='margin-left:4px'>{escape(name)}</span>"
-                    )
 
                     folium.Marker(
                         location=[s_lat, s_lon],
@@ -549,7 +556,7 @@ class AQIMonitor:
                     ).add_to(target_cluster)
                     shelters_added += 1
 
-                    if risk_label in risk_clusters:
+                    if (not is_indoor) and (risk_label in risk_clusters):
                         style = risk_marker_styles[risk_label]
                         folium.CircleMarker(
                             location=[s_lat, s_lon],
