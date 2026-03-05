@@ -351,6 +351,32 @@ class AQIMonitor:
         def shelter_key(name, lon, lat):
             return (str(name or "").strip(), round(float(lon), 6), round(float(lat), 6))
 
+        risk_meta = {
+            "High Risk": {"color": "#d73027", "label": "High Risk"},
+            "Warning": {"color": "#ff8c00", "label": "Warning"},
+            "Normal": {"color": "#2ca25f", "label": "Normal"},
+            "Unknown": {"color": "#8f8f8f", "label": "Unknown"},
+        }
+
+        def traffic_light_badge(risk_label):
+            meta = risk_meta.get(risk_label, risk_meta["Unknown"])
+            red = "#d73027" if risk_label == "High Risk" else "#d8d8d8"
+            amber = "#ff8c00" if risk_label == "Warning" else "#d8d8d8"
+            green = "#2ca25f" if risk_label == "Normal" else "#d8d8d8"
+            return (
+                "<span style='display:inline-flex;align-items:center;gap:3px;"
+                "margin-left:6px;padding:1px 6px;border-radius:10px;background:#f5f5f5;"
+                "border:1px solid #ddd;font-size:11px;vertical-align:middle;'>"
+                "<span style='display:inline-block;width:8px;height:8px;border-radius:50%;"
+                f"background:{red};'></span>"
+                "<span style='display:inline-block;width:8px;height:8px;border-radius:50%;"
+                f"background:{amber};'></span>"
+                "<span style='display:inline-block;width:8px;height:8px;border-radius:50%;"
+                f"background:{green};'></span>"
+                f"<span style='margin-left:2px;color:{meta['color']};'>{escape(meta['label'])}</span>"
+                "</span>"
+            )
+
         risk_lookup = {}
         if shelter_analysis_path and os.path.exists(shelter_analysis_path):
             try:
@@ -495,26 +521,31 @@ class AQIMonitor:
                     target_cluster = cluster_indoor if is_indoor else cluster_outdoor
                     key = shelter_key(name, s_lon, s_lat)
                     risk_info = risk_lookup.get(key, {})
-                    risk_label = risk_info.get("risk_label")
+                    risk_label = risk_info.get("risk_label", "Unknown")
+                    risk_badge = traffic_light_badge(risk_label)
 
                     popup_lines = [
-                        f"<b>{escape(name)}</b>",
+                        f"<b>{escape(name)}</b>{risk_badge}",
                         "Indoor" if is_indoor else "Outdoor",
                     ]
-                    if risk_label:
-                        popup_lines.append(f"Risk: {escape(str(risk_label))}")
+                    popup_lines.append(f"Risk: {escape(str(risk_label))}")
+                    if risk_label != "Unknown":
                         popup_lines.append(
                             f"Nearest station: {escape(format_value(risk_info.get('nearest_station')))}"
                         )
                         popup_lines.append(
                             f"Nearest AQI: {escape(format_value(risk_info.get('nearest_aqi')))}"
                         )
+                    tooltip_html = (
+                        f"<span>{traffic_light_badge(risk_label)}</span>"
+                        f"<span style='margin-left:4px'>{escape(name)}</span>"
+                    )
 
                     folium.Marker(
                         location=[s_lat, s_lon],
                         popup=folium.Popup("<br>".join(popup_lines), max_width=320),
                         icon=folium.Icon(color=s_color, icon=s_icon, prefix="fa"),
-                        tooltip=name,
+                        tooltip=folium.Tooltip(tooltip_html, sticky=True),
                     ).add_to(target_cluster)
                     shelters_added += 1
 
@@ -554,6 +585,142 @@ class AQIMonitor:
             exclusive_groups=False,
             collapsed=False,
         ).add_to(aqi_map)
+
+        # 6) Left-side layer tree panel (simple data tree with checkbox toggles)
+        tree_html = """
+    <div id="layer-tree-panel" style="
+        position: fixed;
+        top: 150px;
+        left: 10px;
+        width: 230px;
+        max-height: 62vh;
+        overflow-y: auto;
+        background: rgba(255,255,255,0.96);
+        border: 2px solid #666;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        z-index: 9998;
+        font-size: 13px;
+        padding: 10px 10px 8px 10px;
+        line-height: 1.35;
+    ">
+      <div style="font-weight:bold;margin-bottom:6px;">資料樹 / Layer Tree</div>
+      <div style="margin-bottom:6px;">
+        <label><input type="checkbox" id="tree-aqi-parent" checked> AQI 測站</label>
+        <div style="margin-left:16px;">
+          <label><input type="checkbox" id="tree-aqi-good" checked> AQI 0-50</label><br>
+          <label><input type="checkbox" id="tree-aqi-moderate" checked> AQI 51-100</label><br>
+          <label><input type="checkbox" id="tree-aqi-unhealthy" checked> AQI 101+</label><br>
+          <label><input type="checkbox" id="tree-aqi-unknown" checked> AQI Unknown</label>
+        </div>
+      </div>
+      <div style="margin-bottom:6px;">
+        <label><input type="checkbox" id="tree-shelter-parent" checked> 避難所</label>
+        <div style="margin-left:16px;">
+          <label><input type="checkbox" id="tree-shelter-indoor" checked> Indoor</label><br>
+          <label><input type="checkbox" id="tree-shelter-outdoor" checked> Outdoor</label>
+        </div>
+      </div>
+      <div>
+        <label><input type="checkbox" id="tree-risk-parent"> 風險標籤</label>
+        <div style="margin-left:16px;">
+          <label><input type="checkbox" id="tree-risk-high"> High Risk</label><br>
+          <label><input type="checkbox" id="tree-risk-warning"> Warning</label><br>
+          <label><input type="checkbox" id="tree-risk-normal"> Normal</label>
+        </div>
+      </div>
+    </div>
+    """
+        aqi_map.get_root().html.add_child(folium.Element(tree_html))
+
+        tree_js = f"""
+        (function initLayerTree() {{
+            if (
+                typeof {aqi_map.get_name()} === "undefined" ||
+                typeof {layer_groups["good"].get_name()} === "undefined" ||
+                typeof {shelter_group_indoor.get_name()} === "undefined"
+            ) {{
+                setTimeout(initLayerTree, 120);
+                return;
+            }}
+
+            var mapObj = {aqi_map.get_name()};
+            var layerRefs = {{
+                "tree-aqi-good": {layer_groups["good"].get_name()},
+                "tree-aqi-moderate": {layer_groups["moderate"].get_name()},
+                "tree-aqi-unhealthy": {layer_groups["unhealthy"].get_name()},
+                "tree-aqi-unknown": {layer_groups["unknown"].get_name()},
+                "tree-shelter-indoor": {shelter_group_indoor.get_name()},
+                "tree-shelter-outdoor": {shelter_group_outdoor.get_name()},
+                "tree-risk-high": {shelter_risk_groups["High Risk"].get_name()},
+                "tree-risk-warning": {shelter_risk_groups["Warning"].get_name()},
+                "tree-risk-normal": {shelter_risk_groups["Normal"].get_name()}
+            }};
+
+            var parentRefs = {{
+                "tree-aqi-parent": ["tree-aqi-good", "tree-aqi-moderate", "tree-aqi-unhealthy", "tree-aqi-unknown"],
+                "tree-shelter-parent": ["tree-shelter-indoor", "tree-shelter-outdoor"],
+                "tree-risk-parent": ["tree-risk-high", "tree-risk-warning", "tree-risk-normal"]
+            }};
+
+            function setLayerVisible(layerId, visible) {{
+                var layer = layerRefs[layerId];
+                if (!layer) return;
+                if (visible) {{
+                    if (!mapObj.hasLayer(layer)) {{
+                        mapObj.addLayer(layer);
+                    }}
+                }} else {{
+                    if (mapObj.hasLayer(layer)) {{
+                        mapObj.removeLayer(layer);
+                    }}
+                }}
+            }}
+
+            function syncParentStates() {{
+                Object.keys(parentRefs).forEach(function(parentId) {{
+                    var parent = document.getElementById(parentId);
+                    if (!parent) return;
+                    var childIds = parentRefs[parentId];
+                    var checkedCount = childIds.reduce(function(total, childId) {{
+                        var child = document.getElementById(childId);
+                        return total + ((child && child.checked) ? 1 : 0);
+                    }}, 0);
+                    parent.checked = checkedCount === childIds.length;
+                    parent.indeterminate = checkedCount > 0 && checkedCount < childIds.length;
+                }});
+            }}
+
+            Object.keys(layerRefs).forEach(function(layerId) {{
+                var node = document.getElementById(layerId);
+                if (!node) return;
+                setLayerVisible(layerId, node.checked);
+                node.addEventListener("change", function() {{
+                    setLayerVisible(layerId, this.checked);
+                    syncParentStates();
+                }});
+            }});
+
+            Object.keys(parentRefs).forEach(function(parentId) {{
+                var parent = document.getElementById(parentId);
+                if (!parent) return;
+                parent.addEventListener("change", function() {{
+                    var checked = this.checked;
+                    this.indeterminate = false;
+                    parentRefs[parentId].forEach(function(childId) {{
+                        var child = document.getElementById(childId);
+                        if (!child) return;
+                        child.checked = checked;
+                        setLayerVisible(childId, checked);
+                    }});
+                    syncParentStates();
+                }});
+            }});
+
+            syncParentStates();
+        }})();
+        """
+        aqi_map.get_root().script.add_child(folium.Element(tree_js))
 
         ensure_parent_dir(save_path)
         aqi_map.save(save_path)
