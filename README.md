@@ -1,224 +1,75 @@
-# AQI Monitoring Project (Python)
+# Homework 3: ARIA
 
-This project fetches Taiwan AQI data from the MOENV open data API, then:
+This branch implements the Week 3 ARIA workflow for flood-risk screening of shelters near rivers in Taiwan.
 
-- generates an AQI analysis CSV
-- creates an interactive AQI map (Folium)
-- calculates distance from Taipei Main Station to each monitoring site
-- writes a run summary JSON with output/quality metadata
-- links evacuation shelters to nearest AQI stations and labels shelter risk
+## Environment
 
-## Project Structure
-
-```text
-.
-|- aqi_monitor.py                # Core AQI logic (fetch/process/export/map/summary/history)
-|- main.py                       # CLI entrypoint (default behavior stays compatible)
-|- scripts/
-|  \- shelter_aqi_analysis.py    # Week 2 shelter-AQI nearest-station + risk-label workflow
-|- debug_api.py                  # API response debug script (safe URL masking)
-|- setup.py                      # Optional setup helper script
-|- requirements.txt              # Runtime dependencies (flexible versions)
-|- requirements-dev.txt          # Test dependencies
-|- requirements-lock.txt         # Reproducible runtime lockfile
-|- .env.example                  # Environment variable template (no secrets)
-|- data/
-|  \- aqi_history.csv            # Optional history output (created only with --save-history)
-|- outputs/
-|  |- aqi_map.html               # Shelter + AQI map (layer tree + risk layers)
-|  |- shelter_aqi_analysis.csv   # Shelter nearest-station and risk-label result
-|  |- reflection.md              # Reflection notes
-|  |- audit_report.md            # Cross-check report for dropped records
-|  \- _validation/               # Local validation outputs (git-ignored, optional)
-|- tests/                        # Unit tests (pytest)
-\- .github/workflows/ci.yml      # GitHub Actions CI (syntax + tests)
-```
-
-## Requirements
-
-- Python 3.7+ (validated with Windows Python 3.10; syntax-checked with MSYS Python 3.11)
-
-## Quick Start (Default Behavior)
-
-1. Install dependencies
+Use the existing conda environment named `geopandas`.
 
 ```bash
-pip install -r requirements.txt
+conda run -n geopandas python aria_pipeline.py
 ```
 
-2. Create `.env` from template
+The population workbook is an old `.xls` file, so this workflow requires `xlrd==2.0.1`.
+
+## Inputs
+
+- River polygons: `data/RIVERPOLY/riverpoly/riverpoly.shp`
+- Shelter CSV: `data/避難收容處所點位檔案v9.csv`
+- Township boundaries: `data/鄉(鎮、市、區)界線1140318/TOWN_MOI_1140318.shp`
+- Township population workbook: `data/鄉鎮戶數及人口數-115年2月.xls`
+
+## Workflow
+
+1. Read the shelter CSV with encoding fallback.
+2. Remove shelter rows with null or zero coordinates.
+3. Validate shelter points against the township boundary land mask.
+4. Parse township population from the local `.xls` workbook.
+5. Reproject to `EPSG:3826`.
+6. Build three non-overlapping river risk rings: `0-500m`, `500-1000m`, `1000-2000m`.
+7. Assign shelter risk with spatial joins.
+8. Aggregate counts and capacities by township.
+9. Flag township capacity gaps using `required_safe_capacity = population * 0.2`.
+10. Export outputs and copy deliverables into a single submission folder.
+
+## Run
+
+Create `.env` from `.env.example` if you want to override defaults.
 
 ```bash
 copy .env.example .env
+conda run -n geopandas python aria_pipeline.py
 ```
 
-3. Edit `.env` and set your MOENV API key
-
-```env
-API_KEY_MOENV=your_moenv_api_key_here
-```
-
-4. Run the project (same default flow as before: fetch -> CSV -> map)
+To run the Homework 3 tests:
 
 ```bash
-python main.py
-```
-
-5. Run shelter risk analysis workflow (Week 2)
-
-```bash
-python scripts/shelter_aqi_analysis.py
+conda run -n geopandas python -m pytest tests/test_aria_pipeline.py -q
 ```
 
 ## Outputs
 
-- `outputs/aqi_map.html`: Interactive map with AQI layers, shelter layers, risk layers, and left-side layer tree
-- `outputs/shelter_aqi_analysis.csv`: Shelter-level nearest AQI station and risk labels
-- `outputs/reflection.md`: Reflection notes in Markdown format
-- `outputs/audit_report.md`: Cross-check report for dropped outlier records
-- `data/aqi_history.csv`: Optional historical accumulation file (only when `--save-history`)
+The pipeline writes the main outputs into `outputs/aria/`:
 
-You can regenerate `aqi_map.html` and `shelter_aqi_analysis.csv` by running:
+- `cleaning_summary.json`
+- `population_summary.csv`
+- `population_join_audit.csv`
+- `township_summary.csv`
+- `top10_townships.csv`
+- `shelter_risk_audit.json`
+- `risk_map.html`
+- `risk_map.png`
 
-```bash
-python scripts/shelter_aqi_analysis.py
-```
+The final deliverables are copied into `submission/Homework-3/`:
 
-## Run Summary (`run_summary.json`)
+- `ARIA.ipynb`
+- `README.md`
+- `shelter_risk_audit.json`
+- `risk_map.png`
 
-Each run summary includes:
+## AI Diagnostic Log
 
-- success status
-- start/end time and duration
-- CLI options used
-- API response format and record count
-- output file paths / existence / file sizes
-- data quality statistics (valid coordinates, skipped markers, AQI bucket counts, etc.)
-- non-fatal errors (for example history append failures)
-
-## Data Quality Statistics
-
-The pipeline computes non-fatal quality metrics and prints a summary to the console. Metrics include:
-
-- fetched vs processed record counts
-- valid / invalid coordinates
-- non-numeric AQI count
-- marker added/skipped counts
-- AQI bucket counts (`good`, `moderate`, `unhealthy`, `unknown`)
-- missing key field counts (`sitename`, `county`, `aqi`, `latitude`, `longitude`, `publishtime`)
-
-## Advanced CLI Usage
-
-Generate only CSV:
-
-```bash
-python main.py --csv-only
-```
-
-Generate only map:
-
-```bash
-python main.py --map-only
-```
-
-Write outputs to a custom folder:
-
-```bash
-python main.py --output-dir outputs_custom
-```
-
-Use timestamped output filenames (keeps fixed default behavior unless enabled):
-
-```bash
-python main.py --timestamped-output
-```
-
-Save history (append mode):
-
-```bash
-python main.py --save-history
-```
-
-Save history to a custom path:
-
-```bash
-python main.py --save-history --history-path data/custom_aqi_history.csv
-```
-
-Override map center (also used as distance reference point):
-
-```bash
-python main.py --center-lat 25.0330 --center-lon 121.5654 --map-zoom 9
-```
-
-## Validation / Debug
-
-API format check (safe URL output: API key is masked):
-
-```bash
-python debug_api.py
-```
-
-Optional setup helper:
-
-```bash
-python setup.py
-```
-
-## Testing (Local)
-
-Install test dependencies:
-
-```bash
-pip install -r requirements-dev.txt
-```
-
-Run syntax check:
-
-```bash
-python -m py_compile aqi_monitor.py debug_api.py main.py setup.py scripts/shelter_aqi_analysis.py
-```
-
-Run unit tests:
-
-```bash
-pytest -q
-```
-
-## CI (GitHub Actions)
-
-The repository includes `.github/workflows/ci.yml` that runs on `push` and `pull_request`:
-
-- dependency installation
-- syntax check
-- unit tests (`pytest`)
-
-CI does not call the real AQI API and does not require secrets.
-
-## Reproducible Environment (Lockfile)
-
-You can install from the runtime lockfile for better reproducibility:
-
-```bash
-pip install -r requirements-lock.txt
-```
-
-Notes:
-
-- `requirements.txt` is the flexible runtime dependency list.
-- `requirements-lock.txt` is a tested runtime snapshot.
-- `requirements-dev.txt` extends runtime dependencies with test tools.
-
-## Security Notes
-
-- `.env` is ignored by git and should never be committed.
-- `.history/` is ignored by git because editor history snapshots may contain sensitive data.
-- `outputs/_validation/` is ignored to keep local validation files out of commits.
-- If secrets were previously stored in tracked history snapshots, rotate those API keys.
-
-## Dependencies
-
-- `requests`
-- `python-dotenv`
-- `folium`
-- `pandas`
+- The original repository was centered on AQI analysis, so the Homework 3 work was isolated in a new `aria_pipeline.py` module instead of being folded into `main.py`.
+- The shelter CSV contains a small number of null/zero coordinate rows, and a larger set of points that fall outside the Taiwan township land mask. The pipeline records both counts in `outputs/aria/cleaning_summary.json`.
+- The township population source is a legacy `.xls` workbook. The stable solution was to install `xlrd==2.0.1` in the `geopandas` conda environment and parse it with `pandas.read_excel(..., engine="xlrd")` instead of depending on Excel COM.
+- Taiwan extent validation is based on the supplied township boundary shapefile, not hard-coded longitude/latitude ranges. This avoids silently keeping invalid offshore points that still fit a simple bounding box.

@@ -26,7 +26,7 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Syntax check
-        run: python -m py_compile aqi_monitor.py debug_api.py main.py setup.py
+        run: python -m py_compile aqi_monitor.py aria_pipeline.py debug_api.py main.py setup.py
 
       - name: Run unit tests
         run: pytest -q

@@ -1,0 +1,6 @@
+{
+  "raw_shelter_rows": 5973,
+  "removed_null_or_zero_coordinate_rows": 3,
+  "removed_outside_taiwan_land_mask_rows": 63,
+  "valid_shelter_rows": 5907
+}
