@@ -7,7 +7,7 @@ This branch implements the Week 3 ARIA workflow for flood-risk screening of shel
 Use the existing conda environment named `geopandas`.
 
 ```bash
-conda run -n geopandas python aria_pipeline.py
+conda run -n geopandas python scripts/aria_pipeline.py
 ```
 
 The population workbook is an old `.xls` file, so this workflow requires `xlrd==2.0.1`.
@@ -38,13 +38,13 @@ Create `.env` from `.env.example` if you want to override defaults.
 
 ```bash
 copy .env.example .env
-conda run -n geopandas python aria_pipeline.py
+conda run -n geopandas python scripts/aria_pipeline.py
 ```
 
 To run the Homework 3 tests:
 
 ```bash
-conda run -n geopandas python -m pytest tests/test_aria_pipeline.py -q
+conda run -n geopandas python -m pytest --rootdir=. scripts/test_aria_pipeline.py -q
 ```
 
 ## Outputs
@@ -65,11 +65,12 @@ The final deliverables are copied into `submission/Homework-3/`:
 - `ARIA.ipynb`
 - `README.md`
 - `shelter_risk_audit.json`
+- `risk_map.html`
 - `risk_map.png`
 
 ## AI Diagnostic Log
 
-- The original repository was centered on AQI analysis, so the Homework 3 work was isolated in a new `aria_pipeline.py` module instead of being folded into `main.py`.
+- The original repository was centered on AQI analysis, so the Homework 3 work was isolated in `scripts/aria_pipeline.py` instead of being folded into `main.py`.
 - The shelter CSV contains a small number of null/zero coordinate rows, and a larger set of points that fall outside the Taiwan township land mask. The pipeline records both counts in `outputs/aria/cleaning_summary.json`.
 - The township population source is a legacy `.xls` workbook. The stable solution was to install `xlrd==2.0.1` in the `geopandas` conda environment and parse it with `pandas.read_excel(..., engine="xlrd")` instead of depending on Excel COM.
 - Taiwan extent validation is based on the supplied township boundary shapefile, not hard-coded longitude/latitude ranges. This avoids silently keeping invalid offshore points that still fit a simple bounding box.
