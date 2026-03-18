@@ -1,6 +1,6 @@
 # Homework 4: ARIA v2
 
-This branch upgrades the Week 3 ARIA workflow with terrain intelligence for `花蓮縣`.
+This branch upgrades the Week 3 ARIA workflow with terrain intelligence for `花蓮縣`, then extends it into a reusable county-level workflow when a full Taiwan DEM is available.
 
 ## Deliverables
 
@@ -20,7 +20,8 @@ The notebook is designed for Google Colab with these fixed locations:
 
 Place these files in `Colab Notebooks/data/`:
 
-- `Hualien_dem_merge.tif`
+- Recommended for the stretch goal: `DEM_tawiwan_V2025.tif`
+- Optional county-specific fallback: `Hualien_dem_merge.tif`
 - `RIVERPOLY/riverpoly/` shapefile folder
 - `鄉(鎮、市、區)界線1140318/` shapefile folder
 - `避難收容處所點位檔案v9.csv`
@@ -28,7 +29,18 @@ Place these files in `Colab Notebooks/data/`:
 Place these files in `Colab Notebooks/`:
 
 - `ARIA_v2.ipynb`
-- Optional `.env`
+- Optional `.env` copied from `submission/Homework-4/.env.example`
+
+Recommended `.env` values for the stretch-goal workflow:
+
+```env
+TARGET_COUNTY=花蓮縣
+DEM_PATH=/content/drive/MyDrive/Colab Notebooks/data/DEM_tawiwan_V2025.tif
+SLOPE_THRESHOLD=30
+ELEVATION_LOW=50
+BUFFER_HIGH=500
+COUNTY_BUFFER=1000
+```
 
 Do not push these large raster inputs to GitHub:
 
@@ -36,6 +48,13 @@ Do not push these large raster inputs to GitHub:
 - `Hualien_dem_merge.tif`
 - `Hualien_dem_merge.vrt`
 - `fixed_tif/`
+
+When a full Taiwan DEM is available, the notebook clips it twice:
+
+1. Bounding-box clip using the target county `+1000m` buffer
+2. Precise polygon clip using the dissolved county boundary
+
+This keeps the workflow reusable across counties without running terrain analysis on the full raster extent.
 
 ## Colab Setup Cell
 
@@ -76,9 +95,10 @@ Local outputs are written to:
 
 ## AI Diagnostic Log
 
+- The notebook now supports either a county-specific DEM or a full Taiwan DEM. With a full Taiwan DEM, it first clips by county buffer bounds and only then performs the exact polygon clip.
 - `Hualien_dem_merge.tif` does not carry CRS metadata, so both the notebook and the local workflow explicitly repair it to `EPSG:3826` before clipping.
 - `Hualien_dem_merge.vrt` points to raster tiles with a broken relative path in this repo layout, so it is treated as a fallback reference only, not the primary analysis input.
-- The county `+1000m` clip slightly exceeds the pre-merged Hualien DEM bounds, but the Homework 4 workflow still completes successfully because the clipped raster covers the actual shelter buffers used for zonal statistics.
+- The county `+1000m` clip can slightly exceed a county-specific DEM bounds, so the notebook clamps the window clip to the overlap before doing the exact polygon clip.
 - If zonal statistics return `NaN`, the first checks are CRS alignment and whether a shelter buffer falls outside raster coverage.
 - The slope calculation uses `np.gradient(..., 20)` so the pixel spacing matches the 20m DEM resolution.
 

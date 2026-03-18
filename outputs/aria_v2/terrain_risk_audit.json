@@ -1,5 +1,31 @@
 [
   {
+    "shelter_id": "3149",
+    "name": "七星潭社區活動中心",
+    "county_name": "花蓮縣",
+    "town_name": "新城鄉",
+    "capacity": 27,
+    "distance_to_river_m": 104.62572912335665,
+    "river_distance_category": "<500m",
+    "mean_elevation": 17.134882584964796,
+    "std_elevation": 11.921133269941862,
+    "max_slope": 88.90045176288979,
+    "risk_level": "very_high"
+  },
+  {
+    "shelter_id": "2999",
+    "name": "中正體育館",
+    "county_name": "花蓮縣",
+    "town_name": "花蓮市",
+    "capacity": 593,
+    "distance_to_river_m": 163.58093786474328,
+    "river_distance_category": "<500m",
+    "mean_elevation": 9.30373660267738,
+    "std_elevation": 4.895354478509649,
+    "max_slope": 88.8994063923298,
+    "risk_level": "very_high"
+  },
+  {
     "shelter_id": "3437",
     "name": "富世活動中心",
     "county_name": "花蓮縣",
@@ -663,6 +689,58 @@
     "risk_level": "very_high"
   },
   {
+    "shelter_id": "1829",
+    "name": "港口活動中心",
+    "county_name": "花蓮縣",
+    "town_name": "豐濱鄉",
+    "capacity": 0,
+    "distance_to_river_m": 791.1281037279284,
+    "river_distance_category": "500-1000m",
+    "mean_elevation": 35.38383350386167,
+    "std_elevation": 26.04422388893237,
+    "max_slope": 88.90223163842036,
+    "risk_level": "high"
+  },
+  {
+    "shelter_id": "2182",
+    "name": "東興部落原住民多功能活動中心",
+    "county_name": "花蓮縣",
+    "town_name": "豐濱鄉",
+    "capacity": 0,
+    "distance_to_river_m": 2141.847634397423,
+    "river_distance_category": ">=1000m",
+    "mean_elevation": 55.43060133131338,
+    "std_elevation": 42.41757149769498,
+    "max_slope": 88.90176672864862,
+    "risk_level": "high"
+  },
+  {
+    "shelter_id": "2219",
+    "name": "新社國小二樓綜合教室",
+    "county_name": "花蓮縣",
+    "town_name": "豐濱鄉",
+    "capacity": 200,
+    "distance_to_river_m": 665.1079434501592,
+    "river_distance_category": "500-1000m",
+    "mean_elevation": 58.17358177807006,
+    "std_elevation": 44.49830369925715,
+    "max_slope": 88.9015843820742,
+    "risk_level": "high"
+  },
+  {
+    "shelter_id": "2701",
+    "name": "鹽寮活動中心",
+    "county_name": "花蓮縣",
+    "town_name": "壽豐鄉",
+    "capacity": 15,
+    "distance_to_river_m": 869.7232870886386,
+    "river_distance_category": "500-1000m",
+    "mean_elevation": 64.30443856952272,
+    "std_elevation": 58.81405362048356,
+    "max_slope": 88.90153973257873,
+    "risk_level": "high"
+  },
+  {
     "shelter_id": "2668",
     "name": "西林天主堂",
     "county_name": "花蓮縣",
@@ -712,19 +790,6 @@
     "mean_elevation": 54.640391594274604,
     "std_elevation": 40.62025781507685,
     "max_slope": 58.75223852100248,
-    "risk_level": "high"
-  },
-  {
-    "shelter_id": "2182",
-    "name": "東興部落原住民多功能活動中心",
-    "county_name": "花蓮縣",
-    "town_name": "豐濱鄉",
-    "capacity": 0,
-    "distance_to_river_m": 2141.847634397423,
-    "river_distance_category": ">=1000m",
-    "mean_elevation": 38.09439795575466,
-    "std_elevation": 43.553850215280335,
-    "max_slope": 57.98536380554229,
     "risk_level": "high"
   },
   {
@@ -806,32 +871,6 @@
     "risk_level": "high"
   },
   {
-    "shelter_id": "2701",
-    "name": "鹽寮活動中心",
-    "county_name": "花蓮縣",
-    "town_name": "壽豐鄉",
-    "capacity": 15,
-    "distance_to_river_m": 869.7232870886386,
-    "river_distance_category": "500-1000m",
-    "mean_elevation": 49.52030518527843,
-    "std_elevation": 58.27463457550241,
-    "max_slope": 49.49998499577384,
-    "risk_level": "high"
-  },
-  {
-    "shelter_id": "1829",
-    "name": "港口活動中心",
-    "county_name": "花蓮縣",
-    "town_name": "豐濱鄉",
-    "capacity": 0,
-    "distance_to_river_m": 791.1281037279284,
-    "river_distance_category": "500-1000m",
-    "mean_elevation": 32.931131487284105,
-    "std_elevation": 26.684340029572066,
-    "max_slope": 49.47690815413508,
-    "risk_level": "high"
-  },
-  {
     "shelter_id": "2117",
     "name": "光復自強外役監獄",
     "county_name": "花蓮縣",
@@ -842,19 +881,6 @@
     "mean_elevation": 230.5917838715875,
     "std_elevation": 31.64325772415067,
     "max_slope": 47.90847089810853,
-    "risk_level": "high"
-  },
-  {
-    "shelter_id": "2219",
-    "name": "新社國小二樓綜合教室",
-    "county_name": "花蓮縣",
-    "town_name": "豐濱鄉",
-    "capacity": 200,
-    "distance_to_river_m": 665.1079434501592,
-    "river_distance_category": "500-1000m",
-    "mean_elevation": 46.9601121645512,
-    "std_elevation": 46.09775825863166,
-    "max_slope": 47.80429452572705,
     "risk_level": "high"
   },
   {
@@ -1105,19 +1131,6 @@
     "risk_level": "high"
   },
   {
-    "shelter_id": "3149",
-    "name": "七星潭社區活動中心",
-    "county_name": "花蓮縣",
-    "town_name": "新城鄉",
-    "capacity": 27,
-    "distance_to_river_m": 104.62572912335665,
-    "river_distance_category": "<500m",
-    "mean_elevation": 14.1450204196291,
-    "std_elevation": 12.63359562592761,
-    "max_slope": 27.981010609269628,
-    "risk_level": "high"
-  },
-  {
     "shelter_id": "1379",
     "name": "石牌社區活動中心",
     "county_name": "花蓮縣",
@@ -1128,19 +1141,6 @@
     "mean_elevation": 217.7405811119274,
     "std_elevation": 12.674413449210224,
     "max_slope": 27.666911420642784,
-    "risk_level": "high"
-  },
-  {
-    "shelter_id": "2999",
-    "name": "中正體育館",
-    "county_name": "花蓮縣",
-    "town_name": "花蓮市",
-    "capacity": 593,
-    "distance_to_river_m": 163.58093786474328,
-    "river_distance_category": "<500m",
-    "mean_elevation": 9.289510705731391,
-    "std_elevation": 4.905099808648976,
-    "max_slope": 26.363678230124577,
     "risk_level": "high"
   },
   {

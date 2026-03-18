@@ -120,8 +120,8 @@ def build_config_from_env() -> ARIAV2Config:
     township_path = project_path(
         env.get("TOWNSHIP_SHP_PATH", str(find_one(data_dir, "**/TOWN_MOI_1140318.shp")))
     )
-    dem_path = project_path(env.get("DEM_PATH", "data/Hualien_dem_merge.tif"))
-    fallback_text = env.get("FALLBACK_DEM_PATH", "data/DEM_tawiwan_V2025.tif")
+    dem_path = project_path(env.get("DEM_PATH", "data/DEM_tawiwan_V2025.tif"))
+    fallback_text = env.get("FALLBACK_DEM_PATH", "data/Hualien_dem_merge.tif")
     fallback_path = project_path(fallback_text) if fallback_text else None
     return ARIAV2Config(
         river_shp_path=river_path,

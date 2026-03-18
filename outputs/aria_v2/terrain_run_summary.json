@@ -1,7 +1,7 @@
 {
   "target_county": "花蓮縣",
-  "dem_path_requested": "D:\\YongZhi\\2026_RS\\data\\Hualien_dem_merge.tif",
-  "dem_path_used": "D:\\YongZhi\\2026_RS\\data\\Hualien_dem_merge.tif",
+  "dem_path_requested": "D:\\YongZhi\\2026_RS\\data\\DEM_tawiwan_V2025.tif",
+  "dem_path_used": "D:\\YongZhi\\2026_RS\\data\\DEM_tawiwan_V2025.tif",
   "valid_shelters_after_coordinate_cleaning": 5970,
   "removed_shelters_null_or_zero_coordinates": 3,
   "removed_shelters_outside_land_mask": 63,

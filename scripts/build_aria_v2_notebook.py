@@ -68,7 +68,7 @@ drive.mount('/content/drive')
             """
 ## Captain's Log 1
 
-Lock the Colab paths first. The notebook lives in `Colab Notebooks`, and the raw inputs live in `Colab Notebooks/data`.
+Lock the Colab paths first. The notebook lives in `Colab Notebooks`, and the raw inputs live in `Colab Notebooks/data`. This version can use either a county-specific DEM or a full Taiwan DEM, then clip it down to the target county before terrain analysis.
 """
         ),
         code_cell(
@@ -120,17 +120,34 @@ SLOPE_THRESHOLD = float(os.getenv("SLOPE_THRESHOLD", "30"))
 ELEVATION_LOW = float(os.getenv("ELEVATION_LOW", "50"))
 BUFFER_HIGH = float(os.getenv("BUFFER_HIGH", "{buffer_high}"))
 COUNTY_BUFFER = float(os.getenv("COUNTY_BUFFER", "{county_buffer}"))
-DEM_PATH = Path(os.getenv("DEM_PATH", str(DATA_DIR / "Hualien_dem_merge.tif")))
+
+env_dem_text = os.getenv("DEM_PATH", "").strip()
+dem_candidates = []
+if env_dem_text:
+    dem_candidates.append(Path(env_dem_text))
+dem_candidates.extend(
+    [
+        DATA_DIR / "DEM_tawiwan_V2025.tif",
+        DATA_DIR / "dem_20m_taiwan.tif",
+        DATA_DIR / "Hualien_dem_merge.tif",
+        DATA_DIR / "dem_20m_hualien.tif",
+    ]
+)
+
+seen_dem = set()
+dem_candidates = [path for path in dem_candidates if not (str(path) in seen_dem or seen_dem.add(str(path)))]
+DEM_PATH = next((path for path in dem_candidates if path.exists()), None)
 
 RIVER_SHP_PATH = DATA_DIR / "RIVERPOLY" / "riverpoly" / "riverpoly.shp"
 TOWNSHIP_SHP_PATH = DATA_DIR / "鄉(鎮、市、區)界線1140318" / "TOWN_MOI_1140318.shp"
 SHELTER_CSV_PATH = DATA_DIR / "避難收容處所點位檔案v9.csv"
 
-assert DEM_PATH.exists(), f"DEM file not found: {{DEM_PATH}}"
+assert DEM_PATH is not None, f"DEM file not found. Checked: {{dem_candidates}}"
 assert RIVER_SHP_PATH.exists(), f"River shapefile not found: {{RIVER_SHP_PATH}}"
 assert TOWNSHIP_SHP_PATH.exists(), f"Township shapefile not found: {{TOWNSHIP_SHP_PATH}}"
 assert SHELTER_CSV_PATH.exists(), f"Shelter CSV not found: {{SHELTER_CSV_PATH}}"
 
+print("Using DEM:", DEM_PATH)
 TARGET_COUNTY
 """
         ),
@@ -226,7 +243,7 @@ print(f"target_shelters = {len(target_shelters)}")
             """
 ## Captain's Log 3
 
-Load the DEM, inspect its metadata, and repair the CRS if the local TIFF does not carry one. Then clip it to the county boundary plus a 1000m buffer.
+Load the DEM, inspect its metadata, and repair the CRS if the local TIFF does not carry one. If the input is a full Taiwan DEM, clip it by the target county buffer bounds first, then do the precise polygon clip.
 """
         ),
         code_cell(
@@ -243,7 +260,18 @@ if dem.rio.crs is None:
 if str(dem.rio.crs) != "EPSG:3826":
     dem = dem.rio.reproject("EPSG:3826")
 
-dem_clipped = dem.rio.clip(county_buffer.geometry.apply(mapping), county_buffer.crs, drop=True)
+county_minx, county_miny, county_maxx, county_maxy = county_buffer.total_bounds
+dem_left, dem_bottom, dem_right, dem_top = dem.rio.bounds()
+clip_minx = max(county_minx, dem_left)
+clip_miny = max(county_miny, dem_bottom)
+clip_maxx = min(county_maxx, dem_right)
+clip_maxy = min(county_maxy, dem_top)
+assert clip_minx < clip_maxx and clip_miny < clip_maxy, "County buffer does not overlap the DEM bounds."
+
+dem_window = dem.rio.clip_box(minx=clip_minx, miny=clip_miny, maxx=clip_maxx, maxy=clip_maxy)
+dem_clipped = dem_window.rio.clip(county_buffer.geometry.apply(mapping), county_buffer.crs, drop=True)
+print("Window clip bounds:", (clip_minx, clip_miny, clip_maxx, clip_maxy))
+print("Window shape:", dem_window.shape)
 print("Clipped shape:", dem_clipped.shape)
 print("Clipped CRS:", dem_clipped.rio.crs)
 print("Clipped bounds:", dem_clipped.rio.bounds())
