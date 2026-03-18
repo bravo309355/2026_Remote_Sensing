@@ -9,7 +9,7 @@
     "river_distance_category": "<500m",
     "mean_elevation": 17.134882584964796,
     "std_elevation": 11.921133269941862,
-    "max_slope": 88.90045176288979,
+    "max_slope": 88.73185948868516,
     "risk_level": "very_high"
   },
   {
@@ -21,8 +21,8 @@
     "distance_to_river_m": 163.58093786474328,
     "river_distance_category": "<500m",
     "mean_elevation": 9.30373660267738,
-    "std_elevation": 4.895354478509649,
-    "max_slope": 88.8994063923298,
+    "std_elevation": 4.895354478509648,
+    "max_slope": 88.7304688142134,
     "risk_level": "very_high"
   },
   {
@@ -73,8 +73,8 @@
     "distance_to_river_m": 89.9974412504501,
     "river_distance_category": "<500m",
     "mean_elevation": 83.96182235824386,
-    "std_elevation": 44.046407074460205,
-    "max_slope": 63.652254408633105,
+    "std_elevation": 44.0464070744602,
+    "max_slope": 63.65225440863311,
     "risk_level": "very_high"
   },
   {
@@ -125,7 +125,7 @@
     "distance_to_river_m": 406.4296983606418,
     "river_distance_category": "<500m",
     "mean_elevation": 231.14816121304972,
-    "std_elevation": 60.508599072256786,
+    "std_elevation": 60.50859907225679,
     "max_slope": 57.18361601931424,
     "risk_level": "very_high"
   },
@@ -190,7 +190,7 @@
     "distance_to_river_m": 295.2009552880973,
     "river_distance_category": "<500m",
     "mean_elevation": 109.42267363089829,
-    "std_elevation": 24.46503530684205,
+    "std_elevation": 24.465035306842054,
     "max_slope": 52.92786091245923,
     "risk_level": "very_high"
   },
@@ -226,10 +226,10 @@
     "county_name": "花蓮縣",
     "town_name": "卓溪鄉",
     "capacity": 50,
-    "distance_to_river_m": 201.07947883287818,
+    "distance_to_river_m": 201.07947883241928,
     "river_distance_category": "<500m",
     "mean_elevation": 265.35810859851796,
-    "std_elevation": 54.84778679452026,
+    "std_elevation": 54.847786794520275,
     "max_slope": 49.29889358593531,
     "risk_level": "very_high"
   },
@@ -268,7 +268,7 @@
     "distance_to_river_m": 461.38487242884037,
     "river_distance_category": "<500m",
     "mean_elevation": 211.36301327527053,
-    "std_elevation": 18.545785133950982,
+    "std_elevation": 18.54578513395098,
     "max_slope": 46.451935104090396,
     "risk_level": "very_high"
   },
@@ -281,7 +281,7 @@
     "distance_to_river_m": 213.01851672209875,
     "river_distance_category": "<500m",
     "mean_elevation": 190.65612060796124,
-    "std_elevation": 35.439304320465894,
+    "std_elevation": 35.43930432046589,
     "max_slope": 46.31100498556197,
     "risk_level": "very_high"
   },
@@ -294,7 +294,7 @@
     "distance_to_river_m": 97.66474259634825,
     "river_distance_category": "<500m",
     "mean_elevation": 165.8107393528356,
-    "std_elevation": 43.28280697644838,
+    "std_elevation": 43.282806976448384,
     "max_slope": 45.40879093908899,
     "risk_level": "very_high"
   },
@@ -307,7 +307,7 @@
     "distance_to_river_m": 103.77441594180051,
     "river_distance_category": "<500m",
     "mean_elevation": 168.5402246747698,
-    "std_elevation": 28.647064611991738,
+    "std_elevation": 28.64706461199174,
     "max_slope": 44.658267151511616,
     "risk_level": "very_high"
   },
@@ -346,7 +346,7 @@
     "distance_to_river_m": 147.06045760727835,
     "river_distance_category": "<500m",
     "mean_elevation": 97.0742092015792,
-    "std_elevation": 14.092576219346217,
+    "std_elevation": 14.092576219346215,
     "max_slope": 44.00849215465779,
     "risk_level": "very_high"
   },
@@ -356,11 +356,11 @@
     "county_name": "花蓮縣",
     "town_name": "玉里鎮",
     "capacity": 50,
-    "distance_to_river_m": 333.38987885202897,
+    "distance_to_river_m": 333.38987885171156,
     "river_distance_category": "<500m",
     "mean_elevation": 147.05061723358776,
     "std_elevation": 30.710129364316966,
-    "max_slope": 43.671416755432936,
+    "max_slope": 43.67141675543294,
     "risk_level": "very_high"
   },
   {
@@ -372,7 +372,7 @@
     "distance_to_river_m": 348.3007495949236,
     "river_distance_category": "<500m",
     "mean_elevation": 126.9101020384808,
-    "std_elevation": 47.96691306532143,
+    "std_elevation": 47.966913065321435,
     "max_slope": 43.36705124616008,
     "risk_level": "very_high"
   },
@@ -424,7 +424,7 @@
     "distance_to_river_m": 53.52427211311938,
     "river_distance_category": "<500m",
     "mean_elevation": 299.4591485256446,
-    "std_elevation": 13.2606333820716,
+    "std_elevation": 13.260633382071601,
     "max_slope": 41.046370980695286,
     "risk_level": "very_high"
   },
@@ -450,7 +450,7 @@
     "distance_to_river_m": 127.9674042984993,
     "river_distance_category": "<500m",
     "mean_elevation": 190.11087047786674,
-    "std_elevation": 25.47976778588394,
+    "std_elevation": 25.479767785883936,
     "max_slope": 39.04113133000904,
     "risk_level": "very_high"
   },
@@ -460,10 +460,10 @@
     "county_name": "花蓮縣",
     "town_name": "瑞穗鄉",
     "capacity": 200,
-    "distance_to_river_m": 190.89843403735497,
+    "distance_to_river_m": 190.89843403729694,
     "river_distance_category": "<500m",
     "mean_elevation": 197.8869235390111,
-    "std_elevation": 34.851494730273,
+    "std_elevation": 34.85149473027299,
     "max_slope": 39.04113133000904,
     "risk_level": "very_high"
   },
@@ -502,7 +502,7 @@
     "distance_to_river_m": 466.88805606675436,
     "river_distance_category": "<500m",
     "mean_elevation": 251.58691847664969,
-    "std_elevation": 31.697007786379316,
+    "std_elevation": 31.69700778637932,
     "max_slope": 38.629594345158715,
     "risk_level": "very_high"
   },
@@ -515,7 +515,7 @@
     "distance_to_river_m": 271.8751978205742,
     "river_distance_category": "<500m",
     "mean_elevation": 118.30464114511892,
-    "std_elevation": 25.340075393886842,
+    "std_elevation": 25.34007539388684,
     "max_slope": 35.91431392559773,
     "risk_level": "very_high"
   },
@@ -607,7 +607,7 @@
     "river_distance_category": "<500m",
     "mean_elevation": 257.4568151540308,
     "std_elevation": 22.75303856265916,
-    "max_slope": 32.28624886500252,
+    "max_slope": 32.28624886500251,
     "risk_level": "very_high"
   },
   {
@@ -698,7 +698,7 @@
     "river_distance_category": "500-1000m",
     "mean_elevation": 35.38383350386167,
     "std_elevation": 26.04422388893237,
-    "max_slope": 88.90223163842036,
+    "max_slope": 88.73422632710022,
     "risk_level": "high"
   },
   {
@@ -710,8 +710,8 @@
     "distance_to_river_m": 2141.847634397423,
     "river_distance_category": ">=1000m",
     "mean_elevation": 55.43060133131338,
-    "std_elevation": 42.41757149769498,
-    "max_slope": 88.90176672864862,
+    "std_elevation": 42.41757149769497,
+    "max_slope": 88.73360821019342,
     "risk_level": "high"
   },
   {
@@ -724,7 +724,7 @@
     "river_distance_category": "500-1000m",
     "mean_elevation": 58.17358177807006,
     "std_elevation": 44.49830369925715,
-    "max_slope": 88.9015843820742,
+    "max_slope": 88.73336575208273,
     "risk_level": "high"
   },
   {
@@ -737,7 +737,7 @@
     "river_distance_category": "500-1000m",
     "mean_elevation": 64.30443856952272,
     "std_elevation": 58.81405362048356,
-    "max_slope": 88.90153973257873,
+    "max_slope": 88.73330638502891,
     "risk_level": "high"
   },
   {
@@ -762,7 +762,7 @@
     "distance_to_river_m": 2045.522719050345,
     "river_distance_category": ">=1000m",
     "mean_elevation": 1150.6322254073589,
-    "std_elevation": 224.6353221911453,
+    "std_elevation": 224.63532219114526,
     "max_slope": 76.22686505505023,
     "risk_level": "high"
   },
@@ -788,7 +788,7 @@
     "distance_to_river_m": 1093.8779151362487,
     "river_distance_category": ">=1000m",
     "mean_elevation": 54.640391594274604,
-    "std_elevation": 40.62025781507685,
+    "std_elevation": 40.620257815076855,
     "max_slope": 58.75223852100248,
     "risk_level": "high"
   },
@@ -814,7 +814,7 @@
     "distance_to_river_m": 872.3441657734611,
     "river_distance_category": "500-1000m",
     "mean_elevation": 47.315089143748196,
-    "std_elevation": 46.34183156733047,
+    "std_elevation": 46.34183156733048,
     "max_slope": 53.92895872911961,
     "risk_level": "high"
   },
@@ -840,8 +840,8 @@
     "distance_to_river_m": 533.6444757132288,
     "river_distance_category": "500-1000m",
     "mean_elevation": 146.82892785615067,
-    "std_elevation": 76.21295049274669,
-    "max_slope": 51.88279854397133,
+    "std_elevation": 76.21295049274667,
+    "max_slope": 51.882798543971326,
     "risk_level": "high"
   },
   {
@@ -993,10 +993,10 @@
     "county_name": "花蓮縣",
     "town_name": "光復鄉",
     "capacity": 100,
-    "distance_to_river_m": 736.9607667804647,
+    "distance_to_river_m": 736.9607667804431,
     "river_distance_category": "500-1000m",
     "mean_elevation": 126.66297296332438,
-    "std_elevation": 15.095415714838904,
+    "std_elevation": 15.095415714838905,
     "max_slope": 41.2724024617713,
     "risk_level": "high"
   },
@@ -1035,7 +1035,7 @@
     "distance_to_river_m": 1016.610026500939,
     "river_distance_category": ">=1000m",
     "mean_elevation": 103.74068338490457,
-    "std_elevation": 3.4345776567264905,
+    "std_elevation": 3.4345776567264896,
     "max_slope": 34.263562719136765,
     "risk_level": "high"
   },
@@ -1062,7 +1062,7 @@
     "river_distance_category": "500-1000m",
     "mean_elevation": 28.14468065085433,
     "std_elevation": 6.629473703793932,
-    "max_slope": 31.76095701884681,
+    "max_slope": 31.760957018846817,
     "risk_level": "high"
   },
   {
@@ -1087,7 +1087,7 @@
     "distance_to_river_m": 714.0556771159402,
     "river_distance_category": "500-1000m",
     "mean_elevation": 20.665541373429186,
-    "std_elevation": 7.1170484089673325,
+    "std_elevation": 7.117048408967332,
     "max_slope": 31.14001068805605,
     "risk_level": "high"
   },
@@ -1139,7 +1139,7 @@
     "distance_to_river_m": 157.99084541481645,
     "river_distance_category": "<500m",
     "mean_elevation": 217.7405811119274,
-    "std_elevation": 12.674413449210224,
+    "std_elevation": 12.674413449210222,
     "max_slope": 27.666911420642784,
     "risk_level": "high"
   },
@@ -1152,7 +1152,7 @@
     "distance_to_river_m": 147.50699700876018,
     "river_distance_category": "<500m",
     "mean_elevation": 34.76458030981808,
-    "std_elevation": 1.7776127127070642,
+    "std_elevation": 1.7776127127070644,
     "max_slope": 25.228166223866154,
     "risk_level": "high"
   },
@@ -1162,7 +1162,7 @@
     "county_name": "花蓮縣",
     "town_name": "花蓮市",
     "capacity": 54,
-    "distance_to_river_m": 451.4819421593597,
+    "distance_to_river_m": 451.4819421594175,
     "river_distance_category": "<500m",
     "mean_elevation": 15.054856837876637,
     "std_elevation": 7.109993283731048,
@@ -1175,7 +1175,7 @@
     "county_name": "花蓮縣",
     "town_name": "新城鄉",
     "capacity": 36,
-    "distance_to_river_m": 135.16300447050693,
+    "distance_to_river_m": 135.16300447056426,
     "river_distance_category": "<500m",
     "mean_elevation": 13.392623038899167,
     "std_elevation": 3.0683862645147406,
@@ -1201,7 +1201,7 @@
     "county_name": "花蓮縣",
     "town_name": "花蓮市",
     "capacity": 37,
-    "distance_to_river_m": 146.52872051940807,
+    "distance_to_river_m": 146.52872051946625,
     "river_distance_category": "<500m",
     "mean_elevation": 6.632800409665176,
     "std_elevation": 1.6495050467631258,
@@ -1360,7 +1360,7 @@
     "distance_to_river_m": 88.43600321940451,
     "river_distance_category": "<500m",
     "mean_elevation": 22.5843185227157,
-    "std_elevation": 2.0345347137711647,
+    "std_elevation": 2.0345347137711642,
     "max_slope": 11.529069061736168,
     "risk_level": "high"
   },
@@ -1373,7 +1373,7 @@
     "distance_to_river_m": 249.07690211854515,
     "river_distance_category": "<500m",
     "mean_elevation": 21.23123350724351,
-    "std_elevation": 2.1371089187447767,
+    "std_elevation": 2.1371089187447763,
     "max_slope": 11.529069061736168,
     "risk_level": "high"
   },
@@ -1422,7 +1422,7 @@
     "county_name": "花蓮縣",
     "town_name": "花蓮市",
     "capacity": 50,
-    "distance_to_river_m": 159.56006583885355,
+    "distance_to_river_m": 159.5600658392063,
     "river_distance_category": "<500m",
     "mean_elevation": 11.788204079988052,
     "std_elevation": 2.0852916026746398,
@@ -1477,7 +1477,7 @@
     "distance_to_river_m": 137.84523543062596,
     "river_distance_category": "<500m",
     "mean_elevation": 82.40750008797158,
-    "std_elevation": 3.1620223949497994,
+    "std_elevation": 3.1620223949498,
     "max_slope": 10.432133254273152,
     "risk_level": "high"
   },
@@ -1490,7 +1490,7 @@
     "distance_to_river_m": 406.35940715450823,
     "river_distance_category": "<500m",
     "mean_elevation": 18.40573471468322,
-    "std_elevation": 1.653674592232177,
+    "std_elevation": 1.6536745922321767,
     "max_slope": 10.310758259073761,
     "risk_level": "high"
   },
@@ -1500,7 +1500,7 @@
     "county_name": "花蓮縣",
     "town_name": "瑞穗鄉",
     "capacity": 30,
-    "distance_to_river_m": 136.93335090505641,
+    "distance_to_river_m": 136.93335090506437,
     "river_distance_category": "<500m",
     "mean_elevation": 78.97472960413718,
     "std_elevation": 4.748627476584637,
@@ -1542,7 +1542,7 @@
     "distance_to_river_m": 26.711486140471063,
     "river_distance_category": "<500m",
     "mean_elevation": 19.817210615197958,
-    "std_elevation": 1.9624324921252263,
+    "std_elevation": 1.9624324921252265,
     "max_slope": 9.94120533311857,
     "risk_level": "high"
   },
@@ -1565,10 +1565,10 @@
     "county_name": "花蓮縣",
     "town_name": "光復鄉",
     "capacity": 300,
-    "distance_to_river_m": 442.12422905851116,
+    "distance_to_river_m": 442.1242290585182,
     "river_distance_category": "<500m",
     "mean_elevation": 151.0000970000753,
-    "std_elevation": 4.20747082217615,
+    "std_elevation": 4.207470822176151,
     "max_slope": 8.841956744641154,
     "risk_level": "high"
   },
@@ -1582,7 +1582,7 @@
     "river_distance_category": "<500m",
     "mean_elevation": 43.060526580654525,
     "std_elevation": 3.054062657752232,
-    "max_slope": 8.793591803394847,
+    "max_slope": 8.793591803394845,
     "risk_level": "high"
   },
   {
@@ -1633,7 +1633,7 @@
     "distance_to_river_m": 833.9110981352978,
     "river_distance_category": "500-1000m",
     "mean_elevation": 22.391783885878038,
-    "std_elevation": 5.956951399772707,
+    "std_elevation": 5.956951399772706,
     "max_slope": 20.779965758506155,
     "risk_level": "medium"
   },
@@ -1802,7 +1802,7 @@
     "distance_to_river_m": 897.4672226651662,
     "river_distance_category": "500-1000m",
     "mean_elevation": 10.881045917345553,
-    "std_elevation": 1.78699776136093,
+    "std_elevation": 1.7869977613609298,
     "max_slope": 6.076158220052624,
     "risk_level": "medium"
   },
@@ -1854,7 +1854,7 @@
     "distance_to_river_m": 691.09656157919,
     "river_distance_category": "500-1000m",
     "mean_elevation": 5.557756346615438,
-    "std_elevation": 1.6464787335391002,
+    "std_elevation": 1.6464787335391005,
     "max_slope": 5.158232348189845,
     "risk_level": "medium"
   },
@@ -1880,7 +1880,7 @@
     "distance_to_river_m": 872.3713070975538,
     "river_distance_category": "500-1000m",
     "mean_elevation": 19.945362618556427,
-    "std_elevation": 1.6759095207881132,
+    "std_elevation": 1.675909520788113,
     "max_slope": 5.03508515548358,
     "risk_level": "medium"
   },
@@ -1919,7 +1919,7 @@
     "distance_to_river_m": 1153.9768500787236,
     "river_distance_category": ">=1000m",
     "mean_elevation": 13.655917221755475,
-    "std_elevation": 1.650705181774146,
+    "std_elevation": 1.6507051817741458,
     "max_slope": 22.969474967607667,
     "risk_level": "low"
   },
@@ -1929,7 +1929,7 @@
     "county_name": "花蓮縣",
     "town_name": "富里鄉",
     "capacity": 50,
-    "distance_to_river_m": 660.1283386824495,
+    "distance_to_river_m": 660.1283386824402,
     "river_distance_category": "500-1000m",
     "mean_elevation": 163.92257891858148,
     "std_elevation": 5.132992919596025,
@@ -1997,7 +1997,7 @@
     "distance_to_river_m": 1812.7769067666259,
     "river_distance_category": ">=1000m",
     "mean_elevation": 16.777234698315056,
-    "std_elevation": 3.614592386634495,
+    "std_elevation": 3.6145923866344947,
     "max_slope": 16.98651789809517,
     "risk_level": "low"
   },
@@ -2036,7 +2036,7 @@
     "distance_to_river_m": 987.0705435400032,
     "river_distance_category": "500-1000m",
     "mean_elevation": 104.43240838138246,
-    "std_elevation": 2.1943911756901313,
+    "std_elevation": 2.1943911756901318,
     "max_slope": 11.3789898840043,
     "risk_level": "low"
   },
@@ -2049,7 +2049,7 @@
     "distance_to_river_m": 1030.8871804207447,
     "river_distance_category": ">=1000m",
     "mean_elevation": 106.00523252881908,
-    "std_elevation": 2.209175511012752,
+    "std_elevation": 2.2091755110127513,
     "max_slope": 11.3789898840043,
     "risk_level": "low"
   },
@@ -2075,8 +2075,8 @@
     "distance_to_river_m": 632.8991430913661,
     "river_distance_category": "500-1000m",
     "mean_elevation": 181.8063245500837,
-    "std_elevation": 6.098676341940836,
-    "max_slope": 11.294125728455395,
+    "std_elevation": 6.098676341940834,
+    "max_slope": 11.294125728455393,
     "risk_level": "low"
   },
   {
@@ -2127,7 +2127,7 @@
     "distance_to_river_m": 899.9569863401182,
     "river_distance_category": "500-1000m",
     "mean_elevation": 101.64961733915368,
-    "std_elevation": 2.3179747492248977,
+    "std_elevation": 2.317974749224897,
     "max_slope": 9.516814902619075,
     "risk_level": "low"
   },
@@ -2231,7 +2231,7 @@
     "distance_to_river_m": 516.1719241205674,
     "river_distance_category": "500-1000m",
     "mean_elevation": 134.1840439192924,
-    "std_elevation": 3.7074164348521244,
+    "std_elevation": 3.707416434852124,
     "max_slope": 7.027658870546973,
     "risk_level": "low"
   },
@@ -2283,7 +2283,7 @@
     "distance_to_river_m": 1587.3055735628507,
     "river_distance_category": ">=1000m",
     "mean_elevation": 32.88485466345787,
-    "std_elevation": 2.9625678054497993,
+    "std_elevation": 2.9625678054497997,
     "max_slope": 6.462984623295492,
     "risk_level": "low"
   },
@@ -2293,7 +2293,7 @@
     "county_name": "花蓮縣",
     "town_name": "鳳林鎮",
     "capacity": 50,
-    "distance_to_river_m": 1047.9419408749045,
+    "distance_to_river_m": 1047.941940875365,
     "river_distance_category": ">=1000m",
     "mean_elevation": 140.13714589499065,
     "std_elevation": 3.4245015510747256,
@@ -2387,7 +2387,7 @@
     "distance_to_river_m": 1114.4236786399324,
     "river_distance_category": ">=1000m",
     "mean_elevation": 168.8645663981535,
-    "std_elevation": 5.109995009214949,
+    "std_elevation": 5.10999500921495,
     "max_slope": 5.973230131596346,
     "risk_level": "low"
   },
@@ -2439,7 +2439,7 @@
     "distance_to_river_m": 1159.5248493544784,
     "river_distance_category": ">=1000m",
     "mean_elevation": 16.714987252939117,
-    "std_elevation": 0.9928213633767169,
+    "std_elevation": 0.992821363376717,
     "max_slope": 5.7570947586959935,
     "risk_level": "low"
   },
@@ -2501,7 +2501,7 @@
     "county_name": "花蓮縣",
     "town_name": "吉安鄉",
     "capacity": 63,
-    "distance_to_river_m": 1921.4088796070275,
+    "distance_to_river_m": 1921.4088796069957,
     "river_distance_category": ">=1000m",
     "mean_elevation": 66.20875504552102,
     "std_elevation": 3.5372051178116544,
@@ -2530,7 +2530,7 @@
     "distance_to_river_m": 1955.7869322085344,
     "river_distance_category": ">=1000m",
     "mean_elevation": 34.4716470923611,
-    "std_elevation": 2.989640706579652,
+    "std_elevation": 2.9896407065796526,
     "max_slope": 4.4010761055471725,
     "risk_level": "low"
   },
