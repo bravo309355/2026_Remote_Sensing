@@ -24,6 +24,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.colors import LightSource
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 from osgeo import gdal, ogr, osr
 
 gdal.UseExceptions()
@@ -466,6 +468,7 @@ def create_terrain_map(
     output_path: Path,
     extent: tuple[float, float, float, float],
     county_boundary: gpd.GeoDataFrame,
+    rivers_in_county: gpd.GeoDataFrame,
     shelters: gpd.GeoDataFrame,
     elevation_masked: np.ndarray,
 ) -> None:
@@ -479,6 +482,8 @@ def create_terrain_map(
     fig, ax = plt.subplots(figsize=(12, 12))
     ax.imshow(display, extent=extent, origin="upper", cmap="terrain", alpha=0.95)
     ax.imshow(shaded, extent=extent, origin="upper", cmap="gray", alpha=0.35)
+    rivers_in_county.plot(ax=ax, color="#4fc3f7", alpha=0.18, linewidth=0, zorder=2)
+    rivers_in_county.boundary.plot(ax=ax, color="#1565c0", linewidth=0.35, alpha=0.55, zorder=3)
     county_boundary.boundary.plot(ax=ax, color="#102a43", linewidth=1.4)
     for level in RISK_ORDER:
         subset = shelters.loc[shelters["risk_level"] == level]
@@ -488,20 +493,27 @@ def create_terrain_map(
             ax=ax,
             markersize=18,
             color=RISK_COLORS[level],
-            label=level.replace("_", " ").title(),
             alpha=0.85,
+            zorder=4,
         )
     ax.set_title("ARIA v2 Terrain Risk Map")
     ax.set_xlabel("Easting (m)")
     ax.set_ylabel("Northing (m)")
-    ax.legend(loc="upper right")
+    map_handles = [
+        Patch(facecolor="#4fc3f7", edgecolor="#1565c0", alpha=0.25, label="River Polygons"),
+        Line2D([0], [0], marker="o", linestyle="", color=RISK_COLORS["very_high"], markersize=6, label="Very High"),
+        Line2D([0], [0], marker="o", linestyle="", color=RISK_COLORS["high"], markersize=6, label="High"),
+        Line2D([0], [0], marker="o", linestyle="", color=RISK_COLORS["medium"], markersize=6, label="Medium"),
+        Line2D([0], [0], marker="o", linestyle="", color=RISK_COLORS["low"], markersize=6, label="Low"),
+    ]
+    ax.legend(handles=map_handles, loc="upper right")
     fig.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=180, bbox_inches="tight")
     plt.close(fig)
 
 
-def create_top10_scatter(output_path: Path, shelters: gpd.GeoDataFrame) -> None:
+def create_top10_scatter(output_path: Path, shelters: gpd.GeoDataFrame, slope_threshold: float) -> None:
     rank = {"very_high": 0, "high": 1, "medium": 2, "low": 3}
     top10 = shelters.copy()
     top10["risk_rank"] = top10["risk_level"].map(rank)
@@ -509,25 +521,41 @@ def create_top10_scatter(output_path: Path, shelters: gpd.GeoDataFrame) -> None:
         by=["risk_rank", "max_slope", "distance_to_river_m"],
         ascending=[True, False, True],
     ).head(10)
-    fig, ax = plt.subplots(figsize=(10, 7))
-    for level in RISK_ORDER:
-        subset = top10.loc[top10["risk_level"] == level]
-        if subset.empty:
-            continue
-        ax.scatter(
-            subset["mean_elevation"],
-            subset["max_slope"],
-            color=RISK_COLORS[level],
-            s=55,
-            label=level.replace("_", " ").title(),
+    top10 = top10.copy()
+    top10["display_name"] = top10["name"].str.slice(0, 28)
+    fig, ax = plt.subplots(figsize=(12, 7.5))
+    bars = ax.barh(
+        top10["display_name"],
+        top10["max_slope"],
+        color=top10["risk_level"].map(RISK_COLORS),
+        alpha=0.88,
+    )
+    for bar, (_, row) in zip(bars, top10.iterrows()):
+        elev_text = "nan" if pd.isna(row["mean_elevation"]) else f"{row['mean_elevation']:.0f}"
+        river_text = "nan" if pd.isna(row["distance_to_river_m"]) else f"{row['distance_to_river_m']:.0f}"
+        label = f"elev {elev_text}m | river {river_text}m"
+        ax.text(
+            bar.get_width() + 0.8,
+            bar.get_y() + bar.get_height() / 2,
+            label,
+            va="center",
+            fontsize=8,
+            alpha=0.85,
         )
-    for _, row in top10.iterrows():
-        ax.annotate(row["name"][:14], (row["mean_elevation"], row["max_slope"]), fontsize=8, alpha=0.8)
-    ax.axhline(30, color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold")
+    ax.axvline(slope_threshold, color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold")
     ax.set_title("Top 10 Terrain Risk Shelters")
-    ax.set_xlabel("Mean Elevation (m)")
-    ax.set_ylabel("Max Slope (degrees)")
-    ax.legend(loc="upper left")
+    ax.set_xlabel("Max Slope (degrees)")
+    ax.set_ylabel("Shelter")
+    ax.invert_yaxis()
+    ax.set_xlim(0, max(top10["max_slope"].max() * 1.18, slope_threshold * 1.15))
+    bar_handles = [
+        Line2D([0], [0], marker="s", linestyle="", color=RISK_COLORS["very_high"], markersize=8, label="Very High"),
+        Line2D([0], [0], marker="s", linestyle="", color=RISK_COLORS["high"], markersize=8, label="High"),
+        Line2D([0], [0], marker="s", linestyle="", color=RISK_COLORS["medium"], markersize=8, label="Medium"),
+        Line2D([0], [0], marker="s", linestyle="", color=RISK_COLORS["low"], markersize=8, label="Low"),
+        Line2D([0], [0], color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold"),
+    ]
+    ax.legend(handles=bar_handles, loc="lower right")
     fig.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=180, bbox_inches="tight")
@@ -662,10 +690,10 @@ def run_pipeline(config: ARIAV2Config) -> dict[str, Path]:
         max_y,
     )
     map_png_path = config.output_dir / "terrain_risk_map.png"
-    create_terrain_map(map_png_path, extent, county_boundary, target_shelters, masked_elevation)
+    create_terrain_map(map_png_path, extent, county_boundary, rivers_in_county, target_shelters, masked_elevation)
 
     scatter_png_path = config.output_dir / "terrain_risk_top10_scatter.png"
-    create_top10_scatter(scatter_png_path, target_shelters)
+    create_top10_scatter(scatter_png_path, target_shelters, config.slope_threshold)
 
     summary_path = config.output_dir / "terrain_run_summary.json"
     write_json(

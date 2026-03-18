@@ -73,7 +73,7 @@ The notebook writes outputs to:
 
 - `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_audit.json`
 - `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_map.png`
-- `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_top10_scatter.png`
+- `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_top10_scatter.png` (`Top 10` ranked chart)
 
 ## Local Helper Pipeline
 
@@ -90,7 +90,7 @@ Local outputs are written to:
 
 - `outputs/aria_v2/terrain_risk_audit.json`
 - `outputs/aria_v2/terrain_risk_map.png`
-- `outputs/aria_v2/terrain_risk_top10_scatter.png`
+- `outputs/aria_v2/terrain_risk_top10_scatter.png` (`Top 10` ranked chart)
 - `outputs/aria_v2/terrain_run_summary.json`
 
 ## AI Diagnostic Log
@@ -99,6 +99,7 @@ Local outputs are written to:
 - `Hualien_dem_merge.tif` does not carry CRS metadata, so both the notebook and the local workflow explicitly repair it to `EPSG:3826` before clipping.
 - `Hualien_dem_merge.vrt` points to raster tiles with a broken relative path in this repo layout, so it is treated as a fallback reference only, not the primary analysis input.
 - The county `+1000m` clip can slightly exceed a county-specific DEM bounds, so the notebook clamps the window clip to the overlap before doing the exact polygon clip.
+- The final terrain map overlays river polygons, and the old scatter plot was replaced by a ranked horizontal chart because dense counties such as New Taipei compress too many points into the same region.
 - If zonal statistics return `NaN`, the first checks are CRS alignment and whether a shelter buffer falls outside raster coverage.
 - The slope calculation uses `np.gradient(..., 20)` so the pixel spacing matches the 20m DEM resolution.
 

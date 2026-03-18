@@ -86,6 +86,8 @@ import rioxarray
 import xarray as xr
 from dotenv import load_dotenv
 from matplotlib.colors import LightSource
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 from rasterstats import zonal_stats
 from shapely.geometry import mapping
 
@@ -414,7 +416,7 @@ audit_df.head(10)
             """
 ## Captain's Log 7
 
-Create the final hillshade map and the Top 10 high-risk scatter plot.
+Create the final hillshade map with river polygons and a ranked Top 10 chart that stays readable even when shelters cluster tightly.
 """
         ),
         code_cell(
@@ -431,16 +433,25 @@ risk_colors = {
 fig, ax = plt.subplots(figsize=(12, 12))
 ax.imshow(elevation, extent=extent, origin="upper", cmap="terrain", alpha=0.95)
 ax.imshow(hillshade, extent=extent, origin="upper", cmap="gray", alpha=0.35)
+rivers_in_county.plot(ax=ax, color="#4fc3f7", alpha=0.18, linewidth=0, zorder=2)
+rivers_in_county.boundary.plot(ax=ax, color="#1565c0", linewidth=0.35, alpha=0.55, zorder=3)
 county_boundary.boundary.plot(ax=ax, color="#102a43", linewidth=1.3)
 for level in ["very_high", "high", "medium", "low"]:
     subset = target_shelters[target_shelters["risk_level"] == level]
     if subset.empty:
         continue
-    subset.plot(ax=ax, markersize=18, color=risk_colors[level], label=level.replace("_", " ").title(), alpha=0.85)
+    subset.plot(ax=ax, markersize=20, color=risk_colors[level], alpha=0.9, zorder=4)
 ax.set_title("ARIA v2 Terrain Risk Map")
 ax.set_xlabel("Easting (m)")
 ax.set_ylabel("Northing (m)")
-ax.legend(loc="upper right")
+map_handles = [
+    Patch(facecolor="#4fc3f7", edgecolor="#1565c0", alpha=0.25, label="River Polygons"),
+    Line2D([0], [0], marker="o", linestyle="", color=risk_colors["very_high"], markersize=6, label="Very High"),
+    Line2D([0], [0], marker="o", linestyle="", color=risk_colors["high"], markersize=6, label="High"),
+    Line2D([0], [0], marker="o", linestyle="", color=risk_colors["medium"], markersize=6, label="Medium"),
+    Line2D([0], [0], marker="o", linestyle="", color=risk_colors["low"], markersize=6, label="Low"),
+]
+ax.legend(handles=map_handles, loc="upper right")
 map_path = OUTPUT_DIR / "terrain_risk_map.png"
 fig.tight_layout()
 fig.savefig(map_path, dpi=180, bbox_inches="tight")
@@ -448,19 +459,40 @@ plt.show()
 plt.close(fig)
 
 top10 = target_shelters.sort_values(["risk_rank", "max_slope", "distance_to_river_m"], ascending=[True, False, True]).head(10)
-fig, ax = plt.subplots(figsize=(10, 7))
-for level in ["very_high", "high", "medium", "low"]:
-    subset = top10[top10["risk_level"] == level]
-    if subset.empty:
-        continue
-    ax.scatter(subset["mean_elevation"], subset["max_slope"], color=risk_colors[level], s=55, label=level.replace("_", " ").title())
-for _, row in top10.iterrows():
-    ax.annotate(row["name"][:14], (row["mean_elevation"], row["max_slope"]), fontsize=8)
-ax.axhline(SLOPE_THRESHOLD, color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold")
+top10 = top10.copy()
+top10["display_name"] = top10["name"].str.slice(0, 28)
+fig, ax = plt.subplots(figsize=(12, 7.5))
+bars = ax.barh(
+    top10["display_name"],
+    top10["max_slope"],
+    color=top10["risk_level"].map(risk_colors),
+    alpha=0.88,
+)
+for bar, (_, row) in zip(bars, top10.iterrows()):
+    elev_text = "nan" if pd.isna(row["mean_elevation"]) else f"{row['mean_elevation']:.0f}"
+    river_text = "nan" if pd.isna(row["distance_to_river_m"]) else f"{row['distance_to_river_m']:.0f}"
+    label = f"elev {elev_text}m | river {river_text}m"
+    ax.text(
+        bar.get_width() + 0.8,
+        bar.get_y() + bar.get_height() / 2,
+        label,
+        va="center",
+        fontsize=8,
+    )
+ax.axvline(SLOPE_THRESHOLD, color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold")
 ax.set_title("Top 10 Terrain Risk Shelters")
-ax.set_xlabel("Mean Elevation (m)")
-ax.set_ylabel("Max Slope (degrees)")
-ax.legend(loc="upper left")
+ax.set_xlabel("Max Slope (degrees)")
+ax.set_ylabel("Shelter")
+ax.invert_yaxis()
+ax.set_xlim(0, max(top10["max_slope"].max() * 1.18, SLOPE_THRESHOLD * 1.15))
+bar_handles = [
+    Line2D([0], [0], marker="s", linestyle="", color=risk_colors["very_high"], markersize=8, label="Very High"),
+    Line2D([0], [0], marker="s", linestyle="", color=risk_colors["high"], markersize=8, label="High"),
+    Line2D([0], [0], marker="s", linestyle="", color=risk_colors["medium"], markersize=8, label="Medium"),
+    Line2D([0], [0], marker="s", linestyle="", color=risk_colors["low"], markersize=8, label="Low"),
+    Line2D([0], [0], color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold"),
+]
+ax.legend(handles=bar_handles, loc="lower right")
 scatter_path = OUTPUT_DIR / "terrain_risk_top10_scatter.png"
 fig.tight_layout()
 fig.savefig(scatter_path, dpi=180, bbox_inches="tight")
