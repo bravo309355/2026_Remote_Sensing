@@ -484,7 +484,7 @@ ax.set_title("Top 10 Terrain Risk Shelters")
 ax.set_xlabel("Max Slope (degrees)")
 ax.set_ylabel("Shelter")
 ax.invert_yaxis()
-ax.set_xlim(0, max(top10["max_slope"].max() * 1.18, SLOPE_THRESHOLD * 1.15))
+ax.set_xlim(0, max(top10["max_slope"].max() * 1.28, SLOPE_THRESHOLD * 1.2))
 bar_handles = [
     Line2D([0], [0], marker="s", linestyle="", color=risk_colors["very_high"], markersize=8, label="Very High"),
     Line2D([0], [0], marker="s", linestyle="", color=risk_colors["high"], markersize=8, label="High"),
@@ -492,9 +492,9 @@ bar_handles = [
     Line2D([0], [0], marker="s", linestyle="", color=risk_colors["low"], markersize=8, label="Low"),
     Line2D([0], [0], color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold"),
 ]
-ax.legend(handles=bar_handles, loc="lower right")
+ax.legend(handles=bar_handles, loc="center left", bbox_to_anchor=(1.01, 0.5), frameon=True, borderaxespad=0.6)
 scatter_path = OUTPUT_DIR / "terrain_risk_top10_scatter.png"
-fig.tight_layout()
+fig.tight_layout(rect=(0, 0, 0.86, 1))
 fig.savefig(scatter_path, dpi=180, bbox_inches="tight")
 plt.show()
 plt.close(fig)

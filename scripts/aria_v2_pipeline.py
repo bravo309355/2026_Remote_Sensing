@@ -547,7 +547,7 @@ def create_top10_scatter(output_path: Path, shelters: gpd.GeoDataFrame, slope_th
     ax.set_xlabel("Max Slope (degrees)")
     ax.set_ylabel("Shelter")
     ax.invert_yaxis()
-    ax.set_xlim(0, max(top10["max_slope"].max() * 1.18, slope_threshold * 1.15))
+    ax.set_xlim(0, max(top10["max_slope"].max() * 1.28, slope_threshold * 1.2))
     bar_handles = [
         Line2D([0], [0], marker="s", linestyle="", color=RISK_COLORS["very_high"], markersize=8, label="Very High"),
         Line2D([0], [0], marker="s", linestyle="", color=RISK_COLORS["high"], markersize=8, label="High"),
@@ -555,8 +555,8 @@ def create_top10_scatter(output_path: Path, shelters: gpd.GeoDataFrame, slope_th
         Line2D([0], [0], marker="s", linestyle="", color=RISK_COLORS["low"], markersize=8, label="Low"),
         Line2D([0], [0], color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold"),
     ]
-    ax.legend(handles=bar_handles, loc="lower right")
-    fig.tight_layout()
+    ax.legend(handles=bar_handles, loc="center left", bbox_to_anchor=(1.01, 0.5), frameon=True, borderaxespad=0.6)
+    fig.tight_layout(rect=(0, 0, 0.86, 1))
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=180, bbox_inches="tight")
     plt.close(fig)
