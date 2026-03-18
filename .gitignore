@@ -52,6 +52,36 @@ data/*.tfw
 data/*.vrt
 fixed_tif/
 
+# Local scratch data and download archives
+cache/
+data/*.zip
+data/*.gpkg
+data/Homework-Week4.md
+data/river_buffer_500m.geojson
+data/*result*.txt
+data/*debug*.txt
+data/*_log.csv
+data/*_audit_report.csv
+data/county_coord_ranges.txt
+data/mislocated_shelters.txt
+data/鄉(鎮、市、區)界線1140318/*.xml
+data/鄉(鎮、市、區)界線1140318/*.xlsx
+data/鄉(鎮、市、區)界線1140318/Town_Majia_Sanhe*
+
+# Ad-hoc notebook test outputs
+outputs/cell*.png
+outputs/cell*.html
+outputs/lab*.html
+
+# Local script workspaces and one-off notebooks
+scripts/cache/
+scripts/data/
+scripts/outputs/
+scripts/pytest-cache-files-*/
+scripts/test_geo.py
+scripts/Week4-Student.ipynb
+scripts/*Week3-GeoPandas-Student.ipynb
+
 # Local editor history (may contain sensitive snapshots)
 .history/
 
