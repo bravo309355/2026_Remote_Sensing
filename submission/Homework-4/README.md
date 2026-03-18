@@ -21,8 +21,8 @@ The notebook is designed for Google Colab with these fixed locations:
 Place these files in `Colab Notebooks/data/`:
 
 - Recommended for the stretch goal: `DEM_tawiwan_V2025.tif`
-- Optional county-specific fallback: `Hualien_dem_merge.tif`
-- `RIVERPOLY/riverpoly/` shapefile folder
+- Optional county-specific fallback: `dem_20m_hualien.tif`
+- `riverpoly/` shapefile folder
 - `鄉(鎮、市、區)界線1140318/` shapefile folder
 - `避難收容處所點位檔案v9.csv`
 
@@ -45,8 +45,7 @@ COUNTY_BUFFER=1000
 Do not push these large raster inputs to GitHub:
 
 - `DEM_tawiwan_V2025.tif`
-- `Hualien_dem_merge.tif`
-- `Hualien_dem_merge.vrt`
+- `dem_20m_hualien.tif`
 - `fixed_tif/`
 
 When a full Taiwan DEM is available, the notebook clips it twice:
@@ -64,8 +63,13 @@ This keeps the workflow reusable across counties without running terrain analysi
 from google.colab import drive
 drive.mount('/content/drive')
 
+!apt-get update -qq
+!apt-get install -y fonts-noto-cjk
+
 %pip install -q geopandas rioxarray rasterstats python-dotenv matplotlib pyogrio rasterio shapely xarray
 ```
+
+The notebook also includes a dedicated CJK font test cell immediately after setup, and the README follows that Colab-tested version as the source of truth.
 
 ## Notebook Outputs
 
@@ -73,7 +77,8 @@ The notebook writes outputs to:
 
 - `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_audit.json`
 - `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_map.png`
-- `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_top10_scatter.png` (`Top 10` ranked chart)
+- `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_top10_scatter.png` (assignment-required scatter plot)
+- `/content/drive/MyDrive/Colab Notebooks/outputs/homework4/terrain_risk_top10_ranked.png` (supplementary readability chart)
 
 ## Local Helper Pipeline
 
@@ -90,16 +95,16 @@ Local outputs are written to:
 
 - `outputs/aria_v2/terrain_risk_audit.json`
 - `outputs/aria_v2/terrain_risk_map.png`
-- `outputs/aria_v2/terrain_risk_top10_scatter.png` (`Top 10` ranked chart)
+- `outputs/aria_v2/terrain_risk_top10_scatter.png` (assignment-required scatter plot)
+- `outputs/aria_v2/terrain_risk_top10_ranked.png` (supplementary readability chart)
 - `outputs/aria_v2/terrain_run_summary.json`
 
 ## AI Diagnostic Log
 
 - The notebook now supports either a county-specific DEM or a full Taiwan DEM. With a full Taiwan DEM, it first clips by county buffer bounds and only then performs the exact polygon clip.
-- `Hualien_dem_merge.tif` does not carry CRS metadata, so both the notebook and the local workflow explicitly repair it to `EPSG:3826` before clipping.
-- `Hualien_dem_merge.vrt` points to raster tiles with a broken relative path in this repo layout, so it is treated as a fallback reference only, not the primary analysis input.
+- `dem_20m_hualien.tif` may not carry CRS metadata, so both the notebook and the local workflow explicitly repair it to `EPSG:3826` before clipping.
 - The county `+1000m` clip can slightly exceed a county-specific DEM bounds, so the notebook clamps the window clip to the overlap before doing the exact polygon clip.
-- The final terrain map overlays river polygons, and the old scatter plot was replaced by a ranked horizontal chart because dense counties such as New Taipei compress too many points into the same region.
+- The final terrain map overlays river polygons. The assignment-required scatter plot is still exported, but the notebook also writes a ranked companion chart because dense counties such as New Taipei compress too many labels into the same static scatter view.
 - If zonal statistics return `NaN`, the first checks are CRS alignment and whether a shelter buffer falls outside raster coverage.
 - The slope calculation uses `np.gradient(..., 20)` so the pixel spacing matches the 20m DEM resolution.
 

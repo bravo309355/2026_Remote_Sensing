@@ -123,7 +123,7 @@ def build_config_from_env() -> ARIAV2Config:
         env.get("TOWNSHIP_SHP_PATH", str(find_one(data_dir, "**/TOWN_MOI_1140318.shp")))
     )
     dem_path = project_path(env.get("DEM_PATH", "data/DEM_tawiwan_V2025.tif"))
-    fallback_text = env.get("FALLBACK_DEM_PATH", "data/Hualien_dem_merge.tif")
+    fallback_text = env.get("FALLBACK_DEM_PATH", "data/dem_20m_hualien.tif")
     fallback_path = project_path(fallback_text) if fallback_text else None
     return ARIAV2Config(
         river_shp_path=river_path,
@@ -522,6 +522,48 @@ def create_top10_scatter(output_path: Path, shelters: gpd.GeoDataFrame, slope_th
         ascending=[True, False, True],
     ).head(10)
     top10 = top10.copy()
+    top10["rank_label"] = [str(i) for i in range(1, len(top10) + 1)]
+    fig, ax = plt.subplots(figsize=(10, 7))
+    for level in RISK_ORDER:
+        subset = top10.loc[top10["risk_level"] == level]
+        if subset.empty:
+            continue
+        ax.scatter(
+            subset["mean_elevation"],
+            subset["max_slope"],
+            color=subset["risk_level"].map(RISK_COLORS),
+            s=85,
+            alpha=0.9,
+            label=level.replace("_", " ").title(),
+        )
+    for _, row in top10.iterrows():
+        ax.annotate(
+            row["rank_label"],
+            (row["mean_elevation"], row["max_slope"]),
+            textcoords="offset points",
+            xytext=(4, 4),
+            fontsize=8,
+            fontweight="bold",
+        )
+    ax.axhline(slope_threshold, color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold")
+    ax.set_title("Top 10 Terrain Risk Shelters (Scatter)")
+    ax.set_xlabel("Mean Elevation (m)")
+    ax.set_ylabel("Max Slope (degrees)")
+    ax.legend(loc="lower right")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=180, bbox_inches="tight")
+    plt.close(fig)
+
+
+def create_top10_ranked(output_path: Path, shelters: gpd.GeoDataFrame, slope_threshold: float) -> None:
+    rank = {"very_high": 0, "high": 1, "medium": 2, "low": 3}
+    top10 = shelters.copy()
+    top10["risk_rank"] = top10["risk_level"].map(rank)
+    top10 = top10.sort_values(
+        by=["risk_rank", "max_slope", "distance_to_river_m"],
+        ascending=[True, False, True],
+    ).head(10)
+    top10 = top10.copy()
     top10["display_name"] = top10["name"].str.slice(0, 28)
     fig, ax = plt.subplots(figsize=(12, 7.5))
     bars = ax.barh(
@@ -543,7 +585,7 @@ def create_top10_scatter(output_path: Path, shelters: gpd.GeoDataFrame, slope_th
             alpha=0.85,
         )
     ax.axvline(slope_threshold, color="#455a64", linestyle="--", linewidth=1.0, label="Slope Threshold")
-    ax.set_title("Top 10 Terrain Risk Shelters")
+    ax.set_title("Top 10 Terrain Risk Shelters (Ranked)")
     ax.set_xlabel("Max Slope (degrees)")
     ax.set_ylabel("Shelter")
     ax.invert_yaxis()
@@ -694,6 +736,8 @@ def run_pipeline(config: ARIAV2Config) -> dict[str, Path]:
 
     scatter_png_path = config.output_dir / "terrain_risk_top10_scatter.png"
     create_top10_scatter(scatter_png_path, target_shelters, config.slope_threshold)
+    ranked_png_path = config.output_dir / "terrain_risk_top10_ranked.png"
+    create_top10_ranked(ranked_png_path, target_shelters, config.slope_threshold)
 
     summary_path = config.output_dir / "terrain_run_summary.json"
     write_json(
@@ -716,10 +760,13 @@ def run_pipeline(config: ARIAV2Config) -> dict[str, Path]:
     copy_if_exists(PROJECT_ROOT / "README.md", config.submission_dir / "README.md")
     copy_if_exists(risk_json_path, config.submission_dir / "terrain_risk_audit.json")
     copy_if_exists(map_png_path, config.submission_dir / "terrain_risk_map.png")
+    copy_if_exists(scatter_png_path, config.submission_dir / "terrain_risk_top10_scatter.png")
+    copy_if_exists(ranked_png_path, config.submission_dir / "terrain_risk_top10_ranked.png")
     return {
         "risk_json_path": risk_json_path,
         "map_png_path": map_png_path,
         "scatter_png_path": scatter_png_path,
+        "ranked_png_path": ranked_png_path,
         "summary_path": summary_path,
         "submission_dir": config.submission_dir,
     }
