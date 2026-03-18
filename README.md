@@ -29,17 +29,15 @@ Place these files in `Colab Notebooks/data/`:
 Place these files in `Colab Notebooks/`:
 
 - `ARIA_v2.ipynb`
-- Optional `.env` copied from `submission/Homework-4/.env.example`
+- `.env`
 
-Recommended `.env` values for the stretch-goal workflow:
+Current `.env` format used by the notebook:
 
 ```env
-TARGET_COUNTY=花蓮縣
-DEM_PATH=/content/drive/MyDrive/Colab Notebooks/data/DEM_tawiwan_V2025.tif
 SLOPE_THRESHOLD=30
 ELEVATION_LOW=50
 BUFFER_HIGH=500
-COUNTY_BUFFER=1000
+TARGET_COUNTY=花蓮縣
 ```
 
 Do not push these large raster inputs to GitHub:
