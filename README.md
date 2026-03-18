@@ -4,10 +4,17 @@ This branch upgrades the Week 3 ARIA workflow with terrain intelligence for `花
 
 ## Deliverables
 
+Official required deliverables:
+
 - `ARIA_v2.ipynb`
 - `terrain_risk_audit.json`
 - `terrain_risk_map.png`
 - `README.md`
+
+Supporting outputs included in this submission:
+
+- `terrain_risk_top10_scatter.png` and `terrain_risk_top10_ranked.png` for the default `花蓮縣` run
+- `terrain_risk_audit_新北市.json`, `terrain_risk_map_新北市.png`, `terrain_risk_top10_scatter_新北市.png`, and `terrain_risk_top10_ranked_新北市.png` as a county-switching demonstration using the same notebook after changing only `TARGET_COUNTY`
 
 The final submission bundle is copied into `submission/Homework-4/`.
 
