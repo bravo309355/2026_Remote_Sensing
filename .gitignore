@@ -47,6 +47,10 @@ Thumbs.db
 # data/
 # outputs/
 outputs/_validation/
+data/*.tif
+data/*.tfw
+data/*.vrt
+fixed_tif/
 
 # Local editor history (may contain sensitive snapshots)
 .history/

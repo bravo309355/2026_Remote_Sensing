@@ -1,0 +1,12 @@
+{
+  "target_county": "花蓮縣",
+  "dem_path_requested": "D:\\YongZhi\\2026_RS\\data\\Hualien_dem_merge.tif",
+  "dem_path_used": "D:\\YongZhi\\2026_RS\\data\\Hualien_dem_merge.tif",
+  "valid_shelters_after_coordinate_cleaning": 5970,
+  "removed_shelters_null_or_zero_coordinates": 3,
+  "removed_shelters_outside_land_mask": 63,
+  "target_county_shelters": 198,
+  "rivers_in_county": 651,
+  "nan_mean_elevation_rows": 0,
+  "nan_max_slope_rows": 0
+}
