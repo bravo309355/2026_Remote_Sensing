@@ -58,6 +58,9 @@ Each major step includes a Captain's Log note so the analysis is easy to follow 
 from google.colab import drive
 drive.mount('/content/drive')
 
+!apt-get -qq update
+!apt-get -qq install -y fonts-noto-cjk > /dev/null
+
 %pip install -q geopandas rioxarray rasterstats python-dotenv matplotlib pyogrio rasterio shapely xarray
 """
         ),
@@ -76,6 +79,7 @@ import json
 
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 import numpy as np
 import pandas as pd
 import rioxarray
@@ -84,6 +88,24 @@ from dotenv import load_dotenv
 from matplotlib.colors import LightSource
 from rasterstats import zonal_stats
 from shapely.geometry import mapping
+
+fm._load_fontmanager(try_read_cache=False)
+font_candidates = [
+    "Noto Sans CJK TC",
+    "Noto Sans CJK SC",
+    "Noto Sans CJK JP",
+    "Microsoft JhengHei",
+    "SimHei",
+]
+available_fonts = {{fm.FontProperties(fname=path).get_name() for path in fm.findSystemFonts()}}
+selected_font = next((font for font in font_candidates if font in available_fonts), None)
+if selected_font:
+    plt.rcParams["font.family"] = "sans-serif"
+    plt.rcParams["font.sans-serif"] = [selected_font, "DejaVu Sans"]
+    print("Using CJK font:", selected_font)
+else:
+    print("No CJK font detected; Chinese labels may render with warnings.")
+plt.rcParams["axes.unicode_minus"] = False
 
 BASE_DIR = Path("/content/drive/MyDrive/Colab Notebooks")
 DATA_DIR = BASE_DIR / "data"
