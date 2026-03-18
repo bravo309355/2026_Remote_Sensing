@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-NOTEBOOK_PATH = PROJECT_ROOT / "ARIA_v2.ipynb"
+NOTEBOOK_PATH = PROJECT_ROOT / "scripts" / "ARIA_v2.ipynb"
 
 
 def source(text: str) -> list[str]:

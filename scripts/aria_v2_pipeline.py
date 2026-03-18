@@ -756,7 +756,7 @@ def run_pipeline(config: ARIAV2Config) -> dict[str, Path]:
         },
     )
 
-    copy_if_exists(PROJECT_ROOT / "ARIA_v2.ipynb", config.submission_dir / "ARIA_v2.ipynb")
+    copy_if_exists(PROJECT_ROOT / "scripts" / "ARIA_v2.ipynb", config.submission_dir / "ARIA_v2.ipynb")
     copy_if_exists(PROJECT_ROOT / "README.md", config.submission_dir / "README.md")
     copy_if_exists(risk_json_path, config.submission_dir / "terrain_risk_audit.json")
     copy_if_exists(map_png_path, config.submission_dir / "terrain_risk_map.png")
