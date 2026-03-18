@@ -391,7 +391,8 @@ Create the final hillshade map and the Top 10 high-risk scatter plot.
         ),
         code_cell(
             """
-extent = dem_clipped.rio.bounds()
+left, bottom, right, top = dem_clipped.rio.bounds()
+extent = (left, right, bottom, top)
 risk_colors = {
     "very_high": "#8e0000",
     "high": "#d32f2f",
