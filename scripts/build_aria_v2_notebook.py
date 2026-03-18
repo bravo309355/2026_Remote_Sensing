@@ -331,7 +331,10 @@ target_shelters["risk_level"] = target_shelters.apply(classify_risk, axis=1)
 target_shelters["risk_rank"] = target_shelters["risk_level"].map({"very_high": 0, "high": 1, "medium": 2, "low": 3})
 
 audit_df = (
-    target_shelters[
+    target_shelters.sort_values(
+        ["risk_rank", "max_slope", "distance_to_river_m", "shelter_id"],
+        ascending=[True, False, True, True],
+    )[
         [
             "shelter_id",
             "name",
@@ -347,13 +350,12 @@ audit_df = (
         ]
     ]
     .rename(columns={"COUNTYNAME": "county_name", "TOWNNAME": "town_name"})
-    .sort_values(["risk_rank", "max_slope", "distance_to_river_m"], ascending=[True, False, True])
     .reset_index(drop=True)
 )
 
 audit_path = OUTPUT_DIR / "terrain_risk_audit.json"
 with audit_path.open("w", encoding="utf-8") as handle:
-    json.dump(audit_df.drop(columns="risk_rank", errors="ignore").to_dict(orient="records"), handle, ensure_ascii=False, indent=2)
+    json.dump(audit_df.to_dict(orient="records"), handle, ensure_ascii=False, indent=2)
 
 audit_df.head(10)
 """
