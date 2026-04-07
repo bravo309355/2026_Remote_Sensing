@@ -1,0 +1,126 @@
+Total cells: 33
+--- Cell 2 ---
+OSMnx: 2.0.7
+NetworkX: 3.4.2
+GeoPandas: 1.1.2
+
+--- Cell 4 ---
+📍 Extracting Hualien City, Taiwan road network...
+✅ Extraction successful: 3421 Node(s), 9815 edge(s)
+
+--- Cell 5 ---
+Node count: 3421
+Number of edges: 9815
+CRS: EPSG:3826
+✅ Projection complete
+
+--- Cell 6 ---
+Sample edges: length=17.7m, speed=30km/h, travel_time=2.1s
+✅ Travel time calculation complete
+
+--- Cell 8 ---
+⏳ Calculating Betweenness Centrality...
+✅ Calculation complete
+
+Top 5 Bottleneck Node(s):
+1. Node(s) 649286213: Centrality = 0.140247
+2. Node(s) 649286214: Centrality = 0.139444
+3. Node(s) 1061487893: Centrality = 0.125307
+4. Node(s) 929963021: Centrality = 0.123480
+5. Node(s) 1074772659: Centrality = 0.115733
+
+--- Cell 10 ---
+✅ Top 5 Node(s) GeoDataFrame Establishment complete
+      node_id  centrality
+0   649286213    0.140247
+1   649286214    0.139444
+2  1061487893    0.125307
+3   929963021    0.123480
+4  1074772659    0.115733
+
+--- Cell 12 ---
+✅ Visualization complete
+
+--- Cell 14 ---
+Rainfall 0.0 mm/hr → Congestion Factor 0.0
+Rainfall 10.0 mm/hr → Congestion Factor 0.3
+Rainfall 40.0 mm/hr → Congestion Factor 0.6
+Rainfall 80.0 mm/hr → Congestion Factor 0.9
+Rainfall 100.0 mm/hr → Congestion Factor 0.9
+Rainfall 130.5 mm/hr → Congestion Factor 0.9
+
+--- Cell 16 ---
+✅ Rainfall data reading skipped; using simulated random data in S10
+
+--- Cell 17 ---
+road segmentcount: 9815
+Congestion distribution: cf=0: 3474, cf=0.3: 2900, cf=0.6: 2514, cf=0.9: 927
+✅ Dynamic weight application complete
+⚠️ Sanity: 0/9815 impassable segments (inf)
+
+--- Cell 19 ---
+✅ compute_isochrone(), nodes_to_polygon(), get_adaptive_thresholds() Definition complete
+
+--- Cell 20 ---
+Analyze 3 accessibility changes for critical facilities:
+
+  Facility/Facilities 649286213: Threshold = 5.0 / 10.0 min
+    Short-distance contraction: 80.6%  Long-distance contraction: 29.8%
+
+  Facility/Facilities 649286214: Threshold = 5.0 / 10.0 min
+    Short-distance contraction: 77.2%  Long-distance contraction: 24.5%
+
+  Facility/Facilities 1061487893: Threshold = 5.0 / 10.0 min
+    Short-distance contraction: 79.3%  Long-distance contraction: 29.1%
+
+📊 Accessibility benefit-cost table:
+ Facility/FacilitiesNode(s) Centrality Pre-disaster5min (km²) Post-disaster5min (km²) Short-distance contr
+
+--- Cell 22 ---
+✅ Isochrone(s)Visualization complete
+
+--- Cell 24 ---
+Recommended .env Configuration:
+
+# Week 7 Network Analysis
+NETWORK_DIST=5000
+NETWORK_CRS=EPSG:3826
+CONGESTION_METHOD=threshold
+
+# Threshold level classification (and Slide 12 Consistent)
+# <10mm→cf=0, 10-40mm→cf=0.3, 40-80mm→cf=0.6, >80mm→cf=0.9
+CONGESTION_BREAK_1=10
+CONGESTION_BREAK_2=40
+CONGESTION_BREAK_3=80
+
+# Isochrone Analysis
+ISOCHRONE_MINUTES=5,10,15
+ALPHA_SHAPE_ALPHA=0.001
+
+# Data Paths
+KRIGING_RAINFALL_PATH=data/kriging_rainfall.tif
+SHELTER_GEODATAFRAME_PATH=data/shelter_geodataframe.geojson
+TERRAIN_RISK_PATH=data/terrain_risk.tif
+
+--- Cell 26 ---
+✅ Road network saved as GraphML
+
+--- Cell 28 ---
+✅ AI API Key Configured
+
+--- Cell 29 ---
+🤖 AI Strategy Report:
+To the Hualien County Disaster Prevention Command Center,
+
+Based on the road network analysis results for Typhoon Fenghuang, here is a professional assessment and recommendations for immediate disaster response and resource allocation:
+
+### 1. Most Priority Need for Rescue via Road Segment and/or Accessibility Other Reasons
+
+The data clearly indicates severe impairment of road accessibility, particularly around the identified bottleneck nodes.
+
+*   **Absolute Highest Priority Area:** The region impacted by **Node(s) 649286213** is the top priority.
+    *   **Reasoning:** 
+
+--- Cell 31 ---
+✅ README.md Framework generated,Please copy to your project
+
