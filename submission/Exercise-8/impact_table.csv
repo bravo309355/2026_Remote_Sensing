@@ -1,0 +1,25 @@
+﻿asset,type,location,terrain_risk,priority_rank,lake_hit,landslide_hit,debris_hit,notes
+佛祖街土石流區,W8 overlay node,Guangfu / Mataian corridor,field_check,5,N,N,Y,impact_zone
+大興國小,Guangfu shelter,光復鄉,high,1,N,N,N,capacity 300 / station dist 4440 m
+Bottleneck node 2125115177,Guangfu bottleneck,Guangfu local road network,high,1,N,N,N,betweenness 0.3255 / degree 4
+大同活動中心,Guangfu shelter,光復鄉,high,2,N,N,N,capacity 100 / station dist 1059 m
+Bottleneck node 7485437310,Guangfu bottleneck,Guangfu local road network,high,2,N,N,N,betweenness 0.2764 / degree 3
+光復鄉立托兒所,Guangfu shelter,光復鄉,high,3,N,N,N,capacity 100 / station dist 1604 m
+Bottleneck node 601035411,Guangfu bottleneck,Guangfu local road network,high,3,N,N,N,betweenness 0.2579 / degree 3
+太巴塱國小,Guangfu shelter,光復鄉,high,4,N,N,N,capacity 100 / station dist 2863 m
+Bottleneck node 3934591695,Guangfu bottleneck,Guangfu local road network,high,4,N,N,N,betweenness 0.2457 / degree 3
+西南活動中心,Guangfu shelter,光復鄉,high,5,N,N,N,capacity 100 / station dist 3012 m
+Bottleneck node 7506568623,Guangfu bottleneck,Guangfu local road network,high,5,N,N,N,betweenness 0.2448 / degree 3
+砂荖活動中心,Guangfu shelter,光復鄉,high,6,N,N,N,capacity 100 / station dist 4089 m
+大興活動中心,Guangfu shelter,光復鄉,high,7,N,N,N,capacity 100 / station dist 4535 m
+光復鄉公所,Guangfu shelter,光復鄉,medium,8,N,N,N,capacity 100 / station dist 401 m
+光復國中,Guangfu shelter,光復鄉,medium,9,N,N,N,capacity 100 / station dist 590 m
+馬佛活動中心,Guangfu shelter,光復鄉,medium,10,N,N,N,capacity 100 / station dist 3446 m
+馬太鞍社區活動中心,Guangfu shelter,萬榮鄉,medium,11,N,N,N,capacity 80 / station dist 3831 m
+明利社區活動中心,Guangfu shelter,萬榮鄉,low,12,N,N,N,capacity 100 / station dist 4355 m
+長橋社區活動中心,Guangfu shelter,鳳林鎮,low,13,N,N,N,capacity 50 / station dist 4803 m
+萬榮鄉立幼兒園,Guangfu shelter,萬榮鄉,low,14,N,N,N,capacity 50 / station dist 4851 m
+光復車站,W8 overlay node,Guangfu / Mataian corridor,field_check,1,N,N,N,transport
+光復國小,W8 overlay node,Guangfu / Mataian corridor,field_check,2,N,N,N,school
+光復鄉公所,W8 overlay node,Guangfu / Mataian corridor,field_check,3,N,N,N,government
+台9線馬太鞍溪橋,W8 overlay node,Guangfu / Mataian corridor,field_check,4,N,N,N,bridge
