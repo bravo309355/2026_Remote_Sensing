@@ -1,0 +1,18 @@
+﻿Asset,Type,Location,W4 Terrain Risk,W7 Centrality Rank,Barrier Lake Hit (Y/N),Landslide Hit (Y/N),Debris Flow Hit (Y/N),Notes
+Foxu_Debris_Zone,W8 Guangfu Overlay,佛祖街土石流區,n/a,—,N,N,Y,mapped debris impact-zone reference
+中正體育館,W3 Shelter,花蓮縣花蓮市,very_high,—,N,N,N,W3 priority 2 / short-loss 50.3% / outside event area (inherited Hualien City shelter layer)
+Node_1061487893,W7 Bottleneck,Hualien City corridor,high,3,N,N,N,centrality 0.1253 / outside event area (inherited Week-7 network bottleneck)
+Node_1074772659,W7 Bottleneck,Hualien City corridor,high,5,N,N,N,centrality 0.1157 / outside event area (inherited Week-7 network bottleneck)
+Node_649286213,W7 Bottleneck,Hualien City corridor,high,1,N,N,N,centrality 0.1402 / outside event area (inherited Week-7 network bottleneck)
+Node_649286214,W7 Bottleneck,Hualien City corridor,high,2,N,N,N,centrality 0.1394 / outside event area (inherited Week-7 network bottleneck)
+Node_929963021,W7 Bottleneck,Hualien City corridor,high,4,N,N,N,centrality 0.1235 / outside event area (inherited Week-7 network bottleneck)
+花蓮縣立體育場,W3 Shelter,花蓮縣花蓮市,high,—,N,N,N,W3 priority 5 / short-loss 22.1% / outside event area (inherited Hualien City shelter layer)
+國立花蓮農業職業學校,W3 Shelter,花蓮縣花蓮市,medium,—,N,N,N,W3 priority 3 / short-loss 35.5% / outside event area (inherited Hualien City shelter layer)
+國風國中,W3 Shelter,花蓮縣花蓮市,medium,—,N,N,N,W3 priority 1 / short-loss 50.4% / outside event area (inherited Hualien City shelter layer)
+私立四維高級中學,W3 Shelter,花蓮縣花蓮市,medium,—,N,N,N,W3 priority 4 / short-loss 24.6% / outside event area (inherited Hualien City shelter layer)
+Guangfu_Elementary,W8 Guangfu Overlay,光復國小,n/a,—,N,N,N,school
+Guangfu_Junior_High,W8 Guangfu Overlay,光復國中,n/a,—,N,N,N,school_secondary
+Guangfu_Station,W8 Guangfu Overlay,光復車站,n/a,—,N,N,N,transport
+Guangfu_Township_Office,W8 Guangfu Overlay,光復鄉公所,n/a,—,N,N,N,government
+Mataian_Community_Center,W8 Guangfu Overlay,馬太鞍社區活動中心,n/a,—,N,N,N,community_center
+Mataian_Hwy9_Bridge,W8 Guangfu Overlay,台9線馬太鞍溪橋,n/a,—,N,N,N,bridge

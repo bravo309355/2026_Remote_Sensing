@@ -1,0 +1,210 @@
+Total cells: 38
+--- Cell 2 ---
+PROJECT_ROOT: D:\YongZhi\2026_RS
+OSMnx: 2.0.7
+NetworkX: 3.4.2
+GeoPandas: 1.1.2
+Homework-7 data dir: D:\YongZhi\2026_RS\submission\Homework-7\data
+
+--- Cell 4 ---
+Loaded cached graph: hualien_network.graphml
+Graph source: homework_graphml_cache
+Nodes: 3,421
+Edges: 9,815
+Graph CRS: EPSG:3826
+
+--- Cell 5 ---
+Graph already stored in EPSG:3826.
+Node count: 3,421
+Edge count: 9,815
+CRS: EPSG:3826
+
+--- Cell 6 ---
+Sample edge -> length=17.7 m, speed=30.0 km/h, travel_time=2.1 s
+Base travel times were added to every edge.
+
+--- Cell 8 ---
+Calculating betweenness centrality ...
+Top 5 bottleneck nodes:
+1. node=649286213 centrality=0.140247
+2. node=649286214 centrality=0.139444
+3. node=1061487893 centrality=0.125307
+4. node=929963021 centrality=0.123480
+5. node=1074772659 centrality=0.115733
+
+--- Cell 10 ---
+Top 5 bottlenecks with Week 4 terrain context:
+      node_id  centrality  elevation_m  max_slope_deg terrain_risk
+0   649286213    0.140247        13.95           1.57         high
+1   649286214    0.139444        12.42           1.31         high
+2  1061487893    0.125307        19.95          14.85         high
+3   929963021    0.123480         6.15           0.89         high
+4  1074772659    0.115733        13.73           2.32         high
+
+--- Cell 12 ---
+<Figure size 1200x1000 with 1 Axes>Bottleneck map rendered successfully.
+
+--- Cell 14 ---
+Homework congestion mapping methods: threshold, adaptive_threshold, linear, exponential
+Adaptive example -> rainfall 0.70 mm/hr -> cf 0.10
+Adaptive example -> rainfall 0.72 mm/hr -> cf 0.35
+Adaptive example -> rainfall 0.74 mm/hr -> cf 0.50
+Adaptive example -> rainfall 1.00 mm/hr -> cf 0.50
+
+--- Cell 16 ---
+Primary rainfall source: W6 kriging raster (kriging_rainfall.tif)
+Event label: Typhoon Fung-wong (2025-11-11 18:50)
+Raster CRS: EPSG:3826
+Variance source: W6 kriging variance raster (kriging_variance.tif)
+Fallback used: False
+
+--- Cell 17 ---
+Rainfall source used in dynamic weighting: W6 kriging raster (kriging_rainfall.tif)
+Congestion method: adaptive_threshold
+Adaptive rainfall breaks (mm/hr): q25=0.7110, q50=0.7150, q75=0.7212
+Adaptive congestion factors: 0.10, 0.20, 0.35, 0.50
+Edge rainfall summary (mm/hr): min=0.71, mean=0.72, max=0.76
+Congestion factor counts: cf=0.10 -> 2377, cf=0.20 -> 2463, cf=0.35 -> 2613, cf=0.50 -> 2362
+Dynamic travel times have been added to every edge.
+
+--- Cell 19 ---
+Isochrone helpers are ready.
+
+--- Cell 20 ---
+Captain's Log: The commander requested real facilities, not just abstract bottlenecks. Selecting 5 key shelters in Hualien City.
+Required layer accessibility table (5 key facilities):
+   priority_rank facility_id        name  capacity terrain_risk  \
+0              1        3000        國風國中     800.0       medium   
+1              2        2999       中正體育館     593.0    very_high   
+2              3        3025  國立花蓮農業職業學校     382.0       medium   
+3              4        3085    私立四維高級中學     500.0       medium   
+4              5        3098     花蓮縣立體育場     527.0         high   
+
+   pre_short_km2  post_short_km2  short_loss_pct  pre_long_km2  post_long_km2  \
+0      36.998563       18.347412       50.410473     67.268435      57.595074   
+1      40.847380       20.312128       50.273119   
+
+--- Cell 22 ---
+<Figure size 1600x700 with 2 Axes>Required-layer isochrone comparison rendered.
+
+--- Cell 24 ---
+Recommended .env configuration:
+# Week 7 network analysis
+NETWORK_DIST=5000
+NETWORK_CRS=EPSG:3826
+CONGESTION_METHOD=adaptive_threshold
+CONGESTION_CF_1=0.10
+CONGESTION_CF_2=0.20
+CONGESTION_CF_3=0.35
+CONGESTION_CF_4=0.50
+
+# Rainfall inputs
+RAINFALL_SOURCE=week6_kriging
+RAINFALL_RASTER_PATH=submission/Homework-6/kriging_rainfall.tif
+RAINFALL_VARIANCE_PATH=submission/Homework-6/kriging_variance.tif
+RAINFALL_JSON_FALLBACK=data/scenarios/fungwong_202511.json
+
+# Optional AI settings
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-flash-lite-latest
+Saved .env example to: D:\YongZhi\2026_RS\submission\Homework-7\.env.example
+
+--- Cell 26 ---
+Road network saved to: D:\YongZhi\2026_RS\submission\Homework-7\data\hualien_network.graphml
+
+--- Cell 28 ---
+AI preparation status:
+- Gemini configured with google.genai and models gemini-2.5-flash, gemini-flash-lite-latest.
+
+--- Cell 29 ---
+Required layer AI report: generated successfully via google.genai using gemini-2.5-flash.
+
+Required layer AI report:
+**Transportation Advisory for Typhoon Fung-wong (2025-11-11 18:50)**
+
+To: Hualien County Disaster Prevention Command Center
+From: Transportation Advisor
+Date: 2025-11-11
+
+This advisory outlines critical transportation priorities and resource recommendations in response to Typhoon Fung-wong, based on current network analysis and accessibility impact assessments.
+
+---
+
+### 1. Priority Road Segments to Clear, with Reasoning
+
+Immediate efforts must focus on clearing obstructions and restoring passage on road segments associated with the following bottleneck nodes:
+
+*   **Node #1: 649286213 (Centrality=0.1402)**
+*   **Node #2: 649286214 (Centrality=0.1394)**
+*   **Node #3: 106148
+
+--- Cell 31 ---
+README written to: D:\YongZhi\2026_RS\submission\Homework-7\README.md
+
+--- Cell 33 ---
+Hualien City shelter count: 28
+Stretch contingency scenario constructed from observed spatial rainfall pattern.
+Observed node rainfall range (mm/hr): min=0.71, mean=0.72, max=0.77
+Stress-test node rainfall range (mm/hr): min=12.00, mean=18.21, max=45.00
+Stress-test congestion factor counts: cf=0.0 -> 0, cf=0.3 -> 0, cf=0.6 -> 0, cf=0.9 -> 0
+  shelter_id          name  capacity terrain_risk  nearest_node  rainfall_mm  \
+0       2964      主農社區活動中心        50         high    1436299789     0.721321   
+1       2973          中正國小       187       medium     649286228     0.716292   
+2       2974  中原國小文中三國中預定地        85         high    1436299861     0.715823   
+3       2982     花蓮城隍廟香客大樓       100       medium    1074608307     0.716292   
+4       2991          忠孝國小        47       medium    1437
+
+--- Cell 34 ---
+[observed] processed shelter accessibility: 5/28
+[observed] processed shelter accessibility: 10/28
+[observed] processed shelter accessibility: 15/28
+[observed] processed shelter accessibility: 20/28
+[observed] processed shelter accessibility: 25/28
+[observed] processed shelter accessibility: 28/28
+[stress_test] processed shelter accessibility: 5/28
+[stress_test] processed shelter accessibility: 10/28
+[stress_test] processed shelter accessibility: 15/28
+[stress_test] processed shelter accessibility: 20/28
+[stress_test] processed shelter accessibility: 25/28
+[stress_test] processed shelter accessibility: 28/28
+Observed stretch scenario summary:
+   priority_rank facility_id          name  short_loss_pct  long_loss_pct  \
+0              1        2964      主農社區活動中心       59.071140      10.85210
+
+--- Cell 35 ---
+<Figure size 1600x700 with 2 Axes>Observed short-loss=25.4% / stress-test short-loss=90.4%
+Stretch-layer priority shelter visualization rendered.
+
+--- Cell 36 ---
+Stretch layer AI report: generated successfully via google.genai using gemini-flash-lite-latest.
+
+Stretch layer AI report:
+To Hualien Emergency Management:
+
+The following advisory is based on the network centrality analysis (bottleneck nodes) and the stress-test simulation following Typhoon Fung-wong. The disparity between baseline operational conditions and stress-test scenarios indicates that the current Hualien emergency network is highly fragile under extreme rainfall.
+
+### 1. Stress-Test Shelter Rescue Priority
+Under the stress-test scenario, **all priority shelters exhibit "high" or "very high" terrain risk and severe loss percentages.** Prioritization must be based on life-safety capacity and risk mitigation:
+
+1.  **Priority 1: 花蓮縣立體育場 (527 capacity):** Highest capacity. It provides
+
+Notebook marker checks:
+- Homework-7 data dir:: True
+- Required layer accessibility table (5 key facilities):: True
+- Observed isolated facilities:: True
+- Stretch contingency scenario constructed from observed spatial rainfall pattern.: True
+- Final README refreshed at:: True
+Notebook errors: none
+CSV exists: True (accessibility_table.csv)
+CSV rows: 61
+CSV columns: analysis_level, facility_type, facility_id, name, capacity, terrain_risk, nearest_node, rainfall_mm, rainfall_variance, uncertainty_flag, centrality, short_minutes, long_minutes, distance_to_river_m, mean_elevation, max_slope, pre_short_km2, post_short_km2, short_loss_pct, pre_long_km2, post_long_km2, long_loss_pct, short_seconds, long_seconds, priority_rank, scenario_name
+Missing required columns: none
+Analysis levels present: ['required', 'stretch']
+Scenario names present: ['observed', 'required_baseline', 'stress_test']
+Required rows: 5
+Stretch rows: 56
+GraphML exists: True (hualien_network.graphml)
+README exists: True (README.md)
+README has Assignment Completion: True
+README has Captain's Log: True
+README has AI Diagnostic Log: True
