@@ -52,12 +52,18 @@
 ### Task 3: 地形審計（slope > 25°）
 - 套用 DEM (Hualien_dem_merge.tif, EPSG:3826) 計算坡度後重投影到 SAR 網格
 - **移除假陽性 1.86 km²**（25-35°: 0.15 / 35-45°: 0.40 / 45-90°: 1.31 km²）
-- 必答討論：bbox 涵蓋平原（DEM 適用）+ 馬太鞍上游崩塌帶（DEM 失準），策略採分區處理
+- 必答討論：bbox 主要為**花蓮縱谷流域**（光復、鳳林、馬太鞍上游 — **非沿海平原**），其中 52.9% 為陡坡，套用 slope filter 後 High Conf 從 0.46 → 0.11 km²（-75%）。實證結果暴露 DEM 不一定可信、NDWI 樣本不足、災害可能集中在窄帶水流走廊三種解釋；策略採 **precision-over-recall 保守版**（與 Exercise 的 recall-priority 取向相反）
 
-### Task 4: AI Strategic Briefing (Gemini 2.5 Flash)
-- 透過 `google-genai` SDK 呼叫 Gemini 2.5 Flash
+### Task 4: AI Strategic Briefing (Gemini 2.5 Flash 系列)
+- 透過 `google-genai` SDK 呼叫 Gemini API
+- **模型 fallback chain**：`gemini-2.5-flash` → `2.5-flash-lite` → `flash-latest` → `flash-lite-latest`（任一成功即停；503 重試 3 次，429 立即跳下個模型）
+- 本次執行主模型 503 過載 → 自動降級至 `gemini-2.5-flash-lite` 取得完整繁中策略簡報
 - 完整 prompt + response 存於 `output/HW10_T4_ai_briefing.md`
-- 反思包含：LLM 對信心分級邏輯的掌握、地理具體性的盲點、與實戰指揮的角色定位
+- 反思 4 點（針對 LLM 行為模式而非特定字句，重跑 Gemini 仍適用）：
+  1. evidence-based prompt 直接決定輸出品質
+  2. LLM 在通用資料產品上具體、本地地名上籠統
+  3. Gemini 2.5 在 calibration 上的進步（不誇大不確定結論）
+  4. AI 角色為**翻譯器**（資料 → 敘事），非決策替代
 
 ---
 
@@ -136,6 +142,19 @@ c:\Users\user\anaconda3\envs\geopandas
 - [x] W9 vs W10 比較（Task 4B，含 metric 不對等的修正說明）
 - [x] Sanity check：無 90% 以上水體、speckle 已濾、地形校正已套用、融合邏輯可解釋
 - [x] STAC 純串流，不下載原始檔（DEM 為先前作業已有的本地檔）
+
+---
+
+## 與作業預設路徑的偏離說明
+
+兩處刻意偏離原始 rubric 預設步驟，效果等價或更佳，但需向 TA 說明：
+
+| 偏離項 | rubric 預設 | 本作業實際 | 理由 |
+|--------|-------------|-----------|------|
+| **SAR 來源** | `rasterio.open('S1_Hualien_dB.tif')` 讀本地檔 | 用 STAC 串流 `sentinel-1-rtc` collection | (1) Exercise 已示範雲端串流工作流；(2) 不依賴本地檔，TA 重現環境零障礙；(3) 同一 pipeline 可套用任何 AOI |
+| **W9 vs W10 比較表結構** | rubric 4 列固定格式 | 6 列含 `Note` 欄位 | W9（NDVI 變化區）vs W10（水體）非同物件，直接比 km² 是 apples-to-oranges；表格更精確 |
+
+兩項都不影響 deliverables 完整度（圖、表、CSV 都有），且符合「先量化再敘事」的學術誠實。
 
 ---
 
