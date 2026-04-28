@@ -1,0 +1,5 @@
+zone,condition,pixels,area_km2
+Zone 1 High,|ΔNDVI| > 0.075,831963,83.19630000000001
+Zone 2 Low,0.050 < |ΔNDVI| ≤ 0.075,382298,38.229800000000004
+Zone 3 None,|ΔNDVI| ≤ 0.050,2982898,298.2898
+Invalid/cloud,SCL masked out,1352023,

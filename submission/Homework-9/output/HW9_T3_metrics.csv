@@ -1,0 +1,6 @@
+Metric,Value
+Overall Accuracy (OA),0.7333333333333333
+Producer's Accuracy (PA),0.5
+User's Accuracy (UA),0.9375
+Cohen's Kappa,0.4666666666666667
+F1-Score,0.6521739130434783
