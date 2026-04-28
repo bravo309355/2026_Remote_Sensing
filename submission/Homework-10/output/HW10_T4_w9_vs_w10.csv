@@ -1,0 +1,7 @@
+Metric,W9 Optical Only,W10 Fused,Note
+Disturbance/water area metric,121.43 km² (ΔNDVI zone),2.88 km² (water-specific),W9 includes vegetation loss; W10 isolates water
+Typhoon-day analyzability,0 (100% cloud blind on 2025-11-02),SAR penetrates cloud → analyzable,Decisive advantage of fusion
+Cloud-covered area recovered (km²),0,0.25,"SAR Only class, otherwise lost to optics"
+False-positive handling,SCL post-mask removed 71.6% phantom water,SAR ∩ NDWI intersection self-cancels biases,No reliance on a single QA layer
+Topographic correction,Not needed (no SAR),Slope > 25° removed 1.86 km² FP,New SAR-specific safeguard
+Confidence granularity,"3 zones (high/low/none, magnitude-based)",4 classes (sensor-provenance),Distinguishes WHY a pixel is flagged

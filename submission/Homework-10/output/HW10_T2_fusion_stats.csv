@@ -1,0 +1,5 @@
+class,label,pixels,km2,ha
+0,No Detection,5501761,550.1761,55017.61
+1,Optical Only,31457,3.1457,314.57
+2,SAR Only (Cloudy),11405,1.1405,114.05000000000001
+3,High Confidence,4559,0.4559,45.59
