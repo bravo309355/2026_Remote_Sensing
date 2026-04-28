@@ -745,6 +745,11 @@ GEMINI_RETRIES = int(os.getenv('GEMINI_RETRY_ATTEMPTS', '3'))
 
 ai_response = None
 ai_error = None
+ai_model_used = None
+
+# Model fallback chain — try the primary then progressively cheaper/lighter models
+MODEL_CHAIN = [GEMINI_MODEL, 'gemini-2.5-flash-lite', 'gemini-flash-latest', 'gemini-flash-lite-latest']
+seen = set(); MODEL_CHAIN = [m for m in MODEL_CHAIN if not (m in seen or seen.add(m))]
 
 if not GEMINI_API_KEY or GEMINI_API_KEY.startswith('your-'):
     ai_error = 'No GEMINI_API_KEY found in .env — using placeholder response.'
@@ -752,35 +757,40 @@ else:
     try:
         from google import genai as google_genai
         client = google_genai.Client(api_key=GEMINI_API_KEY)
-        for attempt in range(GEMINI_RETRIES):
-            try:
-                resp = client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
-                ai_response = resp.text.strip() if hasattr(resp, 'text') else str(resp)
+        for model_name in MODEL_CHAIN:
+            for attempt in range(GEMINI_RETRIES):
+                try:
+                    resp = client.models.generate_content(model=model_name, contents=prompt)
+                    text = resp.text.strip() if hasattr(resp, 'text') else str(resp)
+                    if text:
+                        ai_response = text
+                        ai_model_used = model_name
+                        break
+                except Exception as e:
+                    msg = str(e)
+                    ai_error = f'{model_name} attempt {attempt+1}: {msg[:140]}'
+                    print(f'  ... {ai_error}')
+                    # 429 quota errors don't recover by waiting -> jump to next model
+                    if '429' in msg or 'quota' in msg.lower():
+                        break
+                    time.sleep(GEMINI_DELAY * (2 ** attempt))
+            if ai_response:
                 break
-            except Exception as e:
-                ai_error = f'Attempt {attempt+1}: {e}'
-                time.sleep(GEMINI_DELAY * (2 ** attempt))
     except ImportError:
-        try:
-            import google.generativeai as legacy
-            legacy.configure(api_key=GEMINI_API_KEY)
-            model = legacy.GenerativeModel(GEMINI_MODEL)
-            resp = model.generate_content(prompt)
-            ai_response = resp.text.strip()
-        except Exception as e:
-            ai_error = f'Both google.genai and google.generativeai failed: {e}'
+        ai_error = 'google.genai SDK not installed'
 
 if ai_response:
-    print('✅ Gemini response received')
+    print(f'✅ Gemini response received from {ai_model_used}')
 else:
-    print(f'⚠ Gemini call failed: {ai_error}')
-    ai_response = '[Gemini API 無法呼叫 — 以下為依資料人工撰寫的備援簡報]\\n\\n' + \\
-        '*(Placeholder — actual response will be generated when API is available.)*'
+    print(f'⚠ All Gemini models failed: {ai_error}')
+    ai_response = '[Gemini API 暫時無法呼叫 — 以下為依資料人工撰寫的備援簡報]\\n\\n' + \\
+        '*(Placeholder — re-run when API is available.)*'
+    ai_model_used = '(failed)'
 
 # Save full exchange
 with open(f'{OUTPUT_DIR}/HW10_T4_ai_briefing.md', 'w', encoding='utf-8') as f:
     f.write('# AI Strategic Briefing — Gemini Response\\n\\n')
-    f.write(f'**Model**: {GEMINI_MODEL}\\n\\n')
+    f.write(f'**Model**: {ai_model_used or GEMINI_MODEL}\\n\\n')
     f.write('## Prompt\\n\\n```\\n' + prompt + '\\n```\\n\\n')
     f.write('## Response\\n\\n' + ai_response + '\\n')
 print(f'\\n  → Saved HW10_T4_ai_briefing.md')"""))
