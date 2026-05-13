@@ -1,0 +1,6 @@
+﻿class_id,class_en,class_zh,pixels,area_ha,area_km2,pct_of_valid
+0,Water,水體,656769,26270.76,262.7076,41.21
+1,Forest,森林,589400,23576.0,235.76,36.98
+2,Cropland,農地,148185,5927.4,59.274,9.3
+3,Bare/Landslide,裸地/崩塌,186232,7449.28,74.4928,11.68
+4,Built-up,建物,13274,530.96,5.3096,0.83
