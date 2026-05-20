@@ -1,7 +1,7 @@
 # Week 13 Homework — ARIA v9.0: The Cloud Engine
 
 **Course:** NTU Remote Sensing & Spatial Information Analysis (遙測與空間資訊之分析與應用)
-**Author:** Huang YongZhi (黃永志)
+**Author:** Huang YongZhi (黃詠智)
 **Date:** 2026-05-19
 **Study Area:** Xiulin / Taroko 山區 (秀林 / 太魯閣)
 **Sensor:** Google Earth Engine (Sentinel-2 + Sentinel-1)
